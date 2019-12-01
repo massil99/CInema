@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ToggleGroup?>
+
+
+<?import javafx.scene.control.RadioButton?>
+<VBox styleClass="pane" stylesheets="@../style/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <HBox prefHeight="100.0" prefWidth="200.0">
+      <Button fx:id="backHomeBtn" onAction="#backHome" text="Back"/>
+   </HBox>
+    <HBox prefHeight="100.0" prefWidth="200.0" styleClass="pane">
+      <children>
+         <Label fx:id="SignInLabel" text="Sign In" />
+      </children>
+   </HBox>
+    <GridPane hgap="40" styleClass="pane" vgap="20">
+        <Label text="Nom" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="lastnameInputSignup" promptText="Votre nom " styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label text="Prenom" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="nameInputSignup" promptText="Votre prenom " styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="Username" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="usernameInputSignup" promptText="Your username " styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label text="Pasword" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <PasswordField fx:id="passInputSignup" promptText="Your password" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label text="Confirm pasword" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <PasswordField fx:id="ConfirmPassInputSignup" promptText="Confirrm your password" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <fx:define>
+            <ToggleGroup fx:id="accountType"/>
+        </fx:define>
+        <children>
+            <RadioButton text="Receptionniste" selected="true" toggleGroup="$accountType" fx:id="host" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+            <RadioButton text="Comptable" toggleGroup="$accountType" fx:id="comptble" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        </children>
+        <Button fx:id="signInBtn" onAction="#newUser" text="Sign in" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+
+
+    </GridPane>
+</VBox>

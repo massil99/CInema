@@ -1,0 +1,123 @@
+.root{
+}
+
+.pane{
+    -fx-background-color: #233d4d;
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}
+
+#topBox{
+    -fx-background-color: #233d4d;
+    -fx-alignment: center;
+    -fx-min-height: 70px;
+    -fx-spacing: 20px;
+}
+
+#centerBox{
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}
+
+.filmPane{
+    -fx-min-width: 250px;
+    -fx-max-width: 300px;
+
+    -fx-min-height: 300px;
+    -fx-max-height: 356px;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+
+    -fx-alignment: bottom-center;
+    -fx-background-color: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, .8), rgba(0, 0, 0, 0));
+}
+
+.filmPane:hover{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 20, 0.1, 10, 0);
+}
+
+.infoFilm{
+    -fx-alignment: center;
+}
+
+.input{
+    -fx-background-color: #233d4d;
+    -fx-border-radius: 0px;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: white;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+.input:focused{
+    -fx-background-color: #2f566a;
+}
+
+.label{
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: 600;
+}
+
+#filmTitle{
+    -fx-font-weight: 800;
+    -fx-font-size: 20px;
+}
+
+.paragraphe{
+    -fx-fill: white;
+}
+
+.errorMsg{
+    -fx-text-fill: #ff6352;
+    -fx-font-size: 17px;
+    -fx-font-weight: 700;
+}
+
+#SignInLabel{
+    -fx-font-size: 40px;
+}
+
+.button{
+    -fx-font-size: 16px;
+    -fx-text-fill: #19647e;
+    -fx-padding: 3px 30px;
+    -fx-background-color: #f4d35e;
+}
+
+.button:hover{
+    -fx-background-color: #ee8424;
+    -fx-text-fill: white;
+}
+
+
+.tab{
+    -fx-font-size: 16px;
+    -fx-text-fill: #19647e;
+    -fx-padding: 3px 30px;
+    -fx-background-color: #f4d35e;
+    -fx-border-width: 1px;
+    -fx-border-color: #743c14;
+}
+
+
+.tab:hover{
+    -fx-background-color: #ee8424;
+    -fx-text-fill: white;
+}
+
+.tab:selected{
+    -fx-background-color: #f98f24;
+}
+
+.check-box{
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+}
+
+.radio-button{
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-fint-weight: 800;
+}
+

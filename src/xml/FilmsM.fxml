@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.VBox?>
+
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.text.Text?>
+<BorderPane prefHeight="400.0" prefWidth="602.0" stylesheets="@../style/Style.css"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <top>
+        <HBox fx:id="topBox">
+            <Label text="THE BEST CINEMA MANAGER EVER" />
+            <TextField promptText="Search..." styleClass="input" />
+            <Button text="Search" />
+        </HBox>
+    </top>
+    <center>
+        <TabPane>
+            <Tab text="Films" closable="false" >
+                <HBox styleClass="pane" fx:id="centerBox">
+                    <Button text="p"/>
+                    <VBox styleClass="filmPane">
+                        <StackPane fx:id="film1">
+                        </StackPane>
+                        <VBox styleClass="infoFilm">
+                            <Label  fx:id="title1" styleClass="filmTitle"/>
+                            <Text styleClass="paragraphe" wrappingWidth="200" fx:id="synopsis1"/>
+                        </VBox>
+                    </VBox>
+                    <VBox styleClass="filmPane" >
+                        <StackPane fx:id="film2">
+                        </StackPane>
+                        <VBox styleClass="infoFilm">
+                            <Label styleClass="filmTitle" fx:id="title2"/>
+                            <Text styleClass="paragraphe" wrappingWidth="200" fx:id="synopsis2"/>
+                        </VBox>
+                    </VBox>
+                    <VBox styleClass="filmPane">
+                        <StackPane  fx:id="film3">
+                        </StackPane>
+                        <VBox styleClass="infoFilm">
+                            <Label styleClass="filmTitle" fx:id="title3"/>
+                            <Text styleClass="paragraphe" wrappingWidth="200" fx:id="synopsis3"/>
+                        </VBox>
+                    </VBox>
+                    <VBox styleClass="filmPane" >
+                        <StackPane  fx:id="film4">
+                        </StackPane>
+                        <VBox styleClass="infoFilm">
+                            <Label styleClass="filmTitle" fx:id="title4"/>
+                            <Text styleClass="paragraphe" wrappingWidth="200" fx:id="synopsis4"/>
+                        </VBox>
+                    </VBox>
+                    <Button text="n" onAction="#nextFilm"/>
+                </HBox>
+            </Tab>
+            <Tab text="Seance" closable="false">
+
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>
