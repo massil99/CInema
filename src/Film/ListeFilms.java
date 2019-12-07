@@ -1,7 +1,5 @@
 package Film;
 
-import Film.Film;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -73,9 +71,14 @@ public class ListeFilms {
                     "','"+f.getDescriptif()+"')";
 
             films.add(f);
-
             st.executeUpdate(query);
-            System.out.println("filme ajouter");
+
+            query = "Select id_film From films WHERE"
+                    + " titre='"+ f.getTitre()+"'";
+
+            ResultSet res = st.executeQuery(query);
+            f.setId_film(res.getString(1));
+            res.close();
         }catch( Exception e) {
             e.printStackTrace();
         }
@@ -83,8 +86,8 @@ public class ListeFilms {
 
     /**
      * Modifier les information d'un film indentifier par sont titre
-     * @param f : La nouvelle version des informations du film
-     * @param titre : Titre du film a modifier
+     * @param f La nouvelle version des informations du film
+     * @param titre Titre du film a modifier
      */
     public void Modifier(Film f, String titre) {
         try {
@@ -133,6 +136,19 @@ public class ListeFilms {
     public Film getfilm(String titre) {
         for(Film f : films){
             if(f.getTitre().equals(titre))
+                return f;
+        }
+        return null;
+    }
+
+    /**
+     * Chercher un film dans la base de donne en ayant sont Id
+     * @param id du film
+     * @return : le film si tourvé
+     */
+    public Film getfilmById(String id) {
+        for(Film f : films){
+            if(f.getId_film().equals(id))
                 return f;
         }
         return null;

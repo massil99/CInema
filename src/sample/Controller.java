@@ -51,7 +51,7 @@ public class Controller {
     ListeFilms lf = new ListeFilms();
     Queue<Film> qf = new LinkedList<>(lf.getFilms());
 
-    /** Mise à jour des contenaire d'image de film
+    /** Defilement à droite et mise à jour des contenaire d'image de film
      * leur titre et leur description
      */
     public void nextFilm(){
@@ -64,24 +64,81 @@ public class Controller {
         if(!film3.getChildren().isEmpty())
             film4.getChildren().add(film3.getChildren().get(0));
         title4.setText(title3.getText());
-        synopsis4.setText(synopsis3.getText());
 
         film3.getChildren().removeAll(film3.getChildren());
         if(!film2.getChildren().isEmpty())
             film3.getChildren().add(film2.getChildren().get(0));
         title3.setText(title2.getText());
-        synopsis3.setText(synopsis2.getText());
 
         film2.getChildren().removeAll(film2.getChildren());
         if(!film1.getChildren().isEmpty())
             film2.getChildren().add(film1.getChildren().get(0));
         title2.setText(title1.getText());
-        synopsis2.setText(synopsis1.getText());
 
         film1.getChildren().removeAll(film1.getChildren());
         film1.getChildren().add(bg);
         title1.setText(f.getTitre());
+    }
+
+    /** Defilement à gauche mise à jour des contenaire d'image de film
+     * leur titre et leur description
+     */
+    public void prevFilm(){
+        Film f = qf.poll();
+        qf.add(f);
+        Image img = new Image("res/"+f.getTitre());
+        ImageView bg = new ImageView(img);
+
+        film1.getChildren().removeAll(film1.getChildren());
+        if(!film3.getChildren().isEmpty())
+            film1.getChildren().add(film2.getChildren().get(0));
+        title1.setText(title2.getText());
+
+        film2.getChildren().removeAll(film2.getChildren());
+        if(!film3.getChildren().isEmpty())
+            film2.getChildren().add(film3.getChildren().get(0));
+        title2.setText(title3.getText());
+
+        film3.getChildren().removeAll(film3.getChildren());
+        if(!film4.getChildren().isEmpty())
+            film3.getChildren().add(film4.getChildren().get(0));
+        title3.setText(title4.getText());
+
+        film4.getChildren().removeAll(film4.getChildren());
+        film4.getChildren().add(bg);
+        title4.setText(f.getTitre());
+    }
+
+    public void showDesc1(){
+        Film f = lf.getfilm(title1.getText());
         synopsis1.setText(f.getDescriptif());
+    }
+    public void hideDesc1(){
+        synopsis1.setText("");
+    }
+
+    public void showDesc2(){
+        Film f = lf.getfilm(title2.getText());
+        synopsis2.setText(f.getDescriptif());
+    }
+    public void hideDesc2(){
+        synopsis2.setText("");
+    }
+
+    public void showDesc3(){
+        Film f = lf.getfilm(title3.getText());
+        synopsis3.setText(f.getDescriptif());
+    }
+    public void hideDesc3(){
+        synopsis3.setText("");
+    }
+
+    public void showDesc4(){
+        Film f = lf.getfilm(title4.getText());
+        synopsis4.setText(f.getDescriptif());
+    }
+    public void hideDesc4(){
+        synopsis4.setText("");
     }
 
     /**

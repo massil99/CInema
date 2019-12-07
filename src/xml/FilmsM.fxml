@@ -28,8 +28,8 @@
         <TabPane>
             <Tab text="Films" closable="false" >
                 <HBox styleClass="pane" fx:id="centerBox">
-                    <Button text="p"/>
-                    <VBox styleClass="filmPane">
+                    <Button text="🡄" onAction="#prevFilm" style="-fx-font-size: 30px; -fx-padding: 0 15px"/>
+                    <VBox styleClass="filmPane" onMouseExited="#hideDesc1" onMouseEntered="#showDesc1">
                         <StackPane fx:id="film1">
                         </StackPane>
                         <VBox styleClass="infoFilm">
@@ -37,7 +37,7 @@
                             <Text styleClass="paragraphe" wrappingWidth="200" fx:id="synopsis1"/>
                         </VBox>
                     </VBox>
-                    <VBox styleClass="filmPane" >
+                    <VBox styleClass="filmPane" onMouseExited="#hideDesc2" onMouseEntered="#showDesc2">
                         <StackPane fx:id="film2">
                         </StackPane>
                         <VBox styleClass="infoFilm">
@@ -45,7 +45,7 @@
                             <Text styleClass="paragraphe" wrappingWidth="200" fx:id="synopsis2"/>
                         </VBox>
                     </VBox>
-                    <VBox styleClass="filmPane">
+                    <VBox styleClass="filmPane" onMouseExited="#hideDesc3" onMouseEntered="#showDesc3">
                         <StackPane  fx:id="film3">
                         </StackPane>
                         <VBox styleClass="infoFilm">
@@ -53,7 +53,7 @@
                             <Text styleClass="paragraphe" wrappingWidth="200" fx:id="synopsis3"/>
                         </VBox>
                     </VBox>
-                    <VBox styleClass="filmPane" >
+                    <VBox styleClass="filmPane" onMouseExited="#hideDesc4" onMouseEntered="#showDesc4">
                         <StackPane  fx:id="film4">
                         </StackPane>
                         <VBox styleClass="infoFilm">
@@ -61,9 +61,10 @@
                             <Text styleClass="paragraphe" wrappingWidth="200" fx:id="synopsis4"/>
                         </VBox>
                     </VBox>
-                    <Button text="n" onAction="#nextFilm"/>
+                    <Button text="🡆" onAction="#nextFilm" style="-fx-font-size: 30px; -fx-padding: 0 15px"/>
                 </HBox>
             </Tab>
+
             <Tab text="Seance" closable="false">
 
             </Tab>
