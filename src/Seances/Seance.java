@@ -2,14 +2,11 @@ package Seances;
 
 import Film.Film;
 import Salles.Salle;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import sample.BDConnector;
 
 public class Seance {
 
+    private int id_seance;
     /** Le film diffusé */
     private Film f;
     /** Salle où le film sera diffusé */
@@ -21,18 +18,6 @@ public class Seance {
     /** Heure de fin de la séance*/
     private String heureFin;
 
-    /** Attribut de connexion à la base de données*/
-    private static Connection cnx;
-    private static Statement st;
-
-
-    private static void connect() throws SQLException, ClassNotFoundException{
-        Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/cinema?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        cnx = DriverManager.getConnection(url, "root", "root");
-        st = cnx.createStatement();
-    }
-
     /** constructeur pour créer une seance
      *
      * @param _f  le film à ajouter
@@ -40,7 +25,8 @@ public class Seance {
      * @param _heureDebut heure de debut du film
      * @param _heureFin   heure de fin du film
      */
-    public Seance(String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin) {
+    public Seance(int id_seance_, String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin) {
+        id_seance = id_seance_;
         dateS=date_s;
         f=_f;
         s=_s;
@@ -48,7 +34,8 @@ public class Seance {
         setHeureFin(_heureFin);
     }
 
-    public void reserver(int idSeance,Tarif t) {
+    public void reserver(Tarif t) {
+        System.out.println(s.isEstDispo());
         if(s.isEstDispo()){
             double prix = t.getPrix();
             String type=t.getType();
@@ -58,18 +45,25 @@ public class Seance {
                 s.setEstDispo(false);
 
             try {
-                connect();
-                String requete="INSERT INTO reservation(id_seance,tarif,type) values('"+idSeance+"','"+prix+"','"+type+"')";
-                st.executeUpdate(requete);
-                String query ="UPDATE salles  SET nombreDePersonnes = (nombreDePersonnes + 1) WHERE id_salle = (select id_salle from seances where id_seance="+idSeance+")";
+                BDConnector.connect();
+                String requete="INSERT INTO reservation(id_seance,tarif,type) values('"+id_seance+"','"+prix+"','"+type+"')";
+                BDConnector.st.executeUpdate(requete);
+                String query ="UPDATE salles  SET nombreDePersonnes = (nombreDePersonnes + 1) WHERE id_salle = (select id_salle from seances where id_seance="+id_seance+")";
 
-                st.executeUpdate(query);
-                System.out.println("la seance a été reservée.");
-                st.close();
+                BDConnector.st.executeUpdate(query);
+                BDConnector.st.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public int getId_seance() {
+        return id_seance;
+    }
+
+    public void setId_seance(int id_seance) {
+        this.id_seance = id_seance;
     }
 
     public Film getF() {
@@ -79,7 +73,6 @@ public class Seance {
     public void setF(Film f) {
         this.f = f;
     }
-
 
     public Salle getS() {
         return s;
@@ -97,7 +90,6 @@ public class Seance {
         this.dateS = date;
     }
 
-
     public String getHeureFin() {
         return heureFin;
     }
@@ -106,11 +98,9 @@ public class Seance {
         this.heureFin = heureFin;
     }
 
-
     public String getHeureDebut() {
         return heureDebut;
     }
-
 
     public void setHeureDebut(String heureDebut) {
         this.heureDebut = heureDebut;

@@ -7,7 +7,7 @@ public class Film {
     private String categorie;
     private String Date_publi;
     private String descriptif;
-    private String id_film = "";
+    private int id_film;
 
     public Film(String _titre,String _realisateur, String _date_sortie,String _categorie, String _Date_publi, String _descriptif) {
         titre=_titre;
@@ -67,11 +67,11 @@ public class Film {
         this.date_sortie = date_sortie;
     }
 
-    public String getId_film() {
+    public int getId_film() {
         return id_film;
     }
 
-    public void setId_film(String id_film) {
+    public void setId_film(int id_film) {
         this.id_film = id_film;
     }
 }

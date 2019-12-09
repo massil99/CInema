@@ -74,7 +74,7 @@
     -fx-font-weight: 700;
 }
 
-#SignInLabel{
+.BigTitle{
     -fx-font-size: 40px;
 }
 
@@ -86,7 +86,7 @@
 }
 
 .button:hover{
-    -fx-background-color: #ee8424;
+    -fx-background-color: #da7921;
     -fx-text-fill: white;
 }
 
@@ -121,3 +121,58 @@
     -fx-fint-weight: 800;
 }
 
+.seances{
+    -fx-background-color: #010911;
+
+    -fx-alignment: center;
+    -fx-padding: 5px 25px;
+    -fx-spacing: 200px;
+    -fx-max-width: 700px;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0.1,0.1,0.1,0.8), 10, 0.1, 1, 5);
+}
+
+.seances:hover{
+    -fx-background-color: #011420;
+}
+
+#listeS{
+    -fx-alignment: center;
+    -fx-padding: 20px 100px;
+}
+
+.start-end{
+    -fx-spacing: 10px;
+}
+
+.title_se{
+    -fx-spacing: 10px;
+}
+
+.gray-text{
+    -fx-text-fill: #5c5c5c;
+    -fx-font-size: 15px;
+}
+
+#triebar{
+    -fx-alignment: center-left;
+    -fx-background-color: #061720;
+    -fx-padding: 5 15px;
+    -fx-spacing: 10px;
+}
+
+.combo-box{
+    -fx-font-size: 16px;
+    -fx-text-fill: #19647e;
+    -fx-padding: 1px 5px;
+    -fx-background-color: #f4d35e;
+}
+
+
+#reservBox{
+    -fx-background-color: #0d2434;
+    -fx-padding: 10px 50px;
+    -fx-alignment: center center;
+    -fx-spacing: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.9), 10, 0.1, 1, 4);
+}

@@ -7,7 +7,7 @@
 <?import javafx.scene.control.PasswordField?>
 
 
-<GridPane fx:id="loginScreen" fx:controller="sample.Controller" styleClass="pane" stylesheets="@../style/Style.css"
+<GridPane fx:id="loginScreen" fx:controller="Controllers.LoginScreenController" styleClass="pane" stylesheets="@../style/Style.css"
           xmlns:fx="http://javafx.com/fxml" hgap="10" vgap="10">
     <Label text="Username" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
     <TextField fx:id="usernameInput" styleClass="input" promptText="Your username " GridPane.columnIndex="0" GridPane.rowIndex="1" />

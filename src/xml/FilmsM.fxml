@@ -12,16 +12,18 @@
 
 
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.text.Text?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane prefHeight="400.0" prefWidth="602.0" stylesheets="@../style/Style.css"
             xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
     <top>
         <HBox fx:id="topBox">
             <Label text="THE BEST CINEMA MANAGER EVER" />
             <TextField promptText="Search..." styleClass="input" />
-            <Button text="Search" />
+            <Button text="Search"/>
         </HBox>
     </top>
     <center>
@@ -65,8 +67,18 @@
                 </HBox>
             </Tab>
 
-            <Tab text="Seance" closable="false">
+            <Tab text="seances" closable="false" onSelectionChanged="#select">
+                <VBox fx:id="seancesContainer">
+                    <HBox fx:id="triebar">
+                        <Label text="Jour de projection :"/>
+                        <ComboBox promptText="Date" fx:id="days" onAction="#showByDate"/>
+                    </HBox>
 
+                    <ScrollPane fitToWidth="true" styleClass="pane">
+                            <VBox styleClass="pane" spacing="15" fx:id="listeS">
+                            </VBox>
+                    </ScrollPane>
+                </VBox>
             </Tab>
         </TabPane>
     </center>

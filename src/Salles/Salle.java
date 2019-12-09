@@ -3,31 +3,23 @@ package Salles;
 import java.sql.*;
 
 public class Salle {
-    private static int count=0;
     private int numeroSalle;
     private int capacite;
     private int nombreDepersonnes=0;
-    private  boolean estDispo;
+    private boolean estDispo;
 
     private static Connection cnx;
     private static Statement st;
 
-    private static void connect() throws SQLException, ClassNotFoundException{
-        Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/cinema?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        cnx = DriverManager.getConnection(url,"root","root");
-        st = cnx.createStatement();
-    }
-
-    public Salle(int numeroSalle_, int capacite_, int nombreDepersonnes, boolean estDispo_) {
+    public Salle(int numeroSalle_, int capacite_, int nombreDepersonnes_, boolean estDispo_) {
         numeroSalle = numeroSalle_;
         capacite = capacite_;
         estDispo = estDispo_;
+        nombreDepersonnes = nombreDepersonnes_;
     }
 
     public Salle(int capacite_) {
-        numeroSalle = count;
-        count ++;
+        numeroSalle = -1;
         capacite = capacite_;
         estDispo = true;
     }

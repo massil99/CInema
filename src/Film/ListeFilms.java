@@ -1,10 +1,8 @@
 package Film;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import sample.BDConnector;
+
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -12,23 +10,7 @@ import java.util.Queue;
  * Classe permettant d'interagire avec la table Film de la base de donnee
  */
 public class ListeFilms {
-    private static Connection cnx;
-    private static Statement st;
     Queue<Film> films;
-
-    /**
-     *  Methode permettant la connection a la base de donnee
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    private static void connect() throws SQLException, ClassNotFoundException{
-        Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/cinema?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        String user = "root";
-        String password = "root";
-        cnx = DriverManager.getConnection(url, user, password);
-        st = cnx.createStatement();
-    }
 
     /**
      * Constructeur de la classe permettant de charger tous les films de la table Film
@@ -36,20 +18,22 @@ public class ListeFilms {
      */
     public ListeFilms() {
         try {
-            connect();
-            ResultSet res = st.executeQuery("SELECT * FROM films");
+            BDConnector.connect();
+            ResultSet res = BDConnector.st.executeQuery("SELECT * FROM films");
 
             films = new LinkedList<>();
             while(res.next()){
-                films.add( new Film(res.getString("titre"),
+                Film f = new Film(res.getString("titre"),
                         res.getString("realisateur"),
                         res.getString("date_sortie"),
                         res.getString("categorie"),
                         res.getString("Date_publi"),
-                        res.getString("descriptif")));
+                        res.getString("descriptif"));
+                f.setId_film(res.getInt("id_Film"));
+                films.add(f);
             }
             res.close();
-            st.close();
+            BDConnector.st.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +45,7 @@ public class ListeFilms {
      */
     public void Ajout(Film f) {
         try {
-            connect();
+            BDConnector.connect();
             String query = "INSERT INTO films (titre, realisateur,date_Sortie,categorie,  Date_Publi ,descriptif) VALUES"
                     + " ('"+ f.getTitre() +
                     "','"+f.getRealisateur()+
@@ -71,13 +55,13 @@ public class ListeFilms {
                     "','"+f.getDescriptif()+"')";
 
             films.add(f);
-            st.executeUpdate(query);
+            BDConnector.st.executeUpdate(query);
 
             query = "Select id_film From films WHERE"
                     + " titre='"+ f.getTitre()+"'";
 
-            ResultSet res = st.executeQuery(query);
-            f.setId_film(res.getString(1));
+            ResultSet res = BDConnector.st.executeQuery(query);
+            f.setId_film(res.getInt(1));
             res.close();
         }catch( Exception e) {
             e.printStackTrace();
@@ -91,7 +75,7 @@ public class ListeFilms {
      */
     public void Modifier(Film f, String titre) {
         try {
-            connect();
+            BDConnector.connect();
             String query= "UPDATE films SET titre='"+f.getTitre()
                     +"',realisateur='"+f.getRealisateur()
                     +"',Date_date_sortie='"+f.getDate_sortie()
@@ -102,7 +86,7 @@ public class ListeFilms {
 
             films.remove(getfilm(f.getTitre()));
             films.add(f);
-            st.executeUpdate(query);
+            BDConnector.st.executeUpdate(query);
             System.out.println("produit bien modifier");
 
         }catch(Exception e) {
@@ -116,12 +100,12 @@ public class ListeFilms {
      */
     public void Suppression(String titre) {
         try {
-            connect();
+            BDConnector.connect();
             String query="DELETE FROM films WHERE titre='"+titre+"'";
 
             films.remove(getfilm(titre));
 
-            st.executeUpdate(query);
+            BDConnector.st.executeUpdate(query);
             System.out.println("succes");
         }catch(Exception e) {
             e.printStackTrace();
@@ -146,9 +130,9 @@ public class ListeFilms {
      * @param id du film
      * @return : le film si tourvé
      */
-    public Film getfilmById(String id) {
+    public Film getfilmById(int id) {
         for(Film f : films){
-            if(f.getId_film().equals(id))
+            if(f.getId_film() == id)
                 return f;
         }
         return null;
@@ -160,8 +144,8 @@ public class ListeFilms {
      */
     public void getFilmByCategorie(String categorie) {
         try {
-            connect();
-            ResultSet res = st.executeQuery("SELECT * FROM films WHERE categorie='"+categorie+"'");
+            BDConnector.connect();
+            ResultSet res = BDConnector.st.executeQuery("SELECT * FROM films WHERE categorie='"+categorie+"'");
 
             films.removeAll(films);
             while (res.next()){
@@ -174,7 +158,7 @@ public class ListeFilms {
             }
 
             res.close();
-            st.close();
+            BDConnector.st.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
