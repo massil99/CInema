@@ -54,14 +54,16 @@ public class ListeFilms {
                     "','"+f.getDate_publi()+
                     "','"+f.getDescriptif()+"')";
 
-            films.add(f);
-            BDConnector.st.executeUpdate(query);
+            if(BDConnector.st.executeUpdate(query) == 1)
+                films.add(f);
 
             query = "Select id_film From films WHERE"
                     + " titre='"+ f.getTitre()+"'";
 
             ResultSet res = BDConnector.st.executeQuery(query);
-            f.setId_film(res.getInt(1));
+            if(res != null)
+                f.setId_film(res.getInt(1));
+
             res.close();
         }catch( Exception e) {
             e.printStackTrace();
@@ -84,11 +86,10 @@ public class ListeFilms {
                     +"',descriptif='"+f.getDescriptif()
                     +"' WHERE titre="+titre;
 
-            films.remove(getfilm(f.getTitre()));
-            films.add(f);
-            BDConnector.st.executeUpdate(query);
-            System.out.println("produit bien modifier");
-
+            if(BDConnector.st.executeUpdate(query) == 1) {
+                films.remove(getfilm(f.getTitre()));
+                films.add(f);
+            }
         }catch(Exception e) {
             System.out.println(e.getMessage());
         }
@@ -103,10 +104,9 @@ public class ListeFilms {
             BDConnector.connect();
             String query="DELETE FROM films WHERE titre='"+titre+"'";
 
-            films.remove(getfilm(titre));
+            if(BDConnector.st.executeUpdate(query) == 1)
+                films.remove(getfilm(titre));
 
-            BDConnector.st.executeUpdate(query);
-            System.out.println("succes");
         }catch(Exception e) {
             e.printStackTrace();
         }

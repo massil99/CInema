@@ -49,9 +49,9 @@ public class ListeSeances {
                     "','"+s.getF().getId_film()+
                     "','"+s.getS().getNumeroSalle()+"')";
 
+            if(BDConnector.st.executeUpdate(query) == 1)
+                seances.add(s);
 
-            seances.add(s);
-            BDConnector.st.executeUpdate(query);
             BDConnector.st.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,14 +73,14 @@ public class ListeSeances {
                     +"',id_salle='"+c.getS().getNumeroSalle()
                     +"' WHERE id_seance="+idSeance;
 
-            for(Seance s : seances)
-                if(s.getId_seance() == idSeance) {
-                    seances.remove(s);
-                    break;
-                }
-            seances.add(c);
-
-            BDConnector.st.executeUpdate(query);
+            if(BDConnector.st.executeUpdate(query) == 1) {
+                for (Seance s : seances)
+                    if (s.getId_seance() == idSeance) {
+                        seances.remove(s);
+                        break;
+                    }
+                seances.add(c);
+            }
             BDConnector.st.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,17 +93,17 @@ public class ListeSeances {
      * */
     public void Supprimer(int idSeance){
         try {
-
             BDConnector.connect();
             String query = "DELETE FROM `seances` WHERE id_seance="+idSeance;
 
-            for(Seance s : seances)
-                if(s.getId_seance() == idSeance) {
-                    seances.remove(s);
-                    break;
-                }
+            if(BDConnector.st.execute(query)) {
+                for (Seance s : seances)
+                    if (s.getId_seance() == idSeance) {
+                        seances.remove(s);
+                        break;
+                    }
+            }
 
-            BDConnector.st.execute(query);
             BDConnector.st.close();
         } catch (Exception e) {
             e.printStackTrace();

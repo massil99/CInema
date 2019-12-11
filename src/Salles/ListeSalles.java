@@ -37,9 +37,9 @@ public class ListeSalles {
                     + "('"+ s.getCapacite() +"',"
                     + "'" + s.getNombreDepersonnes() + "',"
                     + "'"+ ((s.isEstDispo()) ? 1 : 0) +"')";
-            salles.add(s);
-            BDConnector.st.executeUpdate(query);
-        }catch( Exception e) {
+            if(BDConnector.st.executeUpdate(query) == 1)
+                salles.add(s);
+        }catch(Exception e) {
             e.printStackTrace();
         }
     }
@@ -49,9 +49,9 @@ public class ListeSalles {
             BDConnector.connect();
             String query="DELETE FROM salles WHERE id_salle='"+ id +"'";
 
-            salles.remove(getSalle(id));
+            if(BDConnector.st.executeUpdate(query) == 1)
+                salles.remove(getSalle(id));
 
-            BDConnector.st.executeUpdate(query);
         }catch(Exception e) {
             e.printStackTrace();
         }
