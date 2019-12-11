@@ -10,24 +10,25 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.VBox?>
 
-
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <BorderPane prefHeight="400.0" prefWidth="602.0" stylesheets="@../style/Style.css"
             xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
     <top>
         <HBox fx:id="topBox">
-            <Label text="THE BEST CINEMA MANAGER EVER" />
-            <TextField promptText="Search..." styleClass="input" />
-            <Button text="Search"/>
+            <Label text="FOR CINEMATOGRAPHIE" />
+            <TextField promptText="Rechercher..."  fx:id="serchBar" styleClass="input"/>
+            <Button text="Rechercher" onAction="#sort"/>
         </HBox>
     </top>
     <center>
-        <TabPane>
+        <TabPane fx:id="tabs">
             <Tab text="Films" closable="false" >
                 <HBox styleClass="pane" fx:id="centerBox">
                     <Button text="🡄" onAction="#prevFilm" style="-fx-font-size: 30px; -fx-padding: 0 15px"/>
@@ -67,11 +68,36 @@
                 </HBox>
             </Tab>
 
-            <Tab text="seances" closable="false" onSelectionChanged="#select">
+            <Tab text="seances" closable="false" onSelectionChanged="#getSeances">
                 <VBox fx:id="seancesContainer">
                     <HBox fx:id="triebar">
                         <Label text="Jour de projection :"/>
-                        <ComboBox promptText="Date" fx:id="days" onAction="#showByDate"/>
+                        <ComboBox promptText="Date" fx:id="days" onAction="#sort"/>
+
+                        <Label text="Catégorie :"/>
+                        <ComboBox promptText="Catégorie" fx:id="cat" onAction="#sort">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Action" />
+                                    <String fx:value="Animation" />
+                                    <String fx:value="Aventure" />
+                                    <String fx:value="Biographie" />
+                                    <String fx:value="Dramatique" />
+                                    <String fx:value="Espionnage" />
+                                    <String fx:value="Fantasy" />
+                                    <String fx:value="Guerre" />
+                                    <String fx:value="Historique" />
+                                    <String fx:value="Horreur" />
+                                    <String fx:value="Mystère" />
+                                    <String fx:value="Policier" />
+                                    <String fx:value="Romantique" />
+                                    <String fx:value="Science-fiction"/>
+                                    <String fx:value="Thrille‎"/>
+                                    <String fx:value="Western"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                        <Button text="Reset" onAction="#getSeances"/>
                     </HBox>
 
                     <ScrollPane fitToWidth="true" styleClass="pane">

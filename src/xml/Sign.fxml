@@ -12,6 +12,10 @@
 <?import javafx.scene.control.RadioButton?>
 
 
+<?import javafx.scene.control.ComboBox?>
+<?import java.lang.String?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.collections.FXCollections?>
 <VBox styleClass="pane" stylesheets="@../style/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SignContorller" fx:id="SigninScreen">
    <HBox prefHeight="100.0" prefWidth="200.0">
       <Button fx:id="backHomeBtn" onAction="#backHome" text="Back"/>
@@ -32,13 +36,17 @@
         <PasswordField fx:id="passInputSignup" promptText="Your password" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <Label text="Confirm pasword" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <PasswordField fx:id="ConfirmPassInputSignup" promptText="Confirrm your password" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <fx:define>
-            <ToggleGroup fx:id="accountType"/>
-        </fx:define>
-        <children>
-            <RadioButton text="Receptionniste" selected="true" toggleGroup="$accountType" fx:id="host" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-            <RadioButton text="Comptable" toggleGroup="$accountType" fx:id="comptble" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-        </children>
-        <Button fx:id="signInBtn" onAction="#newUser" text="Sign in" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <ComboBox promptText="Choisir" fx:id="type" GridPane.columnIndex="0" GridPane.rowIndex="5">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Reseptionniste" />
+                    <String fx:value="Comptable" />
+                </FXCollections>
+            </items>
+            <value>
+                <String fx:value="Reseptionniste" />
+            </value>
+        </ComboBox>
+        <Button fx:id="signInBtn" onAction="#newUser" text="Sign in" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
     </GridPane>
 </VBox>

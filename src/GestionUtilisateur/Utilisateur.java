@@ -21,6 +21,7 @@ public class Utilisateur {
 	private String login;
 	private String mot_de_passe;
 	private String salt;
+	private String type;
 
     /**
      * Creation d'un nouvelle utilisatuer
@@ -29,10 +30,11 @@ public class Utilisateur {
      * @param login : Identifant
      * @param mot_de_passe : Mot de passe
      */
-	public Utilisateur(String nom, String prenom, String login, String mot_de_passe) {
+	public Utilisateur(String nom, String prenom, String login, String mot_de_passe, String type) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.login = login;
+		this.type = type;
 
 		SecureRandom random = new SecureRandom();
 		byte[] s = new byte[16];
@@ -61,13 +63,12 @@ public class Utilisateur {
 
     /**
      * Inscription de l'utilisatuer dans la base de donnee
-     * @param u
      */
-    public static void inscrit(Utilisateur u) {
+    public void inscrit() {
         try {
             BDConnector.connect();
-
-            String sql = "insert into utilisateurs (nom, prenom, login, mot_de_passe, salt) values('" + u.getNom() + "', '" + u.getPrenom() + "', '" + u.getLogin() + "', '" + u.getMdp() + "', '" + u.salt +"')";
+            int t = (type.equals("Admin")) ? 1 : (type.equals("Reseptionniste")) ? 2: 3;
+            String sql = "insert into utilisateurs (nom, prenom, login, mot_de_passe, salt, type) values('" + nom + "', '" + prenom + "', '" + login + "', '" + mot_de_passe + "', '" + salt +"', "+ t +")";
             BDConnector.st.executeUpdate(sql);
         } catch (Exception e) {
             System.out.println(e);
@@ -83,7 +84,7 @@ public class Utilisateur {
     public static Utilisateur seConnect(String _login, String _mdp) {
         try {
             BDConnector.connect();
-            String sql = "Select * from  utilisateurs where login = '" + _login + "'";
+            String sql = "Select nom, prenom, login, mot_de_passe,  salt, user from  utilisateurs, personnel where login = '" + _login + "' AND type=id";
             ResultSet rs = BDConnector.st.executeQuery(sql);
 
             if (rs.next()) {
@@ -107,7 +108,7 @@ public class Utilisateur {
 
                 Base64.Encoder enc = Base64.getEncoder();
                 if(rs.getString("mot_de_passe").equals(enc.encodeToString(hash))){
-                    return new Utilisateur(rs.getString("nom"), rs.getString("prenom"), rs.getString("login"), rs.getString("mot_de_passe"));
+                    return new Utilisateur(rs.getString("nom"), rs.getString("prenom"), rs.getString("login"), rs.getString("mot_de_passe"), rs.getString("user"));
                 }else{
                     return null;
                 }
@@ -122,19 +123,43 @@ public class Utilisateur {
     }
 
 	/** Getters et setters **/
-	public String getNom() {
-		return nom;
-	}
+    public String getNom() {
+        return nom;
+    }
 
-	public String getPrenom() {
-		return prenom;
-	}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-	public String getLogin() {
-		return login;
-	}
+    public String getPrenom() {
+        return prenom;
+    }
 
-	public String getMdp() {
-		return mot_de_passe;
-	}
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getMot_de_passe() {
+        return mot_de_passe;
+    }
+
+    public void setMot_de_passe(String mot_de_passe) {
+        this.mot_de_passe = mot_de_passe;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

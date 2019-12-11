@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -24,6 +25,7 @@ public class SignContorller {
     public PasswordField passInputSignup;
     public PasswordField ConfirmPassInputSignup;
     public VBox SigninScreen;
+    public ComboBox<String> type;
 
     /**
      * Test et enregistrement des information saisies par le nouvel utilisatuer
@@ -39,14 +41,16 @@ public class SignContorller {
         String comfirmPass = ConfirmPassInputSignup.getText();
         String firstname = nameInputSignup.getText();
         String lastName= lastnameInputSignup.getText();
+        String personne = type.getSelectionModel().getSelectedItem();
+
 
         if(!pass.equals("")          &&
                 pass.equals(comfirmPass) &&
                 !username.equals("")     &&
                 !lastName.equals("")){
-            Utilisateur u = new Utilisateur(lastName, firstname, username, pass);
+            Utilisateur u = new Utilisateur(lastName, firstname, username, pass, personne);
 
-            Utilisateur.inscrit(u);
+            u.inscrit();
 
             Parent root = FXMLLoader.load(getClass().getResource("../xml/LoginScreen.fxml"));
             Scene signInScene = new Scene(root,  1300, 700);

@@ -11,6 +11,8 @@ public class Seance {
     private Film f;
     /** Salle où le film sera diffusé */
     private Salle s;
+    /** Nombre dereservation */
+    int nbRes=0;
     /** Date de diffusion du film*/
     private String dateS;
     /** Heure de debut de la séance*/
@@ -25,7 +27,8 @@ public class Seance {
      * @param _heureDebut heure de debut du film
      * @param _heureFin   heure de fin du film
      */
-    public Seance(int id_seance_, String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin) {
+    public Seance(int id_seance_, String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin, int nbRes_) {
+        nbRes = nbRes_;
         id_seance = id_seance_;
         dateS=date_s;
         f=_f;
@@ -40,16 +43,17 @@ public class Seance {
             String type=t.getType();
 
             s.setNombreDepersonnes(s.getNombreDepersonnes()+1);
-            if(s.getNombreDepersonnes() >= s.getCapacite())
+            if(nbRes >= s.getCapacite())
                 s.setEstDispo(false);
 
             try {
                 BDConnector.connect();
                 String requete="INSERT INTO reservation(id_seance,tarif,type) values('"+id_seance+"','"+prix+"','"+type+"')";
                 BDConnector.st.executeUpdate(requete);
-                String query ="UPDATE salles  SET nombreDePersonnes = (nombreDePersonnes + 1) WHERE id_salle = (select id_salle from seances where id_seance="+id_seance+")";
 
-                BDConnector.st.executeUpdate(query);
+                requete="UPDATE seances SET nb_reservation = nb_reservation + 1 WHERE id_seance="+id_seance;
+                BDConnector.st.executeUpdate(requete);
+
                 BDConnector.st.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -103,5 +107,13 @@ public class Seance {
 
     public void setHeureDebut(String heureDebut) {
         this.heureDebut = heureDebut;
+    }
+
+    public int getNbRes() {
+        return nbRes;
+    }
+
+    public void setNbRes(int nbRes) {
+        this.nbRes = nbRes;
     }
 }

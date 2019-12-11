@@ -11,9 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -42,7 +40,10 @@ public class Controller implements Initializable {
     public Text synopsis4;
 
     public ComboBox<String> days;
+    public ComboBox<String> cat;
     public VBox listeS;
+    public TextField serchBar;
+    public TabPane tabs;
 
     ListeFilms lf = new ListeFilms();
     Queue<Film> qf = new LinkedList<>(lf.getFilms());
@@ -60,6 +61,9 @@ public class Controller implements Initializable {
 
         film4.getChildren().add(bg);
         title4.setText(f.getTitre());
+        film4.setOnMouseClicked(e ->{
+            createSeances(ls.getSeanceByFilm(title4.getText()));
+        });
 
         f = qf.poll();
         qf.add(f);
@@ -70,6 +74,9 @@ public class Controller implements Initializable {
 
         film3.getChildren().add(bg);
         title3.setText(f.getTitre());
+        film3.setOnMouseClicked(e ->{
+            createSeances(ls.getSeanceByFilm(title3.getText()));
+        });
 
         f = qf.poll();
         qf.add(f);
@@ -80,6 +87,9 @@ public class Controller implements Initializable {
 
         film2.getChildren().add(bg);
         title2.setText(f.getTitre());
+        film2.setOnMouseClicked(e ->{
+            createSeances(ls.getSeanceByFilm(title2.getText()));
+        });
 
         f = qf.poll();
         qf.add(f);
@@ -90,6 +100,9 @@ public class Controller implements Initializable {
 
         film1.getChildren().add(bg);
         title1.setText(f.getTitre());
+        film1.setOnMouseClicked(e ->{
+            createSeances(ls.getSeanceByFilm(title1.getText()));
+        });
     }
 
     /** Defilement à droite et mise à jour des contenaire d'image de film
@@ -187,7 +200,7 @@ public class Controller implements Initializable {
         synopsis4.setText("");
     }
 
-    public void select(){
+    public void getSeances(){
         days.getItems().removeAll(days.getItems());
         for(String day : ls.getProjectionDays())
             days.getItems().add(day);
@@ -196,12 +209,33 @@ public class Controller implements Initializable {
 
     }
 
-    public void showByDate(){
-        ArrayList<Seance> seances = ls.getSeancesByDay(days.getSelectionModel().getSelectedItem());
-        createSeances(seances);
+    public void sort(){
+        String selectedDay = days.getSelectionModel().getSelectedItem();
+        String selectedCat = cat.getSelectionModel().getSelectedItem();
+        String title = serchBar.getText();
+        ArrayList<Seance> seancesD = ls.getSeancesByDay(selectedDay);
+        ArrayList<Seance> seancesC = ls.getSeancesByCategorie(selectedCat);
+        ArrayList<Seance> seancesT = ls.getSeanceByFilm(title);
+
+        if(selectedDay == null && title.equals("")) {
+            createSeances(seancesC);
+        }else if(selectedCat == null && title.equals("")) {
+            createSeances(seancesD);
+        }else if(selectedDay == null && selectedCat == null){
+            createSeances(seancesT);
+        }else if(selectedDay == null){
+            createSeances(seancesT);
+        }else if(selectedCat == null){
+            seancesD.retainAll(seancesT);
+            createSeances(seancesD);
+        }else if(title.equals("")){
+            seancesD.retainAll(seancesC);
+            createSeances(seancesD);
+        }
     }
 
     private void createSeances(ArrayList<Seance> seances){
+        tabs.getSelectionModel().select(1);
         listeS.getChildren().removeAll(listeS.getChildren());
         for(Seance s : seances){
             HBox b = new HBox();
@@ -224,7 +258,7 @@ public class Controller implements Initializable {
             Label date = new Label("Le :" + s.getDate());
             date.getStyleClass().add("gray-text");
 
-            Label dispo = new Label(s.getS().getNombreDepersonnes() + "/" + s.getS().getCapacite());
+            Label dispo = new Label(s.getNbRes() + "/" + s.getS().getCapacite());
 
             Label titre = new Label(s.getF().getTitre());
             titre.setStyle("-fx-font-size: 35px; -fx-font-weight: 700; -fx-text-fill: #ba6c4f");
