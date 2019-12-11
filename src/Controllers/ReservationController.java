@@ -70,20 +70,22 @@ public class ReservationController implements Initializable{
         Tarif t = listeTarif.getSelectionModel().getSelectedItem();
         int nb = nbPersonne.getSelectionModel().getSelectedItem();
 
-        for(int i = 0; i < nb; i++){
-            s.reserver(t);
-        }
+        if(t != null && nb != 0){
+            for(int i = 0; i < nb; i++){
+                s.reserver(t);
+            }
 
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("../xml/FilmsM.fxml"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("../xml/FilmsM.fxml"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
-        Scene signInScene = new Scene(root,  1300, 700);
-        Stage window = (Stage) ((Node)e.getSource()).getScene().getWindow();
-        window.setScene(signInScene);
-        window.show();
+            Scene signInScene = new Scene(root,  1300, 700);
+            Stage window = (Stage) ((Node)e.getSource()).getScene().getWindow();
+            window.setScene(signInScene);
+            window.show();
+        }
     }
 }

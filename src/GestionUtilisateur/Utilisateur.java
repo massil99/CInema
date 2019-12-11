@@ -1,5 +1,7 @@
 package GestionUtilisateur;
 
+import sample.BDConnector;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
@@ -63,15 +65,10 @@ public class Utilisateur {
      */
     public static void inscrit(Utilisateur u) {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            // connecter avec database
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cinema?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-                    "root", "root");
-            Statement stmt = con.createStatement();
-            String sql = "insert into utilisateurs (nom, prenom, login, mot_de_passe, salt) values('" + u.getNom() + "', '" + u.getPrenom() + "', '" + u.getLogin() + "', '" + u.getMdp() + "', '" + u.salt +"')";
-            stmt.executeUpdate(sql);
-            System.out.println("\nInscription faite");
+            BDConnector.connect();
 
+            String sql = "insert into utilisateurs (nom, prenom, login, mot_de_passe, salt) values('" + u.getNom() + "', '" + u.getPrenom() + "', '" + u.getLogin() + "', '" + u.getMdp() + "', '" + u.salt +"')";
+            BDConnector.st.executeUpdate(sql);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -85,14 +82,9 @@ public class Utilisateur {
      */
     public static Utilisateur seConnect(String _login, String _mdp) {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            // connecter avec database
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cinema?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-                    "root", "root");
-            Statement stmt = con.createStatement();
-
+            BDConnector.connect();
             String sql = "Select * from  utilisateurs where login = '" + _login + "'";
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = BDConnector.st.executeQuery(sql);
 
             if (rs.next()) {
                 Base64.Decoder dec = Base64.getDecoder();
@@ -115,14 +107,13 @@ public class Utilisateur {
 
                 Base64.Encoder enc = Base64.getEncoder();
                 if(rs.getString("mot_de_passe").equals(enc.encodeToString(hash))){
-                    System.out.println("Vous etes connectee");
                     return new Utilisateur(rs.getString("nom"), rs.getString("prenom"), rs.getString("login"), rs.getString("mot_de_passe"));
                 }else{
                     return null;
                 }
 
             } else {
-                System.out.println("Username invalide");
+                return null;
             }
         } catch (Exception e) {
             System.out.println(e);

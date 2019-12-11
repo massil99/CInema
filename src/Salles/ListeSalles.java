@@ -37,8 +37,10 @@ public class ListeSalles {
                     + "('"+ s.getCapacite() +"',"
                     + "'" + s.getNombreDepersonnes() + "',"
                     + "'"+ ((s.isEstDispo()) ? 1 : 0) +"')";
+
             if(BDConnector.st.executeUpdate(query) == 1)
                 salles.add(s);
+
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -58,7 +60,6 @@ public class ListeSalles {
     }
 
     /** Getter **/
-
     public Salle getSalle(int id) {
         for (Salle s : salles) {
             if (s.getNumeroSalle() == id)

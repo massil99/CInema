@@ -32,12 +32,12 @@
                     <Label fx:id="end" text="00:00:00" />
                 </HBox>
                 <HBox GridPane.rowIndex="3" GridPane.columnIndex="0" spacing="30">
-                    <ComboBox promptText="Nombre de ersonne" fx:id="nbPersonne"/>
+                    <ComboBox promptText="Nombre de personne" fx:id="nbPersonne"/>
                     <ComboBox promptText="Tarif" fx:id="listeTarif"/>
                 </HBox>
                 <HBox GridPane.rowIndex="4" GridPane.columnIndex="0" spacing="30">
                     <Button text="Valider" onAction="#reserve"/>
-                    <Button text="Retoure" onAction="#notReserving"/>
+                    <Button text="Retour" onAction="#notReserving"/>
                 </HBox>
             </GridPane>
         </HBox>

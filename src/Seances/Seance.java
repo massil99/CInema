@@ -35,7 +35,6 @@ public class Seance {
     }
 
     public void reserver(Tarif t) {
-        System.out.println(s.isEstDispo());
         if(s.isEstDispo()){
             double prix = t.getPrix();
             String type=t.getType();
