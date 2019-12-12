@@ -7,6 +7,7 @@ import Salles.Salle;
 import sample.BDConnector;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -108,6 +109,19 @@ public class ListeSeances {
 
             BDConnector.st.close();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateSeance(){
+        LocalDateTime now = LocalDateTime.now();
+        String today = String.format("%d-%d-%d", now.getYear(), now.getMonth().getValue(), now.getDayOfMonth());
+
+        try {
+            BDConnector.connect();
+            String q = "DELETE FROM seances where date<'"+today+"'";
+            BDConnector.st.executeUpdate(q);
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

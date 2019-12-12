@@ -9,6 +9,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Base64;
 
 /**
@@ -22,6 +23,14 @@ public class Utilisateur {
 	private String mot_de_passe;
 	private String salt;
 	private String type;
+
+    public Utilisateur(String nom, String prenom, String login, String type) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.login = login;
+        this.type = type;
+        mot_de_passe = "";
+    }
 
     /**
      * Creation d'un nouvelle utilisatuer
@@ -84,7 +93,7 @@ public class Utilisateur {
     public static Utilisateur seConnect(String _login, String _mdp) {
         try {
             BDConnector.connect();
-            String sql = "Select nom, prenom, login, mot_de_passe,  salt, user from  utilisateurs, personnel where login = '" + _login + "' AND type=id";
+            String sql = "Select nom, prenom, login, mot_de_passe, salt, user from  utilisateurs, personnel where login = '" + _login + "' AND type=id";
             ResultSet rs = BDConnector.st.executeQuery(sql);
 
             if (rs.next()) {
@@ -123,6 +132,28 @@ public class Utilisateur {
     }
 
 	/** Getters et setters **/
+	public ArrayList<Utilisateur> getUsers(){
+	    if(type.equals("Admin")){
+	        ArrayList<Utilisateur> users = new ArrayList<>();
+            try {
+                BDConnector.connect();
+                String query = "SELECT nom, prenom, login, user FROM utilisateurs, personnel where type=id ";
+                ResultSet res = BDConnector.st.executeQuery(query);
+                while(res.next()) {
+                    users.add(new Utilisateur(res.getString("nom"),
+                            res.getString("prenom"),
+                            res.getString("login"),
+                            res.getString("user")));
+                }
+
+                return users;
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+	    return null;
+    }
+
     public String getNom() {
         return nom;
     }

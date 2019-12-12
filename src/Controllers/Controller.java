@@ -5,6 +5,7 @@ import Film.ListeFilms;
 import Seances.ListeSeances;
 
 import Seances.Seance;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sample.Main;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,6 +46,7 @@ public class Controller implements Initializable {
     public VBox listeS;
     public TextField serchBar;
     public TabPane tabs;
+    public HBox topBox;
 
     ListeFilms lf = new ListeFilms();
     Queue<Film> qf = new LinkedList<>(lf.getFilms());
@@ -52,6 +55,13 @@ public class Controller implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
+        ListeSeances.updateSeance();
+        if(LoginScreenController.u.getType().equals("Admin")) {
+            Button users = new Button("Utilisateurs");
+            topBox.getChildren().add(1, users);
+
+            users.setOnAction(this::showUsers);
+        }
         Film f = qf.poll();
         qf.add(f);
         Image img = new Image("res/"+f.getTitre());
@@ -103,6 +113,14 @@ public class Controller implements Initializable {
         film1.setOnMouseClicked(e ->{
             createSeances(ls.getSeanceByFilm(title1.getText()));
         });
+    }
+
+    public void showUsers(ActionEvent e){
+        Main.changeWindow(e, "../xml/UsresBoard.fxml");
+    }
+
+    public void logOut(ActionEvent e){
+        Main.changeWindow(e, "../xml/LoginScreen.fxml");
     }
 
     /** Defilement à droite et mise à jour des contenaire d'image de film
@@ -206,7 +224,6 @@ public class Controller implements Initializable {
             days.getItems().add(day);
 
         createSeances(ls.getSeances());
-
     }
 
     public void sort(){
@@ -239,7 +256,9 @@ public class Controller implements Initializable {
         listeS.getChildren().removeAll(listeS.getChildren());
         for(Seance s : seances){
             HBox b = new HBox();
-            b.getStyleClass().add("seances");
+            b.getStyleClass().add("item");
+            b.setSpacing(200);
+
             Image img = new Image("res/"+s.getF().getTitre());
             ImageView imgv = new ImageView(img);
             imgv.setFitHeight(205);
@@ -247,15 +266,14 @@ public class Controller implements Initializable {
 
             Label start = new Label("De: " +s.getHeureDebut());
             start.getStyleClass().add("gray-text");
-            start.setStyle("");
 
-            Label end = new Label("à :"+s.getHeureFin());
+            Label end = new Label("à: "+s.getHeureFin());
             end.getStyleClass().add("gray-text");
 
             HBox h = new HBox(start, end);
             h.getStyleClass().add("start-end");
 
-            Label date = new Label("Le :" + s.getDate());
+            Label date = new Label("Le: " + s.getDate());
             date.getStyleClass().add("gray-text");
 
             Label dispo = new Label(s.getNbRes() + "/" + s.getS().getCapacite());
@@ -263,25 +281,22 @@ public class Controller implements Initializable {
             Label titre = new Label(s.getF().getTitre());
             titre.setStyle("-fx-font-size: 35px; -fx-font-weight: 700; -fx-text-fill: #ba6c4f");
 
-            Button btn = new Button("Reserver");
+            Label salle = new Label("Salle: " + String.format("%d", s.getS().getNumeroSalle()));
+            salle.setStyle("-fx-font-size: 20; -fx-text-fill: #d87d5c");
 
-            btn.setOnAction(e -> {
-                ReservationController.loadInfo(s);
-                Parent root = null;
-                try {
-                    root = FXMLLoader.load(getClass().getResource("../xml/Reservation.fxml"));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+            VBox t = new VBox(titre, h, date, dispo, salle);
+            t.setSpacing(10);
 
-                Scene signInScene = new Scene(root,  1300, 700);
-                Stage window = (Stage) ((Node)e.getSource()).getScene().getWindow();
-                window.setScene(signInScene);
-                window.show();
-            });
+            if(LoginScreenController.u.getType().equals("Receptionniste")) {
+                Button btn = new Button("Reserver");
 
-            VBox t = new VBox(titre, h, date, dispo, btn);
+                btn.setOnAction(e -> {
+                    ReservationController.loadInfo(s);
+                    Main.changeWindow(e, "../xml/Reservation.fxml");
+                });
 
+                t.getChildren().add(btn);
+            }
             b.getChildren().addAll(imgv, t);
 
             listeS.getChildren().add(b);

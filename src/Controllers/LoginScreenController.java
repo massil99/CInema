@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import sample.Main;
 
 import java.io.IOException;
 
@@ -27,15 +28,11 @@ public class LoginScreenController {
      * @param e evenement ayant eu lieu lorsque le boutton 'log in' est appuyé
      * @throws IOException Si une erreur survient lors du charmgement de la scene
      */
-    public void loginButton(ActionEvent e) throws IOException{
+    public void loginButton(ActionEvent e){
         u = Utilisateur.seConnect(usernameInput.getText(), passInput.getText());
 
         if(u != null){
-            Parent root = FXMLLoader.load(getClass().getResource("../xml/FilmsM.fxml"));
-            Scene signInScene = new Scene(root,  1300, 700);
-            Stage window = (Stage) ((Node)e.getSource()).getScene().getWindow();
-            window.setScene(signInScene);
-            window.show();
+            Main.changeWindow(e, "../xml/FilmsM.fxml");
         }else{
             Label wrongCred = new Label("Wrong username or passeword!");
             wrongCred.getStyleClass().add("errorMsg");
@@ -47,13 +44,8 @@ public class LoginScreenController {
     /**
      * Affichage de la fenetre d'inscription du nouvel utilisateur
      * @param e  evenement ayant eu lieu lorsque le boutton 'New user' est appuyé
-     * @throws IOException
      */
-    public void redirectToSignIn(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../xml/Sign.fxml"));
-        Scene signInScene = new Scene(root,  1300, 700);
-        Stage window = (Stage) ((Node)e.getSource()).getScene().getWindow();
-        window.setScene(signInScene);
-        window.show();
+    public void redirectToSignIn(ActionEvent e) {
+        Main.changeWindow(e, "../xml/Sign.fxml");
     }
 }

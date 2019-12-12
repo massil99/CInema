@@ -21,10 +21,17 @@
             xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
     <top>
-        <HBox fx:id="topBox">
+        <HBox fx:id="topBox" style="-fx-spacing: 100px">
             <Label text="FOR CINEMATOGRAPHIE" />
-            <TextField promptText="Rechercher..."  fx:id="serchBar" styleClass="input"/>
-            <Button text="Rechercher" onAction="#sort"/>
+
+            <HBox alignment="CENTER" spacing="10">
+                <TextField promptText="Rechercher..."  fx:id="serchBar" styleClass="input"/>
+                <Button text="Rechercher" onAction="#sort"/>
+            </HBox>
+
+            <HBox alignment="CENTER_RIGHT">
+                <Button text="Log out" onAction="#logOut"/>
+            </HBox>
         </HBox>
     </top>
     <center>
@@ -100,9 +107,8 @@
                         <Button text="Reset" onAction="#getSeances"/>
                     </HBox>
 
-                    <ScrollPane fitToWidth="true" styleClass="pane">
-                            <VBox styleClass="pane" spacing="15" fx:id="listeS">
-                            </VBox>
+                    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="pane">
+                            <VBox styleClass="pane" spacing="15" fx:id="listeS"/>
                     </ScrollPane>
                 </VBox>
             </Tab>

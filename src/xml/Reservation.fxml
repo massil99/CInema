@@ -12,7 +12,7 @@
 
     <VBox  fx:id="reservBox">
         <HBox style="-fx-alignment: center center;" >
-            <Label styleClass="BigTitle" text="Reservation" />
+            <Label styleClass="BigTitle" text="Reservation" style="-fx-font-weight: 900" />
         </HBox>
         <HBox spacing="50" style="-fx-alignment: center cneter">
             <ImageView fx:id="poster" fitHeight="451.0" fitWidth="297.0">
@@ -22,14 +22,14 @@
             <Separator orientation="VERTICAL" prefWidth="1" valignment="CENTER" opacity="0.3" maxHeight="420"/>
 
             <GridPane vgap="20" alignment="CENTER">
-                <Label fx:id="titre" text="titre" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                <Label fx:id="titre" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-size: 37px; -fx-font-weight: 800"/>
                 <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="5">
-                    <Label text="Commence à :"/>
-                    <Label fx:id="start" text="00:00:00"/>
+                    <Label text="Commence à :" opacity="0.6"/>
+                    <Label fx:id="start" style="-fx-font-weight: 700"/>
                 </HBox>
                 <HBox GridPane.rowIndex="2" GridPane.columnIndex="0" spacing="5">
-                    <Label text="Fin à :"/>
-                    <Label fx:id="end" text="00:00:00" />
+                    <Label text="Fin à :" opacity="0.6"/>
+                    <Label fx:id="end" style="-fx-font-weight: 700"/>
                 </HBox>
                 <HBox GridPane.rowIndex="3" GridPane.columnIndex="0" spacing="30">
                     <ComboBox promptText="Nombre de personne" fx:id="nbPersonne"/>

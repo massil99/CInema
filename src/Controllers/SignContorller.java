@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sample.Main;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -31,11 +32,8 @@ public class SignContorller {
      * Test et enregistrement des information saisies par le nouvel utilisatuer
      * et affichage du login screen
      * @param e : evenement ayant eu lieu lorsque le boutton 'Sign in' est appuyé
-     * @throws NoSuchAlgorithmException
-     * @throws IOException
-     * @throws InvalidKeySpecException
      */
-    public void newUser(ActionEvent e) throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
+    public void newUser(ActionEvent e) {
         String username = usernameInputSignup.getText();
         String pass = passInputSignup.getText();
         String comfirmPass = ConfirmPassInputSignup.getText();
@@ -52,11 +50,7 @@ public class SignContorller {
 
             u.inscrit();
 
-            Parent root = FXMLLoader.load(getClass().getResource("../xml/LoginScreen.fxml"));
-            Scene signInScene = new Scene(root,  1300, 700);
-            Stage window = (Stage) ((Node)e.getSource()).getScene().getWindow();
-            window.setScene(signInScene);
-            window.show();
+            Main.changeWindow(e, "../xml/LoginScreen.fxml");
         }else{
             Label wrongCred = new Label("Information invalie !");
             wrongCred.getStyleClass().add("errorMsg");
@@ -70,10 +64,6 @@ public class SignContorller {
      * @throws IOException
      */
     public void backHome(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../xml/LoginScreen.fxml"));
-        Scene signInScene = new Scene(root,  1300, 700);
-        Stage window = (Stage) ((Node)e.getSource()).getScene().getWindow();
-        window.setScene(signInScene);
-        window.show();
+        Main.changeWindow(e, "../xml/LoginScreen.fxml");
     }
 }

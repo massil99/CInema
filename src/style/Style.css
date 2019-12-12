@@ -121,18 +121,16 @@
     -fx-fint-weight: 800;
 }
 
-.seances{
+.item{
     -fx-background-color: #010911;
 
-    -fx-alignment: center;
     -fx-padding: 5px 25px;
-    -fx-spacing: 200px;
     -fx-max-width: 700px;
 
     -fx-effect: dropshadow(three-pass-box, rgba(0.1,0.1,0.1,0.8), 10, 0.1, 1, 5);
 }
 
-.seances:hover{
+.item:hover{
     -fx-background-color: #011420;
 }
 
@@ -175,4 +173,21 @@
     -fx-alignment: center center;
     -fx-spacing: 20px;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.9), 10, 0.1, 1, 4);
+}
+
+#userPageHead{
+    -fx-spacing: 100px;
+    -fx-alignment: center-left;
+    -fx-start-margin: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: black;
+    -fx-padding: 20px 10px;
+    -fx-background-color: #102736;
+}
+
+
+.infoLabel{
+    -fx-text-fill: #a65224;
+    -fx-font-size: 25px;
+    -fx-font-weight: 800;
 }

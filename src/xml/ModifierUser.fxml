@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<VBox styleClass="pane" stylesheets="@../style/Style.css"
+      xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Controllers.ModifierUserController">
+    <HBox prefHeight="100.0" prefWidth="200.0">
+        <Button fx:id="backHomeBtn" onAction="#back" text="Back"/>
+    </HBox>
+    <HBox prefHeight="100.0" prefWidth="200.0" styleClass="pane">
+        <Label styleClass="BigTitle" text="Modification du compte" />
+    </HBox>
+    <GridPane hgap="40" styleClass="pane" vgap="20">
+        <Label text="Nom" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="lastnameInputMod" promptText="Votre nom " styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label text="Prenom" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="nameInputMod" promptText="Votre prenom " styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="Username" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="usernameInputMod" promptText="Your username " styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label text="Pasword" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <PasswordField fx:id="passInputMod" promptText="Your password" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label text="Confirm pasword" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <PasswordField fx:id="ConfirmPassInputMod" promptText="Confirrm your password" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <ComboBox promptText="Choisir" fx:id="type" GridPane.columnIndex="0" GridPane.rowIndex="5">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Reseptionniste" />
+                    <String fx:value="Comptable" />
+                </FXCollections>
+            </items>
+            <value>
+                <String fx:value="Reseptionniste" />
+            </value>
+        </ComboBox>
+        <Button fx:id="signInBtn" onAction="#modUser" text="Mettre à jour" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+    </GridPane>
+</VBox>

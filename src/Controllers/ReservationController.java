@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import sample.Main;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,17 +54,7 @@ public class ReservationController implements Initializable{
     }
 
     public void notReserving(ActionEvent e){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("../xml/FilmsM.fxml"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        Scene signInScene = new Scene(root,  1300, 700);
-        Stage window = (Stage) ((Node)e.getSource()).getScene().getWindow();
-        window.setScene(signInScene);
-        window.show();
+        Main.changeWindow(e, "../xml/FilmsM.fxml");
     }
 
     public void reserve(ActionEvent e){
@@ -75,17 +66,7 @@ public class ReservationController implements Initializable{
                 s.reserver(t);
             }
 
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(getClass().getResource("../xml/FilmsM.fxml"));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-            Scene signInScene = new Scene(root,  1300, 700);
-            Stage window = (Stage) ((Node)e.getSource()).getScene().getWindow();
-            window.setScene(signInScene);
-            window.show();
+            Main.changeWindow(e, "../xml/FilmsM.fxml");
         }
     }
 }

@@ -3,6 +3,8 @@ package Film;
 import sample.BDConnector;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Queue;
 
