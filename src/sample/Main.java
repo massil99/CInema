@@ -53,6 +53,7 @@ public class Main extends Application {
             }
         }));
         updateSeances.setCycleCount(Timeline.INDEFINITE); updateSeances.play();
+
         launch(args);
     }
 }
