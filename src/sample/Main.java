@@ -37,7 +37,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../xml/LoginScreen.fxml"));
         Scene scene = new Scene(root, 1300, 700);
-        primaryStage.setTitle("Cinema");
+        primaryStage.setTitle("MyCinema");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("../res/icon.png")));

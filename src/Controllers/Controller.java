@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -56,12 +57,21 @@ public class Controller implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         ListeSeances.updateSeance();
-        if(LoginScreenController.u.getType().equals("Admin")) {
-            Button users = new Button("Utilisateurs");
-            topBox.getChildren().add(1, users);
 
+        if(LoginScreenController.u.getType().equals("Admin")) {
+            HBox actions = new HBox();
+            Button users = new Button("Utilisateurs");
             users.setOnAction(this::showUsers);
+
+            Button planning = new Button("Planning");
+            planning.setOnAction(this::addToPlannig);
+            actions.getChildren().addAll(users, planning);
+            actions.setSpacing(5);
+            actions.setAlignment(Pos.CENTER);
+
+            topBox.getChildren().add(1, actions);
         }
+
         Film f = qf.poll();
         qf.add(f);
         Image img = new Image("res/"+f.getTitre());
@@ -113,6 +123,10 @@ public class Controller implements Initializable {
         film1.setOnMouseClicked(e ->{
             createSeances(ls.getSeanceByFilm(title1.getText()));
         });
+    }
+
+    public void addToPlannig(ActionEvent e){
+        Main.changeWindow(e, "../xml/addToPlanning.fxml");
     }
 
     public void showUsers(ActionEvent e){
@@ -287,7 +301,7 @@ public class Controller implements Initializable {
             VBox t = new VBox(titre, h, date, dispo, salle);
             t.setSpacing(10);
 
-            if(LoginScreenController.u.getType().equals("Receptionniste")) {
+            if(!LoginScreenController.u.getType().equals("Comptable")) {
                 Button btn = new Button("Reserver");
 
                 btn.setOnAction(e -> {
