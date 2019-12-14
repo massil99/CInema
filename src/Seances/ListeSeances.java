@@ -18,6 +18,9 @@ public class ListeSeances {
     /** Liste des seance **/
     ArrayList<Seance> seances;
 
+    /**
+     *
+     */
     public ListeSeances(){
         try {
             BDConnector.connect();
@@ -133,7 +136,7 @@ public class ListeSeances {
                         break;
                     }
 
-                System.out.println(seances.remove(se));
+                seances.remove(se);
             }
 
             BDConnector.st.close();
@@ -142,6 +145,9 @@ public class ListeSeances {
         }
     }
 
+    /**
+     * @param s
+     */
     public static void updateSeance(ArrayList<Seance> s){
         LocalDateTime now = LocalDateTime.now();
 
@@ -153,7 +159,6 @@ public class ListeSeances {
             int m = Integer.parseInt(seance.getDate(), 5, 7, 10);
             int j = Integer.parseInt(seance.getDate(), 8, 10, 10);
 
-            System.out.println(y +" "+ m + " " +j);
             if(y < now.getYear()){
                 toRemove.add(seance);
             }else  if(y == now.getYear() && m < now.getMonth().getValue()){
@@ -162,7 +167,6 @@ public class ListeSeances {
                 toRemove.add(seance);
             }
         }
-
         s.removeAll(toRemove);
     }
 
@@ -202,7 +206,6 @@ public class ListeSeances {
             if(ss.getF().getCategorie().equals(cat))
                 s.add(ss);
         }
-
         return s;
     }
 }

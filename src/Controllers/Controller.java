@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import sample.ConfermBox;
 import sample.Main;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -54,7 +55,6 @@ public class Controller implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         ListeSeances.updateSeance(ls.getSeances());
-
         if(LoginScreenController.u.getType().equals("Admin")) {
             HBox actions = new HBox();
             Button users = new Button("Utilisateurs");
@@ -64,6 +64,7 @@ public class Controller implements Initializable {
             planning.setOnAction(this::addToPlannig);
 
             Button stat = new Button("Stat");
+            stat.setOnAction(this::showStat);
 
             actions.getChildren().addAll(users, planning, stat);
             actions.setSpacing(5);
@@ -144,6 +145,10 @@ public class Controller implements Initializable {
         film1.setOnMouseClicked(e ->{
             createSeances(ls.getSeanceByFilm(title1.getText()));
         });
+    }
+
+    public void showStat(ActionEvent e){
+        Main.changeWindow(e, "../xml/stats.fxml");
     }
 
     public void addToPlannig(ActionEvent e){

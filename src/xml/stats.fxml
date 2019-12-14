@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<BorderPane xmlns="http://javafx.com/javafx" stylesheets="@../style/Style.css"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.StatController">
+    <top>
+        <HBox fx:id="userPageHead">
+            <Button text="Back" onAction="#back" fx:id="back"/>
+            <Label text="Statistiques" style="-fx-start-margin: 40px; -fx-font-weight: 800;-fx-font-size: 30px"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane styleClass="pane" fitToWidth="true" fitToHeight="true" style="-fx-padding: 0px; -fx-alignment: center center ">
+            <VBox styleClass="pane" spacing="15" fx:id="listeF"/>
+        </ScrollPane>
+    </center>
+</BorderPane>

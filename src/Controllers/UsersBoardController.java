@@ -25,8 +25,6 @@ public class UsersBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
         for (Utilisateur u : users) {
             HBox user = new HBox();
             user.getStyleClass().add("item");
@@ -69,11 +67,13 @@ public class UsersBoardController implements Initializable {
                             String q = "DELETE FROM utilisateurs where login='" + u.getLogin() + "'";
                             if (BDConnector.st.executeUpdate(q) == 1) {
                                 int i = 0;
-                                for (i = 0; i < users.size(); i++)
-                                    if (((Label) ((VBox) ((HBox) ((HBox) listeU.getChildren().get(i)).getChildren().get(0)).getChildren().get(2)).getChildren().get(1)).getText().equals(u.getLogin()))
+                                for (i = 0; i < users.size(); i++){
+                                    String l = ((Label) ((VBox) ((HBox) ((HBox) listeU.getChildren().get(i)).getChildren().get(0)).getChildren().get(2)).getChildren().get(1)).getText();
+                                    if (l.equals(u.getLogin()))
                                         break;
-
-                                listeU.getChildren().remove(i);
+                                }
+                                if(i < users.size() )
+                                    listeU.getChildren().remove(i);
                             }
                         } catch (SQLException | ClassNotFoundException ex) {
                             ex.printStackTrace();
