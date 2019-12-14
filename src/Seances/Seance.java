@@ -37,28 +37,34 @@ public class Seance {
         setHeureFin(_heureFin);
     }
 
-    public void reserver(Tarif t) {
-        if(s.isEstDispo()){
+    public boolean reserver(Tarif t) {
+        if(this.nbRes<this.s.getCapacite()){
             double prix = t.getPrix();
             String type=t.getType();
 
             s.setNombreDepersonnes(s.getNombreDepersonnes()+1);
-            if(nbRes >= s.getCapacite())
-                s.setEstDispo(false);
-
+            
             try {
+
                 BDConnector.connect();
                 String requete="INSERT INTO reservation(id_seance,tarif,type) values('"+id_seance+"','"+prix+"','"+type+"')";
-                BDConnector.st.executeUpdate(requete);
+                if(BDConnector.st.executeUpdate(requete)== 1) {
+                	 requete="UPDATE seances SET nb_reservation = nb_reservation + 1 WHERE id_seance="+id_seance;
+                     BDConnector.st.executeUpdate(requete);
+                    
 
-                requete="UPDATE seances SET nb_reservation = nb_reservation + 1 WHERE id_seance="+id_seance;
-                BDConnector.st.executeUpdate(requete);
-
-                BDConnector.st.close();
+                     BDConnector.st.close();
+                     return true ;	
+                } ;
+                
+              
             } catch (Exception e) {
                 e.printStackTrace();
+               
             }
+              
         }
+        return false ;
     }
 
     public int getId_seance() {
