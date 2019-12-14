@@ -6,6 +6,7 @@ import sample.BDConnector;
 
 public class Seance {
 
+    /** Identifiant de la seance */
     private int id_seance;
     /** Le film diffusé */
     private Film f;
@@ -38,13 +39,11 @@ public class Seance {
     }
 
     public void reserver(Tarif t) {
-        if(s.isEstDispo()){
+        if(nbRes < s.getCapacite()){
             double prix = t.getPrix();
             String type=t.getType();
 
             s.setNombreDepersonnes(s.getNombreDepersonnes()+1);
-            if(nbRes >= s.getCapacite())
-                s.setEstDispo(false);
 
             try {
                 BDConnector.connect();

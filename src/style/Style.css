@@ -11,7 +11,7 @@
     -fx-background-color: #233d4d;
     -fx-alignment: center;
     -fx-min-height: 70px;
-    -fx-spacing: 20px;
+    -fx-spacing: 10px;
 }
 
 #centerBox{
@@ -55,7 +55,7 @@
 
 .label{
     -fx-text-fill: white;
-    -fx-font-size: 20px;
+    -fx-font-size: 18px;
     -fx-font-weight: 600;
 }
 
@@ -167,7 +167,7 @@
 }
 
 
-#reservBox{
+.infoBox{
     -fx-background-color: #0d2434;
     -fx-padding: 10px 50px;
     -fx-alignment: center center;

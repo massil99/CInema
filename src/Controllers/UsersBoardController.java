@@ -63,7 +63,7 @@ public class UsersBoardController implements Initializable {
             if (!u.getType().equals("Admin")) {
                 Button del = new Button("Supprimer");
                 del.setOnAction(e -> {
-                    if (ConfermBox.diplay("Suppression", "Voulez vous supprimmer ce compte : " + u.getLogin())) {
+                    if (ConfermBox.display("Suppression", "Voulez vous supprimmer ce compte : " + u.getLogin())) {
                         try {
                             BDConnector.connect();
                             String q = "DELETE FROM utilisateurs where login='" + u.getLogin() + "'";

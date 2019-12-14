@@ -1,5 +1,6 @@
 package sample;
 
+import Controllers.Controller;
 import Seances.ListeSeances;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -49,7 +50,7 @@ public class Main extends Application {
         Timeline updateSeances = new Timeline(new KeyFrame(Duration.hours(1), new EventHandler() {
             @Override
             public void handle(Event event) {
-                ListeSeances.updateSeance();
+                ListeSeances.updateSeance(Controller.ls.getSeances());
             }
         }));
         updateSeances.setCycleCount(Timeline.INDEFINITE); updateSeances.play();

@@ -1,5 +1,6 @@
 package Seances;
 
+import Controllers.Controller;
 import Film.ListeFilms;
 import Film.Film;
 import Salles.ListeSalles;
@@ -10,6 +11,8 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 public class ListeSeances {
     /** Liste des seance **/
@@ -39,21 +42,44 @@ public class ListeSeances {
 
     /**
      * methode d'ajout d'une seance dans la base de donnee
-     *  @param s l'objet seance a travers lequel la seance est ajouter
-     * */
-    public void Ajouter(Seance s) {
+     * @param date_s Date de la sceance
+     * @param _f Film projeté
+     * @param _s La salle qui sera occuppée
+     * @param _heureDebut Heure de debut
+     * @param _heureFin Heure de fin
+     * @param nbRes_ Nombre de reservations
+     */
+    public void Ajouter(String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin, int nbRes_) {
         try {
             BDConnector.connect();
-            String query = "INSERT INTO seances(date,heure_debut,heure_fin, id_film, id_salle, nb_reservation) VALUES ('"+s.getDate()+
-                    "','"+s.getHeureDebut()+
-                    "','"+s.getHeureFin()+
-                    "','"+s.getF().getId_film()+
-                    "','"+s.getS().getNumeroSalle()+
-                    "','"+s.getNbRes()+"')";
 
-            if(BDConnector.st.executeUpdate(query) == 1)
-                seances.add(s);
+            String query = "SELECT id_seance FROM seances WHERE date='"+date_s+"' AND id_salle= "+ _s.getNumeroSalle() +" AND heure_debut between '"+ _heureDebut+"' AND '"+_heureFin+"'";
 
+            ResultSet res = BDConnector.st.executeQuery(query);
+            if(!res.next()) {
+                query = "INSERT INTO seances(date,heure_debut,heure_fin, id_film, id_salle, nb_reservation) VALUES ('" + date_s +
+                        "','" + _heureDebut +
+                        "','" + _heureFin +
+                        "','" + _f.getId_film() +
+                        "','" + _s.getNumeroSalle() +
+                        "',0)";
+
+                if (BDConnector.st.executeUpdate(query) == 1){
+                    query = "SELECT * From seances WHERE date='" + date_s +
+                            "' AND heure_debut='" + _heureDebut +
+                            "' AND heure_fin='" + _heureFin +
+                            "' AND id_film=" + _f.getId_film()+
+                            "  AND id_salle=" + _s.getNumeroSalle();
+
+                    res =  BDConnector.st.executeQuery(query);
+                    if(res.next())
+                        seances.add(new Seance(res.getInt("Id_seance"),
+                                res.getString("date"),
+                                Controller.lf.getfilmById(res.getInt("id_film")),
+                                Controller.lsl.getSalle(res.getInt("id_salle")),
+                                _heureDebut, _heureFin, 0));
+                }
+            }
             BDConnector.st.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,12 +125,15 @@ public class ListeSeances {
             BDConnector.connect();
             String query = "DELETE FROM `seances` WHERE id_seance="+idSeance;
 
-            if(BDConnector.st.execute(query)) {
+            if(BDConnector.st.executeUpdate(query) == 1) {
+                Seance se = null;
                 for (Seance s : seances)
                     if (s.getId_seance() == idSeance) {
-                        seances.remove(s);
+                        se = s;
                         break;
                     }
+
+                System.out.println(seances.remove(se));
             }
 
             BDConnector.st.close();
@@ -113,17 +142,28 @@ public class ListeSeances {
         }
     }
 
-    public static void updateSeance(){
+    public static void updateSeance(ArrayList<Seance> s){
         LocalDateTime now = LocalDateTime.now();
-        String today = String.format("%d-%d-%d", now.getYear(), now.getMonth().getValue(), now.getDayOfMonth());
 
-        try {
-            BDConnector.connect();
-            String q = "DELETE FROM seances where date<'"+today+"'";
-            BDConnector.st.executeUpdate(q);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        ArrayList<Seance> toRemove = new ArrayList<>();
+        ListIterator<Seance> i = s.listIterator();
+        while(i.hasNext()){
+            Seance seance = i.next();
+            int y = Integer.parseInt(seance.getDate(), 0, 4, 10);
+            int m = Integer.parseInt(seance.getDate(), 5, 7, 10);
+            int j = Integer.parseInt(seance.getDate(), 8, 10, 10);
+
+            System.out.println(y +" "+ m + " " +j);
+            if(y < now.getYear()){
+                toRemove.add(seance);
+            }else  if(y == now.getYear() && m < now.getMonth().getValue()){
+                toRemove.add(seance);
+            }else if(y == now.getYear() && m == now.getMonth().getValue() && j < now.getDayOfMonth()){
+                toRemove.add(seance);
+            }
         }
+
+        s.removeAll(toRemove);
     }
 
     public ArrayList<Seance> getSeanceByFilm(String titre){
