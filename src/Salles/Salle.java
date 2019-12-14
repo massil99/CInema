@@ -1,9 +1,14 @@
 package Salles;
 
 public class Salle {
+    
+    /** Le numéro de la salle. */
     private int numeroSalle;
+    /** La capacité de la salle. */
     private int capacite;
+    /** Le nombre de personnes dans la salle. */
     private int nombreDepersonnes = 0;
+    /** La disponibilité de la salle. */
     private boolean estDispo;
 
     /** 
@@ -11,7 +16,7 @@ public class Salle {
      * Permet de créer des nouveaux éléments de type Salle.
      * @param numeroSalle_ Le numéro de la salle créée.
      * @param capacite_ La capacité de la salle créée.
-     * @param nombreDepersonnes_ Le nombre de personnes de la salle créée.
+     * @param nombreDepersonnes_ Le nombre de personnes dans la salle créée.
      * @param estDispo_ La disponibilité de la salle créée.
      * @since 1.0.
      */
@@ -105,7 +110,7 @@ public class Salle {
     /**
      * Méthode getNombreDepersonnes
      * Permet de retourner le nombre de personnes de la salle.
-     * @return Le nombre de personnes de la salle.
+     * @return Le nombre de personnes dans la salle.
      * @since 1.0.
      */
 
@@ -116,7 +121,7 @@ public class Salle {
     /**
      * Méthode setNumeroSalle
      * Permet de modifier le nombre de personnes de la salle.
-     * @param nombreDepersonnes Le nombre de personnes de la salle voulu.
+     * @param nombreDepersonnes Le nombre de personnes dans la salle voulu.
      * @since 1.0.
      */
     
