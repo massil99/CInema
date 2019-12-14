@@ -3,7 +3,7 @@ package Salles;
 public class Salle {
     private int numeroSalle;
     private int capacite;
-    private int nombreDepersonnes=0;
+    private int nombreDepersonnes = 0;
     private boolean estDispo;
 
     /** 
