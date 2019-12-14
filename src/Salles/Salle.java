@@ -92,7 +92,7 @@ public class Salle {
      * @since 1.0.
      */
 
-    public boolean isEstDispo() {
+    public boolean isEstDispo () {
         return estDispo;
     }
     
