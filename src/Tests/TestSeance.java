@@ -17,16 +17,6 @@ import Seances.Tarif;
 class TestSeance {
 	Seance seance;
 
-	/*
-	@BeforeAll
-	public static void beforeAllMyTests()
-	{
-		Salle salle = new Salle(5);
-		Seance seance = new Seance(0, null, null, salle, null, null, 0);
-		System.out.println(seance.reserver(Tarif.Matin));
-
-	} */
-
 	@Test
 	//leTestDuCasValide
 	void simpleTestCase() {

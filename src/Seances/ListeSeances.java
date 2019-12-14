@@ -19,7 +19,7 @@ public class ListeSeances {
     ArrayList<Seance> seances;
 
     /**
-     *
+     * Chargement des seances en locale
      */
     public ListeSeances(){
         try {
@@ -146,6 +146,7 @@ public class ListeSeances {
     }
 
     /**
+     * Suppression de seance ayant de date depassee
      * @param s
      */
     public static void updateSeance(ArrayList<Seance> s){
@@ -170,6 +171,7 @@ public class ListeSeances {
         s.removeAll(toRemove);
     }
 
+    /** Gettres et Settree */
     public ArrayList<Seance> getSeanceByFilm(String titre){
         ArrayList<Seance> s = new ArrayList<>();
         for(Seance ss : seances) {

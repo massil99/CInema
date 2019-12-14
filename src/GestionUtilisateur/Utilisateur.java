@@ -24,6 +24,12 @@ public class Utilisateur {
 	private String salt;
 	private String type;
 
+    /**
+     * Creation d'un nouvelle utilisatuer
+     * @param nom : Nom de l'uilisatuer
+     * @param prenom : Prenom de l'utilisateur
+     * @param login : Identifant
+     */
     public Utilisateur(String nom, String prenom, String login, String type) {
         this.nom = nom;
         this.prenom = prenom;
@@ -88,7 +94,7 @@ public class Utilisateur {
      * Teste de la connection de l'utilisateur avec les identifiants donnes
      * @param _login : Identifiant
      * @param _mdp : Mot de passe
-     * @return
+     * @return L'utilisateur connecte
      */
     public static Utilisateur seConnect(String _login, String _mdp) {
         try {
@@ -131,7 +137,9 @@ public class Utilisateur {
         return null;
     }
 
-	/** Getters et setters **/
+    /**
+     * @return La liste des utilisateur enregistere
+     */
 	public ArrayList<Utilisateur> getUsers(){
 	    if(type.equals("Admin")){
 	        ArrayList<Utilisateur> users = new ArrayList<>();
@@ -154,6 +162,7 @@ public class Utilisateur {
 	    return null;
     }
 
+    /** Getters et setters **/
     public String getNom() {
         return nom;
     }

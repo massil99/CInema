@@ -15,9 +15,11 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
-
+/**
+ * Controller de l'interface graphique AddToPlanning
+ * qui permet d'ajouter des seances ai planning et/ou des films a la base de donnee
+ */
 public class AddToPlanningController implements Initializable {
-
     public CheckBox knownFilm;
     public GridPane filmInfo;
 
@@ -44,6 +46,12 @@ public class AddToPlanningController implements Initializable {
 
     public GridPane infoS;
 
+    /**
+     * Initialisation de l'interface en chargeant les ComboBox des differentes dates,
+     * le button 'back' est desactive si l'utilisateur n'est admin
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         LocalDateTime now = LocalDateTime.now();
@@ -75,6 +83,10 @@ public class AddToPlanningController implements Initializable {
         }
     }
 
+    /**
+     * Active ou desactive la partie permettant d'ajouter des films
+     * en fonction du choix de l'utilisateur
+     */
     public void showFilm(){
         if(knownFilm.isSelected()){
             filmInfo.setDisable(false);
@@ -83,10 +95,19 @@ public class AddToPlanningController implements Initializable {
         }
     }
 
+    /**
+     * Retoure en arriere, vers l'interface FilmsM
+     * @param e
+     */
     public void back(ActionEvent e){
         Main.changeWindow(e, "../xml/FilmsM.fxml");
     }
 
+    /**
+     * S'active lors de la validation des information de la seance et/ou le films a ajouter,
+     * qui seront ensiute stocker dans la base de donnee
+     * @param e
+     */
     public void addSeance(ActionEvent e){
         boolean done = false;
 

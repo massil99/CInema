@@ -61,9 +61,8 @@ public class SignContorller {
     /**
      *  Retour vers le login screen avec le boutton 'back'
      * @param e : evenement ayant eu lieu lorsque le boutton 'Back' est appuyé
-     * @throws IOException
      */
-    public void backHome(ActionEvent e) throws IOException {
+    public void backHome(ActionEvent e)  {
         Main.changeWindow(e, "../xml/LoginScreen.fxml");
     }
 }

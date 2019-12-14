@@ -23,6 +23,12 @@ public class UsersBoardController implements Initializable {
     public VBox listeU;
     ArrayList<Utilisateur> users = LoginScreenController.u.getUsers();
 
+    /**
+     * Chargement de la liste des compte enregistre et les les boutton de suppression
+     * pour les compte non-admin
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         for (Utilisateur u : users) {
@@ -104,6 +110,10 @@ public class UsersBoardController implements Initializable {
         }
     }
 
+    /**
+     * Retour vers l'interface FilmsM
+     * @param e
+     */
     public void back (ActionEvent e){
             Main.changeWindow(e, "../xml/FilmsM.fxml");
     }

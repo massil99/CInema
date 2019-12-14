@@ -17,6 +17,12 @@ import java.util.ResourceBundle;
 public class StatController implements Initializable {
     public Button back;
     public VBox listeF;
+
+    /**
+     * Chargement des statistiques pour tous les films etant deja projetes
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(LoginScreenController.u.getType().equals("Comptable"))
@@ -60,6 +66,10 @@ public class StatController implements Initializable {
         }
     }
 
+    /**
+     * Retour  vers l'interface FilmsM
+     * @param e
+     */
     public void back(ActionEvent e){
         Main.changeWindow(e, "../xml/FilmsM.fxml");
     }

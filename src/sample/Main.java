@@ -20,6 +20,11 @@ import java.io.IOException;
 
 public class Main extends Application {
 
+    /**
+     * Change de scene
+     * @param e
+     * @param path chemein de la nouvelle scene
+     */
     public static void changeWindow(ActionEvent e, String path){
         Parent root = null;
         try {
@@ -34,6 +39,11 @@ public class Main extends Application {
         window.show();
     }
 
+    /**
+     * Lancement de javaFx
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../xml/LoginScreen.fxml"));

@@ -6,19 +6,12 @@ import sample.BDConnector;
 
 public class Seance {
 
-    /** Identifiant de la seance */
     private int id_seance;
-    /** Le film diffusé */
     private Film f;
-    /** Salle où le film sera diffusé */
     private Salle s;
-    /** Nombre dereservation */
     int nbRes=0;
-    /** Date de diffusion du film*/
     private String dateS;
-    /** Heure de debut de la séance*/
     private String heureDebut;
-    /** Heure de fin de la séance*/
     private String heureFin;
 
     /** constructeur pour créer une seance
@@ -39,13 +32,18 @@ public class Seance {
     }
 
 
+    /**
+     * Reservation de la seance avec le tarif passe en argument
+     * @param t le tarif de reservation
+     * @return 'true' Si la reservation s'est bien passe 'false' sinon
+     */
     public boolean reserver(Tarif t) {
         if(this.nbRes<this.s.getCapacite()){
 
             double prix = t.getPrix();
             String type=t.getType();
 
-            s.setNombreDepersonnes(s.getNombreDepersonnes()+1);
+            nbRes++;
 
             try {
 
@@ -70,6 +68,7 @@ public class Seance {
         return false ;
     }
 
+    /** getters et settes */
     public int getId_seance() {
         return id_seance;
     }

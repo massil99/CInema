@@ -5,19 +5,13 @@ import Seances.Seance;
 import Seances.Tarif;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import sample.Main;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,10 +26,19 @@ public class ReservationController implements Initializable{
 
     private static  Seance s;
 
+    /**
+     * Chargement des information de la seance dans laquelle se fera la reservation
+     * @param s La seance a reserver
+     */
     public static void loadInfo(Seance s){
         ReservationController.s = s;
     }
 
+    /**
+     * Chargemnt de la liste de tarif et la liste de nombre de personne qui reserve
+     * @param url
+     * @param rb
+     */
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         poster.setImage(new Image("res/"+s.getF().getTitre()));
@@ -53,10 +56,18 @@ public class ReservationController implements Initializable{
 
     }
 
+    /**
+     * Annulation de la reservation
+     * @param e
+     */
     public void notReserving(ActionEvent e){
         Main.changeWindow(e, "../xml/FilmsM.fxml");
     }
 
+    /**
+     * Validation de la reservation
+     * @param e
+     */
     public void reserve(ActionEvent e){
         Tarif t = listeTarif.getSelectionModel().getSelectedItem();
         int nb = nbPersonne.getSelectionModel().getSelectedItem();

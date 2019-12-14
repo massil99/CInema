@@ -3,8 +3,6 @@ package Film;
 import sample.BDConnector;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -80,7 +78,7 @@ public class ListeFilms {
     /**
      * Modifier les information d'un film indentifier par sont titre
      * @param f La nouvelle version des informations du film
-     * @param titre Titre du film a modifier
+     * @param id_film id du film a modifier
      */
     public boolean Modifier(Film f, int id_film) {
         try {
@@ -126,7 +124,7 @@ public class ListeFilms {
 
     /**
      * Chercher un film dans la base de donne en ayant sont titre
-     * @param titre
+     * @param titre titre du film
      * @return : le film ci trouve
      */
     public Film getfilm(String titre) {

@@ -11,6 +11,9 @@ import java.util.ArrayList;
 public class ListeSalles {
     ArrayList<Salle> salles;
 
+    /**
+     * Chargement de salles en locale
+     */
     public ListeSalles() {
         try {
             BDConnector.connect();
@@ -30,6 +33,10 @@ public class ListeSalles {
         }
     }
 
+    /**
+     * Ajoute une salle a la base de donne
+     * @param s la salle a ajouter
+     */
     public void Ajout(Salle s) {
         try {
             BDConnector.connect();
@@ -46,6 +53,10 @@ public class ListeSalles {
         }
     }
 
+    /**
+     * Supprimer une salle
+     * @param id la salle a supprimer
+     */
     public void Suppression(int id ) {
         try {
             BDConnector.connect();

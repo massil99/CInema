@@ -1,5 +1,8 @@
 package Seances;
 
+/**
+ * Les differents ttarif disponnible
+ */
 public enum Tarif {
     Reduit("Etudiant",7.80),
     MoinsDe14("Enfant",5.50),

@@ -18,13 +18,15 @@ import javafx.scene.text.Text;
 import sample.ConfermBox;
 import sample.Main;
 
-import javax.swing.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.ResourceBundle;
 
+/**
+ * Controller de l'interface FilmsM
+ */
 public class Controller implements Initializable {
     public StackPane film1;
     public Label title1;
@@ -52,6 +54,12 @@ public class Controller implements Initializable {
     public static ListeSeances ls = new ListeSeances();
     public static ListeSalles lsl = new ListeSalles();
 
+    /**
+     * Initialisation de l'interface FilmsM en chargeant les affiches des films, leur titre et leur synopsis,
+     * ainsi que les different button permettant a l'admin d'acceder ses fonctionnalite
+     * @param url
+     * @param rb
+     */
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         ListeSeances.updateSeance(ls.getSeances());
@@ -147,23 +155,40 @@ public class Controller implements Initializable {
         });
     }
 
+    /**
+     * Affichage des statistiques
+     * @param e
+     */
     public void showStat(ActionEvent e){
         Main.changeWindow(e, "../xml/stats.fxml");
     }
 
+    /**
+     * Affichage de l'interface d'ajout de seance
+     * @param e
+     */
     public void addToPlannig(ActionEvent e){
         Main.changeWindow(e, "../xml/addToPlanning.fxml");
     }
 
+    /**
+     * Affiche les comptes, enregistre, du logiciel
+     * @param e
+     */
     public void showUsers(ActionEvent e){
         Main.changeWindow(e, "../xml/UsresBoard.fxml");
     }
 
+    /**
+     * Dectonnection du logiciel
+     * @param e
+     */
     public void logOut(ActionEvent e){
         Main.changeWindow(e, "../xml/LoginScreen.fxml");
     }
 
-    /** Defilement à droite et mise à jour des contenaire d'image de film
+    /**
+     * Defilement à droite et mise à jour des conteneur d'image de film,
      * leur titre et leur description
      */
     public void nextFilm(){
@@ -198,7 +223,8 @@ public class Controller implements Initializable {
         title1.setText(f.getTitre());
     }
 
-    /** Defilement à gauche mise à jour des contenaire d'image de film
+    /**
+     * Defilement à gauche mise à jour des conteneur d'image de film
      * leur titre et leur description
      */
     public void prevFilm(){
@@ -236,30 +262,54 @@ public class Controller implements Initializable {
         title4.setText(f.getTitre());
     }
 
+    /**
+     * Simulation de l'effet hover
+     */
     public void showDesc1(){
         Film f = lf.getfilm(title1.getText());
         synopsis1.setText(f.getDescriptif());
     }
+
+    /**
+     * Simulation de l'effet hover
+     */
     public void hideDesc1(){
         synopsis1.setText("");
     }
 
+    /**
+     * Simulation de l'effet hover
+     */
     public void showDesc2(){
         Film f = lf.getfilm(title2.getText());
         synopsis2.setText(f.getDescriptif());
     }
+
+    /**
+     * Simulation de l'effet hover
+     */
     public void hideDesc2(){
         synopsis2.setText("");
     }
 
+    /**
+     * Simulation de l'effet hover
+     */
     public void showDesc3(){
         Film f = lf.getfilm(title3.getText());
         synopsis3.setText(f.getDescriptif());
     }
+
+    /**
+     * Simulation de l'effet hover
+     */
     public void hideDesc3(){
         synopsis3.setText("");
     }
 
+    /**
+     * Simulation de l'effet hover
+     */
     public void showDesc4(){
         Film f = lf.getfilm(title4.getText());
         synopsis4.setText(f.getDescriptif());
@@ -268,6 +318,9 @@ public class Controller implements Initializable {
         synopsis4.setText("");
     }
 
+    /**
+     * Trie de l'affichage des seance par date
+     */
     public void getSeances(){
         days.getItems().removeAll(days.getItems());
         for(String day : ls.getProjectionDays())
@@ -276,6 +329,9 @@ public class Controller implements Initializable {
         createSeances(ls.getSeances());
     }
 
+    /**
+     * Gention du trie de l'afichage des seances
+     */
     public void sort(){
         String selectedDay = days.getSelectionModel().getSelectedItem();
         String selectedCat = cat.getSelectionModel().getSelectedItem();
@@ -301,6 +357,10 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Creation de la liste, affichable, des seances en ayant un liste de seance
+     * @param seances La liste de seance a afficher
+     */
     private void createSeances(ArrayList<Seance> seances){
         tabs.getSelectionModel().select(1);
         listeS.getChildren().removeAll(listeS.getChildren());

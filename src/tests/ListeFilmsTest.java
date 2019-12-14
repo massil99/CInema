@@ -1,4 +1,4 @@
-package tests;
+package Tests;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +11,7 @@ import Film.ListeFilms;
 public class ListeFilmsTest {
 	
 	/** 
-	 *  test l'ajout d'un film à la liste des films
+	 *  test l'ajout d'un film ï¿½ la liste des films
 	 *  cas valide : les informations du films sont correctes
 	 * 
 	 */
@@ -25,7 +25,7 @@ public class ListeFilmsTest {
 	
 	/**
 	 * cas invalide: la date de sortie n'existe pas
-	 * autre cas invalide: la connexion à la base de données a echoué
+	 * autre cas invalide: la connexion ï¿½ la base de donnï¿½es a echouï¿½
 	 * 
 	 */
 	
@@ -40,7 +40,7 @@ public class ListeFilmsTest {
 	/**
 	 * test de la methode suppression de  la liste des films
 	 * 
-	 *  cas valide: le titre du film existe dans la table Films de la base de données
+	 *  cas valide: le titre du film existe dans la table Films de la base de donnï¿½es
 	 *
 	 */
 	
@@ -76,7 +76,7 @@ public class ListeFilmsTest {
 	}
 	
 	/** 
-	 * cas invalide: l'identifiant passé en paramètre n'existe pas 
+	 * cas invalide: l'identifiant passï¿½ en paramï¿½tre n'existe pas 
 	 */
 	public boolean testModifier2() {
 		Film.Film f=new Film.Film("La belle","Regie","2019-12-01","Drame","2019-11-10"," dwgxfghcbjnazertyuiop");
@@ -87,9 +87,9 @@ public class ListeFilmsTest {
 	}
 	
 	/**
-	 * test de la methode getFilm qui retourne un film grace à son titre
+	 * test de la methode getFilm qui retourne un film grace ï¿½ son titre
 	 *
-	 * cas valide: le titre passé en paramètre existe dans la base de données
+	 * cas valide: le titre passï¿½ en paramï¿½tre existe dans la base de donnï¿½es
 	 * 
 	 */
 	public boolean testGetFilm1() {
@@ -113,7 +113,7 @@ public class ListeFilmsTest {
 	}
 	
 	/**
-	 * test de la methode getFilmById qui retourne le film dont l'identifiant est passé en paramètre
+	 * test de la methode getFilmById qui retourne le film dont l'identifiant est passï¿½ en paramï¿½tre
 	 * 
 	 * cas valide: l'identifiant existe
 	 * 
@@ -139,7 +139,7 @@ public class ListeFilmsTest {
 	}
 	
 	/**
-	 * test de la methode getFilmByCategorie qui retourne tous les films de la categorie passée en paramètre
+	 * test de la methode getFilmByCategorie qui retourne tous les films de la categorie passï¿½e en paramï¿½tre
 	 * 
 	 * cas valide: la categorie  existe
 	 * 
@@ -153,7 +153,7 @@ public class ListeFilmsTest {
 	}
 	/**
 	 * 
-	 *  cas invalide: la catégorie n'existe pas 
+	 *  cas invalide: la catï¿½gorie n'existe pas 
 	 */
 	
 	public boolean testGetFilmByCategorie2() {
