@@ -1,5 +1,6 @@
 package sample;
 
+import Controllers.Controller;
 import Seances.ListeSeances;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -37,7 +38,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../xml/LoginScreen.fxml"));
         Scene scene = new Scene(root, 1300, 700);
-        primaryStage.setTitle("Cinema");
+        primaryStage.setTitle("MyCinema");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("../res/icon.png")));
@@ -49,7 +50,7 @@ public class Main extends Application {
         Timeline updateSeances = new Timeline(new KeyFrame(Duration.hours(1), new EventHandler() {
             @Override
             public void handle(Event event) {
-                ListeSeances.updateSeance();
+                ListeSeances.updateSeance(Controller.ls.getSeances());
             }
         }));
         updateSeances.setCycleCount(Timeline.INDEFINITE); updateSeances.play();

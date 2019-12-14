@@ -6,6 +6,7 @@ import sample.BDConnector;
 
 public class Seance {
 
+    /** Identifiant de la seance */
     private int id_seance;
     /** Le film diffusé */
     private Film f;
@@ -37,13 +38,15 @@ public class Seance {
         setHeureFin(_heureFin);
     }
 
+
     public boolean reserver(Tarif t) {
         if(this.nbRes<this.s.getCapacite()){
+
             double prix = t.getPrix();
             String type=t.getType();
 
             s.setNombreDepersonnes(s.getNombreDepersonnes()+1);
-            
+
             try {
 
                 BDConnector.connect();

@@ -63,7 +63,7 @@ public class ListeFilms {
                     + " titre='"+ f.getTitre()+"'";
 
             ResultSet res = BDConnector.st.executeQuery(query);
-            if(res != null)
+            if(res.next())
                 f.setId_film(res.getInt(1));
 
             res.close();

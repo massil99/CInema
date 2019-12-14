@@ -10,7 +10,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="Controllers.ReservationController" styleClass="pane" fillWidth="false">
 
-    <VBox  fx:id="reservBox">
+    <VBox  styleClass="infoBox">
         <HBox style="-fx-alignment: center center;" >
             <Label styleClass="BigTitle" text="Reservation" style="-fx-font-weight: 900" />
         </HBox>

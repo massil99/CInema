@@ -137,7 +137,7 @@ public class Utilisateur {
 	        ArrayList<Utilisateur> users = new ArrayList<>();
             try {
                 BDConnector.connect();
-                String query = "SELECT nom, prenom, login, user FROM utilisateurs, personnel where type=id ";
+                String query = "SELECT nom, prenom, login, user FROM utilisateurs, personnel where type=id ORDER BY(type) ";
                 ResultSet res = BDConnector.st.executeQuery(query);
                 while(res.next()) {
                     users.add(new Utilisateur(res.getString("nom"),
