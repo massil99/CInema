@@ -8,11 +8,12 @@ public class Salle {
 
     /** 
      * Constructeur Salle 
-     * Permet de creer des nouveaux elements de type Salle.
-     * @param numeroSalle_ Le numero de la salle creee.
-     * @param capacite_ La capacite de la salle creee.
-     * @param nombreDepersonnes_ Le nombre de personnes de la salle creee.
-     * @param estDispo_ La disponibilite de la salle creee.
+     * Permet de cr�er des nouveaux �l�ments de type Salle.
+     * @param numeroSalle_ Le num�ro de la salle cr��e.
+     * @param capacite_ La capacit� de la salle cr��e.
+     * @param nombreDepersonnes_ Le nombre de personnes de la salle cr��e.
+     * @param estDispo_ La disponibilit� de la salle cr��e.
+     * @since 1.0.
      */
     
     public Salle(int numeroSalle_, int capacite_, int nombreDepersonnes_, boolean estDispo_) {
@@ -24,8 +25,8 @@ public class Salle {
     
     /**
      * Constructeur alternatif Salle
-     * Permet de creer des elements de type Salle vide.
-     * @param capacite_ La capacite de la salle creee.
+     * Permet de cr�er des �l�ments de type Salle vide.
+     * @param capacite_ La capacit� de la salle cr��e.
      * @since 2.0.
      */
     
@@ -36,9 +37,9 @@ public class Salle {
     }
     
     /**
-     * Methode getNumeroSalle
-     * Permet de retourner le numero de la salle.
-     * @return Le numero de la salle.
+     * M�thode getNumeroSalle
+     * Permet de retourner le num�ro de la salle.
+     * @return Le num�ro de la salle.
      * @since 1.0.
      */
 
@@ -47,9 +48,9 @@ public class Salle {
     }
     
     /**
-     * Methode setNumeroSalle
-     * Permet de modifier le numero de la salle.
-     * @param numero Le numero de la salle voulu.
+     * M�thode setNumeroSalle
+     * Permet de modifier le num�ro de la salle.
+     * @param numero Le num�ro de la salle voulu.
      * @since 1.0.
      */
 
@@ -58,9 +59,9 @@ public class Salle {
     }
     
     /**
-     * Methode getCapacite
-     * Permet de retourner la capacite de la salle.
-     * @return La capacite de la salle.
+     * M�thode getCapacite
+     * Permet de retourner la capacit� de la salle.
+     * @return La capacit� de la salle.
      * @since 1.0.
      */
 
@@ -69,9 +70,9 @@ public class Salle {
     }
     
     /**
-     * Methode setCapacite
-     * Permet de modifier la capacite de la salle.
-     * @param capacite_ La capacite de la salle voulue.
+     * M�thode setCapacite
+     * Permet de modifier la capacit� de la salle.
+     * @param capacite_ La capacit� de la salle voulue.
      * @since 1.0.
      */
 
@@ -80,9 +81,9 @@ public class Salle {
     }
     
     /**
-     * Methode isEstDispo
-     * Permet de retourner la disponibilite de la salle.
-     * @return La disponibilite de la salle.
+     * M�thode isEstDispo
+     * Permet de retourner la disponibilit� de la salle.
+     * @return La disponibilit� de la salle.
      * @since 1.0.
      */
 
@@ -91,9 +92,9 @@ public class Salle {
     }
     
     /**
-     * Methode setEstDispo
-     * Permet de modifier la disponibilite de la salle.
-     * @param dispo La disponibilite de la salle voulue.
+     * M�thode setEstDispo
+     * Permet de modifier la disponibilit� de la salle.
+     * @param dispo La disponibilit� de la salle voulue.
      * @since 1.0.
      */
 
@@ -102,7 +103,7 @@ public class Salle {
     }
     
     /**
-     * Methode getNombreDepersonnes
+     * M�thode getNombreDepersonnes
      * Permet de retourner le nombre de personnes de la salle.
      * @return Le nombre de personnes de la salle.
      * @since 1.0.
@@ -113,7 +114,7 @@ public class Salle {
     }
 
     /**
-     * Methode setNumeroSalle
+     * M�thode setNumeroSalle
      * Permet de modifier le nombre de personnes de la salle.
      * @param nombreDepersonnes Le nombre de personnes de la salle voulu.
      * @since 1.0.
