@@ -13,7 +13,7 @@ public class ConfermBox {
 
     private static boolean answer;
 
-    public static boolean diplay(String title, String message){
+    public static boolean display(String title, String message){
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);

@@ -2,25 +2,23 @@ package Controllers;
 
 import Film.Film;
 import Film.ListeFilms;
+import Salles.ListeSalles;
 import Seances.ListeSeances;
 
 import Seances.Seance;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import sample.ConfermBox;
 import sample.Main;
 
-import java.io.IOException;
+import javax.swing.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -48,24 +46,43 @@ public class Controller implements Initializable {
     public TabPane tabs;
     public HBox topBox;
 
-    ListeFilms lf = new ListeFilms();
+    public static ListeFilms lf = new ListeFilms();
     Queue<Film> qf = new LinkedList<>(lf.getFilms());
 
-    ListeSeances ls = new ListeSeances();
+    public static ListeSeances ls = new ListeSeances();
+    public static ListeSalles lsl = new ListeSalles();
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
-        ListeSeances.updateSeance();
+        ListeSeances.updateSeance(ls.getSeances());
         if(LoginScreenController.u.getType().equals("Admin")) {
+            HBox actions = new HBox();
             Button users = new Button("Utilisateurs");
-            topBox.getChildren().add(1, users);
-
             users.setOnAction(this::showUsers);
+
+            Button planning = new Button("Planning");
+            planning.setOnAction(this::addToPlannig);
+
+            Button stat = new Button("Stat");
+            stat.setOnAction(this::showStat);
+
+            actions.getChildren().addAll(users, planning, stat);
+            actions.setSpacing(5);
+            actions.setAlignment(Pos.CENTER);
+
+            topBox.getChildren().add(1, actions);
         }
+
         Film f = qf.poll();
         qf.add(f);
-        Image img = new Image("res/"+f.getTitre());
-        ImageView bg = new ImageView(img);
+        ImageView bg = null;
+        try {
+            Image img = new Image("res/"+f.getTitre());
+            bg = new ImageView(img);
+        }catch (Exception e){
+            Image img = new Image("res/icon.png");
+            bg = new ImageView(img);
+        }
         bg.setFitHeight(287);
         bg.setFitWidth(189);
 
@@ -77,8 +94,13 @@ public class Controller implements Initializable {
 
         f = qf.poll();
         qf.add(f);
-        img = new Image("res/"+f.getTitre());
-        bg = new ImageView(img);
+        try {
+            Image img = new Image("res/"+f.getTitre());
+            bg = new ImageView(img);
+        }catch (Exception e){
+            Image img = new Image("res/icon.png");
+            bg = new ImageView(img);
+        }
         bg.setFitHeight(287);
         bg.setFitWidth(189);
 
@@ -90,8 +112,13 @@ public class Controller implements Initializable {
 
         f = qf.poll();
         qf.add(f);
-        img = new Image("res/"+f.getTitre());
-        bg = new ImageView(img);
+        try {
+            Image img = new Image("res/"+f.getTitre());
+            bg = new ImageView(img);
+        }catch (Exception e){
+            Image img = new Image("res/icon.png");
+            bg = new ImageView(img);
+        }
         bg.setFitHeight(287);
         bg.setFitWidth(189);
 
@@ -103,8 +130,13 @@ public class Controller implements Initializable {
 
         f = qf.poll();
         qf.add(f);
-        img = new Image("res/"+f.getTitre());
-        bg = new ImageView(img);
+        try {
+            Image img = new Image("res/"+f.getTitre());
+            bg = new ImageView(img);
+        }catch (Exception e){
+            Image img = new Image("res/icon.png");
+            bg = new ImageView(img);
+        }
         bg.setFitHeight(287);
         bg.setFitWidth(189);
 
@@ -113,6 +145,14 @@ public class Controller implements Initializable {
         film1.setOnMouseClicked(e ->{
             createSeances(ls.getSeanceByFilm(title1.getText()));
         });
+    }
+
+    public void showStat(ActionEvent e){
+        Main.changeWindow(e, "../xml/stats.fxml");
+    }
+
+    public void addToPlannig(ActionEvent e){
+        Main.changeWindow(e, "../xml/addToPlanning.fxml");
     }
 
     public void showUsers(ActionEvent e){
@@ -129,10 +169,14 @@ public class Controller implements Initializable {
     public void nextFilm(){
         Film f = qf.poll();
         qf.add(f);
-        Image img = new Image("res/"+f.getTitre());
-        ImageView bg = new ImageView(img);
-        bg.setFitHeight(287);
-        bg.setFitWidth(189);
+        ImageView bg = null;
+        try {
+            Image img = new Image("res/"+f.getTitre());
+            bg = new ImageView(img);
+        }catch (Exception e){
+            Image img = new Image("res/icon.png");
+            bg = new ImageView(img);
+        }
 
         film4.getChildren().removeAll(film4.getChildren());
         if(!film3.getChildren().isEmpty())
@@ -160,9 +204,15 @@ public class Controller implements Initializable {
     public void prevFilm(){
         Film f = qf.poll();
         qf.add(f);
-        Image img = new Image("res/"+f.getTitre());
-        ImageView bg = new ImageView(img);
 
+        ImageView bg = null;
+        try {
+            Image img = new Image("res/"+f.getTitre());
+            bg = new ImageView(img);
+        }catch (Exception e){
+            Image img = new Image("res/icon.png");
+            bg = new ImageView(img);
+        }
         bg.setFitHeight(287);
         bg.setFitWidth(189);
 
@@ -259,8 +309,15 @@ public class Controller implements Initializable {
             b.getStyleClass().add("item");
             b.setSpacing(200);
 
-            Image img = new Image("res/"+s.getF().getTitre());
-            ImageView imgv = new ImageView(img);
+            ImageView imgv = null;
+            try {
+                Image img = new Image("res/"+s.getF().getTitre());
+                imgv = new ImageView(img);
+            }catch (Exception e){
+                Image img = new Image("res/icon.png");
+                imgv = new ImageView(img);
+            }
+
             imgv.setFitHeight(205);
             imgv.setFitWidth(130);
 
@@ -287,7 +344,7 @@ public class Controller implements Initializable {
             VBox t = new VBox(titre, h, date, dispo, salle);
             t.setSpacing(10);
 
-            if(LoginScreenController.u.getType().equals("Receptionniste")) {
+            if(!LoginScreenController.u.getType().equals("Comptable")) {
                 Button btn = new Button("Reserver");
 
                 btn.setOnAction(e -> {
@@ -297,8 +354,21 @@ public class Controller implements Initializable {
 
                 t.getChildren().add(btn);
             }
-            b.getChildren().addAll(imgv, t);
 
+            if(LoginScreenController.u.getType().equals("Admin")){
+                Button btn = new Button("Supprimer");
+
+                btn.setOnAction(e -> {
+                    if(ConfermBox.display("Supprimer", "Voulez vous supprimer cette seance")){
+                        ls.Supprimer(s.getId_seance());
+                        listeS.getChildren().remove(b);
+                    }
+                });
+
+                t.getChildren().add(btn);
+            }
+
+            b.getChildren().addAll(imgv, t);
             listeS.getChildren().add(b);
         }
     }

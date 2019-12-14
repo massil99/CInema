@@ -32,7 +32,10 @@ public class LoginScreenController {
         u = Utilisateur.seConnect(usernameInput.getText(), passInput.getText());
 
         if(u != null){
-            Main.changeWindow(e, "../xml/FilmsM.fxml");
+            if(!u.getType().equals("Comptable"))
+                Main.changeWindow(e, "../xml/FilmsM.fxml");
+            else
+                Main.changeWindow(e, "../xml/stats.fxml");
         }else{
             Label wrongCred = new Label("Wrong username or passeword!");
             wrongCred.getStyleClass().add("errorMsg");

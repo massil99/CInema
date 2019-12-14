@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextArea?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.AddToPlanningController"
+      stylesheets="@../style/Style.css" styleClass="pane" style="-fx-padding: 110 2">
+
+    <HBox prefHeight="100.0" prefWidth="200.0">
+        <Button onAction="#back" text="Back"/>
+    </HBox>
+    <HBox prefHeight="100.0" prefWidth="200.0" styleClass="pane">
+        <Label styleClass="BigTitle" text="Ajouter une seance" />
+    </HBox>
+
+    <HBox>
+        <GridPane styleClass="pane, infoBox" hgap="10" vgap="20" fx:id="infoS">
+            <Label text="Film en projection ?" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <CheckBox text="non" GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="knownFilm" onAction="#showFilm"/>
+
+            <Label text="Film projeté" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField promptText="Film" fx:id="film" maxWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="input"/>
+
+            <Label text="Heure de debut" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <HBox spacing="2" GridPane.columnIndex="1" GridPane.rowIndex="2" alignment="CENTER_LEFT">
+                <TextField promptText="H" fx:id="heureDeb" maxWidth="50" styleClass="input"/>
+                <Label text=":"/>
+                <TextField promptText="M" fx:id="minDeb" maxWidth="50" styleClass="input"/>
+            </HBox>
+
+            <Label text="Heure de fin" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <HBox spacing="2" GridPane.columnIndex="1" GridPane.rowIndex="3" alignment="CENTER_LEFT">
+                <TextField promptText="H" fx:id="heureFin" maxWidth="50" styleClass="input"/>
+                <Label text=":"/>
+                <TextField promptText="M" fx:id="minFin" maxWidth="50" styleClass="input"/>
+            </HBox>
+
+            <Label text="Salle" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <TextField promptText="n°" fx:id="numSalle" maxWidth="50" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+            <Label text="Date" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <HBox GridPane.columnIndex="1" GridPane.rowIndex="5" spacing="2">
+                <ComboBox promptText="Anneé" fx:id="anneeProj"/>
+                <ComboBox promptText="Mois" fx:id="moisProj"/>
+                <ComboBox promptText="Jour" fx:id="jourProj"/>
+            </HBox>
+
+            <Button text="Valide" GridPane.columnIndex="0" GridPane.rowIndex="6" onAction="#addSeance"/>
+        </GridPane>
+
+        <GridPane styleClass="pane, infoBox" hgap="10" vgap="20" fx:id="filmInfo">
+            <Label text="Realisateur" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField promptText="Realisateur" fx:id="rea" maxWidth="250" styleClass="input" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Date de sortie" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <HBox GridPane.rowIndex="1" GridPane.columnIndex="1" spacing="3">
+                <ComboBox promptText="Anneé" fx:id="anneeS"/>
+                <ComboBox promptText="Mois" fx:id="moisS"/>
+                <ComboBox promptText="Jour" fx:id="jourS"/>
+            </HBox>
+
+            <Label text="Categorie" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <ComboBox promptText="Catégorie" fx:id="cat" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Action" />
+                        <String fx:value="Animation" />
+                        <String fx:value="Aventure" />
+                        <String fx:value="Biographie" />
+                        <String fx:value="Dramatique" />
+                        <String fx:value="Espionnage" />
+                        <String fx:value="Fantasy" />
+                        <String fx:value="Guerre" />
+                        <String fx:value="Historique" />
+                        <String fx:value="Horreur" />
+                        <String fx:value="Mystère" />
+                        <String fx:value="Policier" />
+                        <String fx:value="Romantique" />
+                        <String fx:value="Science-fiction"/>
+                        <String fx:value="Thrille‎"/>
+                        <String fx:value="Western"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <Label text="Publier le" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <HBox GridPane.rowIndex="3" GridPane.columnIndex="1" spacing="2">
+                <ComboBox promptText="Anneé" fx:id="anneeP"/>
+                <ComboBox promptText="Mois" fx:id="moisP"/>
+                <ComboBox promptText="Jour" fx:id="jourP"/>
+            </HBox>
+
+            <Label text="Descriptif" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextArea promptText="Descrtiptif" fx:id="desc" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        </GridPane>
+    </HBox>
+</VBox>

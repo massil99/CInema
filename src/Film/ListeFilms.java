@@ -138,7 +138,7 @@ public class ListeFilms {
     }
 
     /**
-     * Chercher un film dans la base de données en ayant sont Id
+     * Chercher un film dans la base de donnï¿½es en ayant sont Id
      * @param id du film
      * @return : le film ci trouve
      */
