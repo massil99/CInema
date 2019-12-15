@@ -16,8 +16,9 @@ import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
+ * Classe AddToPlanningController
  * Controller de l'interface graphique AddToPlanning
- * qui permet d'ajouter des s"ances ai planning et/ou des films à la base de données
+ * qui permet d'ajouter des s"ances ai planning et/ou des films à la base de données.
  */
 public class AddToPlanningController implements Initializable {
     public CheckBox knownFilm;
