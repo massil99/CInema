@@ -6,13 +6,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
- * Classe permettant d'interagire avec la table Salles de la base de donnee
+ * Classe ListeSalles
+ * Classe permettant d'interagir avec la table Salles de la base de données.
  */
 public class ListeSalles {
     ArrayList<Salle> salles;
 
     /**
-     * Chargement de salles en locale
+     * Constructeur ListeSalles
+     * Chargement des salles en local.
      */
     public ListeSalles() {
         try {
@@ -34,8 +36,9 @@ public class ListeSalles {
     }
 
     /**
-     * Ajoute une salle a la base de donne
-     * @param s la salle a ajouter
+     * Méthode Ajout
+     * Ajoute une salle à la base de données.
+     * @param s La salle à ajouter.
      */
     public void Ajout(Salle s) {
         try {
@@ -54,8 +57,9 @@ public class ListeSalles {
     }
 
     /**
-     * Supprimer une salle
-     * @param id la salle a supprimer
+     * Méthode Suppression
+     * Supprime une salle de la base de données
+     * @param id La salle à supprimer.
      */
     public void Suppression(int id ) {
         try {
@@ -70,7 +74,7 @@ public class ListeSalles {
         }
     }
 
-    /** Getter **/
+    /** Getters permettant de retourner les salles. **/
     public Salle getSalle(int id) {
         for (Salle s : salles) {
             if (s.getNumeroSalle() == id)
