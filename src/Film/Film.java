@@ -35,7 +35,7 @@ public class Film {
         descriptif=_descriptif;
     }
 
-    /** Getters et Setters pour retourner les valeurs ou les modifier */
+    /** Getters et setters permettant de retourner les valeurs ou les modifier */
     
     public String getRealisateur() {
         return realisateur;
