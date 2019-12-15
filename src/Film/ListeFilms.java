@@ -7,14 +7,16 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * Classe permettant d'interagire avec la table Film de la base de donnee
+ * Classe ListFilms
+ * Classe permettant d'interagir avec la table Film de la base de données.
  */
 public class ListeFilms {
     Queue<Film> films;
 
     /**
+     * Constructeur ListeFilms
      * Constructeur de la classe permettant de charger tous les films de la table Film
-     * dans une structure de donnee type FIFO (File)
+     * dans une structure de données de type FIFO (File).
      */
     public ListeFilms() {
         try {
@@ -40,8 +42,9 @@ public class ListeFilms {
     }
 
     /**
-     * Ajout le film f dans la base de donnee et dans la file
-     * @param f : Film Ã  ajouter
+     * Méthode Ajout
+     * Ajoute le film f dans la base de données et dans la file.
+     * @param f : Film à ajouter.
      */
     public boolean Ajout(Film f) {
         try {
@@ -76,9 +79,10 @@ public class ListeFilms {
     }
 
     /**
-     * Modifier les information d'un film indentifier par sont titre
-     * @param f La nouvelle version des informations du film
-     * @param id_film id du film a modifier
+     * Méthode Modifier
+     * Modifie les informations d'un film identifié par son titre.
+     * @param f La nouvelle version des informations du film.
+     * @param id_film Identifiant du film à modifier.
      */
     public boolean Modifier(Film f, int id_film) {
         try {
@@ -96,15 +100,16 @@ public class ListeFilms {
                 films.add(f);
                 return true;
             }
-        }catch(Exception e) {
+        } catch(Exception e) {
             System.out.println(e.getMessage());
         }
         return false;
     }
 
     /**
-     * Supprimer un film de la base de donnee et de la file
-     * @param titre : Film a supprimer
+     * Méthode Suppression
+     * Supprime un film de la base de données et de la file
+     * @param titre Film à supprimer.
      */
     public boolean Suppression(String titre) {
         try {
@@ -114,18 +119,18 @@ public class ListeFilms {
             if(BDConnector.st.executeUpdate(query) == 1) {
                 films.remove(getfilm(titre));
                 return true;
-        	}
-            
-        }catch(Exception e) {
+            }
+        } catch(Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
     /**
-     * Chercher un film dans la base de donne en ayant sont titre
-     * @param titre titre du film
-     * @return : le film ci trouve
+     * Méthode getfilm
+     * Cherche un film dans la base de données en ayant son titre.
+     * @param titre Titre du film.
+     * @return Le film trouvé.
      */
     public Film getfilm(String titre) {
         for(Film f : films){
@@ -136,9 +141,10 @@ public class ListeFilms {
     }
 
     /**
-     * Chercher un film dans la base de donnï¿½es en ayant sont Id
-     * @param id du film
-     * @return : le film ci trouve
+     * Méthode getfilmById
+     * Cherche un film dans la base de données en ayant son identifiant
+     * @param id Identifiant du film.
+     * @return Le film trouvé.
      */
     public Film getfilmById(int id) {
         for(Film f : films){
@@ -149,7 +155,8 @@ public class ListeFilms {
     }
 
     /**
-     * Renvoie une file de film ayant la meme categorie
+     * Méthode getFilmByCategorie
+     * Renvoie une file de films ayant la même catégorie.
      * @param categorie
      */
     public boolean getFilmByCategorie(String categorie) {
@@ -177,7 +184,11 @@ public class ListeFilms {
         return false;
     }
 
-    /** Getter **/
+    /**
+     * Méthode getFilms
+     * Retourne les films de la liste.
+     * @return 
+     */
     public Queue<Film> getFilms() {
         return films;
     }
