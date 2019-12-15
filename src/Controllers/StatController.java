@@ -19,7 +19,8 @@ public class StatController implements Initializable {
     public VBox listeF;
 
     /**
-     * Chargement des statistiques pour tous les films etant deja projetes
+     * Méthode initialize
+     * Chargement des statistiques pour tous les films étant déjà projetés.
      * @param url
      * @param resourceBundle
      */
@@ -67,7 +68,8 @@ public class StatController implements Initializable {
     }
 
     /**
-     * Retour  vers l'interface FilmsM
+     * Méthode back
+     * Retour vers l'interface FilmsM.
      * @param e
      */
     public void back(ActionEvent e){
