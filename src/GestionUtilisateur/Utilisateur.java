@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 /**
- * Classe representant un utlisateur du logiciel
+ * Classe Utilisateur
+ * Classe représentant un utlisateur du logiciel.
  */
 public class Utilisateur {
 
@@ -25,10 +26,11 @@ public class Utilisateur {
 	private String type;
 
     /**
-     * Creation d'un nouvelle utilisatuer
-     * @param nom : Nom de l'uilisatuer
-     * @param prenom : Prenom de l'utilisateur
-     * @param login : Identifant
+     * Constructeur Utilisateur
+     * Création d'un nouvel utilisateur.
+     * @param nom Nom de l'utilisateur.
+     * @param prenom Prénom de l'utilisateur.
+     * @param login Identifant de l'utilisateur.
      */
     public Utilisateur(String nom, String prenom, String login, String type) {
         this.nom = nom;
@@ -39,11 +41,12 @@ public class Utilisateur {
     }
 
     /**
-     * Creation d'un nouvelle utilisatuer
-     * @param nom : Nom de l'uilisatuer
-     * @param prenom : Prenom de l'utilisateur
-     * @param login : Identifant
-     * @param mot_de_passe : Mot de passe
+     * Constructeur Utilisateur
+     * Création d'un nouvel utilisateur avec mot de passe.
+     * @param nom Nom de l'utilisateur.
+     * @param prenom Prénom de l'utilisateur.
+     * @param login Identifant de l'utilisateur.
+     * @param mot_de_passe Mot de passe de l'utilisateur.
      */
 	public Utilisateur(String nom, String prenom, String login, String mot_de_passe, String type) {
 		this.nom = nom;
@@ -77,7 +80,8 @@ public class Utilisateur {
 
 
     /**
-     * Inscription de l'utilisatuer dans la base de donnee
+     * Méthode inscrit
+     * Inscription de l'utilisateur dans la base de données.
      */
     public void inscrit() {
         try {
@@ -91,10 +95,11 @@ public class Utilisateur {
     }
 
     /**
-     * Teste de la connection de l'utilisateur avec les identifiants donnes
-     * @param _login : Identifiant
-     * @param _mdp : Mot de passe
-     * @return L'utilisateur connecte
+     * Méthode seConnect
+     * Teste la connexion de l'utilisateur avec les identifiants donnés.
+     * @param _login Identifiant de l'utilisateur.
+     * @param _mdp Mot de passe de l'utilisateur.
+     * @return L'utilisateur connecté.
      */
     public static Utilisateur seConnect(String _login, String _mdp) {
         try {
@@ -138,7 +143,9 @@ public class Utilisateur {
     }
 
     /**
-     * @return La liste des utilisateur enregistere
+     * Méthode getUsers
+     * Retourne les utilisateurs enregistrés.
+     * @return La liste des utilisateur enregistrés.
      */
 	public ArrayList<Utilisateur> getUsers(){
 	    if(type.equals("Admin")){
@@ -162,7 +169,7 @@ public class Utilisateur {
 	    return null;
     }
 
-    /** Getters et setters **/
+    /** Getters et setters permettant de retourner les valeurs ou les modifier. **/
     public String getNom() {
         return nom;
     }
