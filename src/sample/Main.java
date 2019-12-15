@@ -18,12 +18,17 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
+/**
+ * Classe Main
+ * Classe principale du logiciel.
+ */
 public class Main extends Application {
 
     /**
-     * Change de scene
+     * Méthode changeWindow
+     * Change de fenêtre.
      * @param e
-     * @param path chemein de la nouvelle scene
+     * @param path Chemin de la nouvelle fenêtre.
      */
     public static void changeWindow(ActionEvent e, String path){
         Parent root = null;
@@ -40,7 +45,8 @@ public class Main extends Application {
     }
 
     /**
-     * Lancement de javaFx
+     * Méthode start
+     * Lancement de javaFx.
      * @param primaryStage
      * @throws Exception
      */
@@ -55,7 +61,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * Méthode main
+     * Méthode principale.
+     * @param args 
+     */
     public static void main(String[] args) {
         Timeline updateSeances = new Timeline(new KeyFrame(Duration.hours(1), new EventHandler() {
             @Override
