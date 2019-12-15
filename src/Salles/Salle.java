@@ -1,18 +1,22 @@
 package Salles;
 
 public class Salle {
+    /** Le numéro de la salle créée. */
     private int numeroSalle;
+    /** La capacité de la salle créée. */
     private int capacite;
+    /** Le nombre de personnes dans la salle créée. */
     private int nombreDepersonnes = 0;
+    /** La disponibilité de la salle créée. */
     private boolean estDispo;
 
     /** 
      * Constructeur Salle 
-     * Permet de crï¿½er des nouveaux ï¿½lï¿½ments de type Salle.
-     * @param numeroSalle_ Le numï¿½ro de la salle crï¿½ï¿½e.
-     * @param capacite_ La capacitï¿½ de la salle crï¿½ï¿½e.
-     * @param nombreDepersonnes_ Le nombre de personnes de la salle crï¿½ï¿½e.
-     * @param estDispo_ La disponibilitï¿½ de la salle crï¿½ï¿½e.
+     * Permet de créer des nouveaux éléments de type Salle.
+     * @param numeroSalle_ Le numéro de la salle créée.
+     * @param capacite_ La capacité de la salle créée.
+     * @param nombreDepersonnes_ Le nombre de personnes dans la salle créée.
+     * @param estDispo_ La disponibilité de la salle créée.
      * @since 1.0.
      */
     
@@ -25,8 +29,8 @@ public class Salle {
     
     /**
      * Constructeur alternatif Salle
-     * Permet de crï¿½er des ï¿½lï¿½ments de type Salle vide.
-     * @param capacite_ La capacitï¿½ de la salle crï¿½ï¿½e.
+     * Permet de créer des éléments de type Salle vides.
+     * @param capacite_ La capacité de la salle créée.
      * @since 2.0.
      */
     
@@ -37,9 +41,9 @@ public class Salle {
     }
     
     /**
-     * Mï¿½thode getNumeroSalle
-     * Permet de retourner le numï¿½ro de la salle.
-     * @return Le numï¿½ro de la salle.
+     * Méthode getNumeroSalle
+     * Permet de retourner le numéro de la salle.
+     * @return Le numéro de la salle.
      * @since 1.0.
      */
 
@@ -48,9 +52,9 @@ public class Salle {
     }
     
     /**
-     * Mï¿½thode setNumeroSalle
-     * Permet de modifier le numï¿½ro de la salle.
-     * @param numero Le numï¿½ro de la salle voulu.
+     * Méthode setNumeroSalle
+     * Permet de modifier le numéro de la salle.
+     * @param numero Le numéro de la salle voulu.
      * @since 1.0.
      */
 
@@ -59,9 +63,9 @@ public class Salle {
     }
     
     /**
-     * Mï¿½thode getCapacite
-     * Permet de retourner la capacitï¿½ de la salle.
-     * @return La capacitï¿½ de la salle.
+     * Méthode getCapacite
+     * Permet de retourner la capacité de la salle.
+     * @return La capacité de la salle.
      * @since 1.0.
      */
 
@@ -70,9 +74,9 @@ public class Salle {
     }
     
     /**
-     * Mï¿½thode setCapacite
-     * Permet de modifier la capacitï¿½ de la salle.
-     * @param capacite_ La capacitï¿½ de la salle voulue.
+     * Méthode setCapacite
+     * Permet de modifier la capacité de la salle.
+     * @param capacite_ La capacité de la salle voulue.
      * @since 1.0.
      */
 
@@ -81,9 +85,9 @@ public class Salle {
     }
     
     /**
-     * Mï¿½thode isEstDispo
-     * Permet de retourner la disponibilitï¿½ de la salle.
-     * @return La disponibilitï¿½ de la salle.
+     * Méthode isEstDispo
+     * Permet de retourner la disponibilité de la salle.
+     * @return La disponibilité de la salle.
      * @since 1.0.
      */
 
@@ -92,9 +96,9 @@ public class Salle {
     }
     
     /**
-     * Mï¿½thode setEstDispo
-     * Permet de modifier la disponibilitï¿½ de la salle.
-     * @param dispo La disponibilitï¿½ de la salle voulue.
+     * Méthode setEstDispo
+     * Permet de modifier la disponibilité de la salle.
+     * @param dispo La disponibilité de la salle voulue.
      * @since 1.0.
      */
 
@@ -103,9 +107,9 @@ public class Salle {
     }
     
     /**
-     * Mï¿½thode getNombreDepersonnes
-     * Permet de retourner le nombre de personnes de la salle.
-     * @return Le nombre de personnes de la salle.
+     * Méthode getNombreDepersonnes
+     * Permet de retourner le nombre de personnes dans la salle.
+     * @return Le nombre de personnes dans la salle.
      * @since 1.0.
      */
 
@@ -114,9 +118,9 @@ public class Salle {
     }
 
     /**
-     * Mï¿½thode setNumeroSalle
-     * Permet de modifier le nombre de personnes de la salle.
-     * @param nombreDepersonnes Le nombre de personnes de la salle voulu.
+     * Méthode setNumeroSalle
+     * Permet de modifier le nombre de personnes dans la salle.
+     * @param nombreDepersonnes Le nombre de personnes dans la salle voulu.
      * @since 1.0.
      */
     
