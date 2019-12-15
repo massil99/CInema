@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller de l'interface graphique AddToPlanning
- * qui permet d'ajouter des seances ai planning et/ou des films a la base de donnee
+ * qui permet d'ajouter des s"ances ai planning et/ou des films à la base de données
  */
 public class AddToPlanningController implements Initializable {
     public CheckBox knownFilm;
@@ -47,8 +47,9 @@ public class AddToPlanningController implements Initializable {
     public GridPane infoS;
 
     /**
-     * Initialisation de l'interface en chargeant les ComboBox des differentes dates,
-     * le button 'back' est desactive si l'utilisateur n'est admin
+     * Méthode initialize
+     * Initialisation de l'interface en chargeant les ComboBox des différentes dates,
+     * le bouton 'back' est désactivé si l'utilisateur n'est pas admin.
      * @param url
      * @param resourceBundle
      */
@@ -84,8 +85,9 @@ public class AddToPlanningController implements Initializable {
     }
 
     /**
-     * Active ou desactive la partie permettant d'ajouter des films
-     * en fonction du choix de l'utilisateur
+     * Méthode showFilm
+     * Active ou désactive la partie permettant d'ajouter des films
+     * en fonction du choix de l'utilisateur.
      */
     public void showFilm(){
         if(knownFilm.isSelected()){
@@ -96,7 +98,8 @@ public class AddToPlanningController implements Initializable {
     }
 
     /**
-     * Retoure en arriere, vers l'interface FilmsM
+     * Méthode back
+     * Retour en arrière, vers l'interface FilmsM.
      * @param e
      */
     public void back(ActionEvent e){
@@ -104,8 +107,9 @@ public class AddToPlanningController implements Initializable {
     }
 
     /**
+     * Méthode addSeance
      * S'active lors de la validation des information de la seance et/ou le films a ajouter,
-     * qui seront ensiute stocker dans la base de donnee
+     * qui seront ensuite stockés dans la base de données.
      * @param e
      */
     public void addSeance(ActionEvent e){
