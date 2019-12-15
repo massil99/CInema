@@ -15,11 +15,12 @@ import java.util.Iterator;
 import java.util.ListIterator;
 
 public class ListeSeances {
-    /** Liste des seance **/
+    /** Liste des séances. **/
     ArrayList<Seance> seances;
 
     /**
-     * Chargement des seances en locale
+     * Constructeur ListeSeances
+     * Chargement des séances en local.
      */
     public ListeSeances(){
         try {
@@ -44,13 +45,14 @@ public class ListeSeances {
 
 
     /**
-     * methode d'ajout d'une seance dans la base de donnee
-     * @param date_s Date de la sceance
-     * @param _f Film projetÃ©
-     * @param _s La salle qui sera occuppÃ©e
-     * @param _heureDebut Heure de debut
-     * @param _heureFin Heure de fin
-     * @param nbRes_ Nombre de reservations
+     * Méthode Ajouter
+     * Ajoute une seance dans la base de données.
+     * @param date_s Date de la séance.
+     * @param _f Film projeté.
+     * @param _s La salle qui sera occuppée.
+     * @param _heureDebut Heure de début.
+     * @param _heureFin Heure de fin.
+     * @param nbRes_ Nombre de réservations.
      */
     public void Ajouter(String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin, int nbRes_) {
         try {
@@ -90,10 +92,11 @@ public class ListeSeances {
     }
 
     /**
-     * methode de modification d'une seance dans la base de donnee
-     *  @param c l'objet seance a travers lequel la seance est ajouter
-     *  @param idSeance l'identifiant de la seance qui va Ãªtre modifier
-     * */
+     * Méthode modifier
+     * Modifie une séance dans la base de données.
+     * @param c L'objet séance à travers lequel la séance est ajoutée.
+     * @param idSeance L'identifiant de la séance qui va être modifiée.
+     */
     public void modifier(Seance c, int idSeance) {
         try {
             BDConnector.connect();
@@ -120,9 +123,10 @@ public class ListeSeances {
     }
 
     /**
-     * methode de suppression d'une seance dans la base de donnee
-     *  @param idSeance l'identifiant de la seance qui va Ãªtre supprimer
-     * */
+     * Méthode Supprimer
+     * Supprime une séance de la base de données.
+     * @param idSeance L'identifiant de la séance qui va être supprimée.
+     */
     public void Supprimer(int idSeance){
         try {
             BDConnector.connect();
@@ -146,7 +150,8 @@ public class ListeSeances {
     }
 
     /**
-     * Suppression de seance ayant de date depassee
+     * Méthode updateSeance
+     * Supprime les séances ayant une date depassée.
      * @param s
      */
     public static void updateSeance(ArrayList<Seance> s){
@@ -171,7 +176,7 @@ public class ListeSeances {
         s.removeAll(toRemove);
     }
 
-    /** Gettres et Settree */
+    /** Getters et Setters permettant de retourner les valeurs ou les modifier. */
     public ArrayList<Seance> getSeanceByFilm(String titre){
         ArrayList<Seance> s = new ArrayList<>();
         for(Seance ss : seances) {
