@@ -24,8 +24,9 @@ public class UsersBoardController implements Initializable {
     ArrayList<Utilisateur> users = LoginScreenController.u.getUsers();
 
     /**
-     * Chargement de la liste des compte enregistre et les les boutton de suppression
-     * pour les compte non-admin
+     * Méthode initialize
+     * Chargement de la liste des comptes enregistrés et les boutons de suppression
+     * pour les comptes non-admins.
      * @param url
      * @param resourceBundle
      */
@@ -111,7 +112,8 @@ public class UsersBoardController implements Initializable {
     }
 
     /**
-     * Retour vers l'interface FilmsM
+     * Méthode back
+     * Retour vers l'interface FilmsM.
      * @param e
      */
     public void back (ActionEvent e){
