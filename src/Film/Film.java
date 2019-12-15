@@ -1,14 +1,31 @@
 package Film;
 
 public class Film {
+    /** Titre du film. */
     private String titre;
+    /** Nom du réalisateur du film. */
     private String realisateur;
+    /** Date de sortie du film. */
     private String date_sortie;
+    /** Nom de la catégorie du film. */
     private String categorie;
+    /** Date de publication du film. */
     private String Date_publi;
+    /** Description du film. */
     private String descriptif;
+    /** Identifiant du film. */
     private int id_film;
 
+    /**
+     * Constructeur Film
+     * Permet de créer un nouvel élément Film.
+     * @param _titre Titre du film.
+     * @param _realisateur Nom du réalisateur du film.
+     * @param _date_sortie Date de sortie du film.
+     * @param _categorie Nom de la catégorie du film.
+     * @param _Date_publi Date de publication du film.
+     * @param _descriptif Description du film.
+     */
     public Film(String _titre,String _realisateur, String _date_sortie,String _categorie, String _Date_publi, String _descriptif) {
         titre=_titre;
         realisateur=_realisateur;
@@ -18,7 +35,8 @@ public class Film {
         descriptif=_descriptif;
     }
 
-    /** Getter et Setter **/
+    /** Getters et Setters pour retourner les valeurs ou les modifier */
+    
     public String getRealisateur() {
         return realisateur;
     }
