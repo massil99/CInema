@@ -25,7 +25,8 @@ import java.util.Queue;
 import java.util.ResourceBundle;
 
 /**
- * Controller de l'interface FilmsM
+ * Classe Controller
+ * Controller de l'interface FilmsM.
  */
 public class Controller implements Initializable {
     public StackPane film1;
@@ -55,8 +56,9 @@ public class Controller implements Initializable {
     public static ListeSalles lsl = new ListeSalles();
 
     /**
+     * Méthode initialize
      * Initialisation de l'interface FilmsM en chargeant les affiches des films, leur titre et leur synopsis,
-     * ainsi que les different button permettant a l'admin d'acceder ses fonctionnalite
+     * ainsi que les différents boutons permettant à l'admin d'accéder ses fonctionnalités.
      * @param url
      * @param rb
      */
@@ -156,7 +158,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Affichage des statistiques
+     * Méthode showStat
+     * Affichage des statistiques.
      * @param e
      */
     public void showStat(ActionEvent e){
@@ -164,7 +167,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Affichage de l'interface d'ajout de seance
+     * Méthode addToPlannig
+     * Affichage de l'interface d'ajout de séance.
      * @param e
      */
     public void addToPlannig(ActionEvent e){
@@ -172,7 +176,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Affiche les comptes, enregistre, du logiciel
+     * Méthode showUsers
+     * Affiche les comptes enregistrés dans logiciel.
      * @param e
      */
     public void showUsers(ActionEvent e){
@@ -180,7 +185,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Dectonnection du logiciel
+     * Méthode logOut
+     * Déconnexion du logiciel.
      * @param e
      */
     public void logOut(ActionEvent e){
@@ -188,8 +194,9 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Defilement Ã  droite et mise Ã  jour des conteneur d'image de film,
-     * leur titre et leur description
+     * Méthode nextFilm
+     * Défilement à  droite et mise à  jour des conteneurs d'image des films,
+     * de leur titre et de leur description.
      */
     public void nextFilm(){
         Film f = qf.poll();
@@ -224,8 +231,9 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Defilement Ã  gauche mise Ã  jour des conteneur d'image de film
-     * leur titre et leur description
+     * Méthode prevFilm
+     * Defilement à  gauche et mise à  jour des conteneurs d'image des films,
+     * de leur titre et de leur description.
      */
     public void prevFilm(){
         Film f = qf.poll();
@@ -263,7 +271,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Simulation de l'effet hover
+     * Méthode showDesc1
+     * Simulation de l'effet hover.
      */
     public void showDesc1(){
         Film f = lf.getfilm(title1.getText());
@@ -271,14 +280,16 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Simulation de l'effet hover
+     * Méthode hideDesc1
+     * Simulation de l'effet hover.
      */
     public void hideDesc1(){
         synopsis1.setText("");
     }
 
     /**
-     * Simulation de l'effet hover
+     * Méthode showDesc2
+     * Simulation de l'effet hover.
      */
     public void showDesc2(){
         Film f = lf.getfilm(title2.getText());
@@ -286,14 +297,16 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Simulation de l'effet hover
+     * Méthode hideDesc2
+     * Simulation de l'effet hover.
      */
     public void hideDesc2(){
         synopsis2.setText("");
     }
 
     /**
-     * Simulation de l'effet hover
+     * Méthode showDesc3
+     * Simulation de l'effet hover.
      */
     public void showDesc3(){
         Film f = lf.getfilm(title3.getText());
@@ -301,25 +314,33 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Simulation de l'effet hover
+     * Méthode hideDesc3
+     * Simulation de l'effet hover.
      */
     public void hideDesc3(){
         synopsis3.setText("");
     }
 
     /**
-     * Simulation de l'effet hover
+     * Méthode showDesc4
+     * Simulation de l'effet hover.
      */
     public void showDesc4(){
         Film f = lf.getfilm(title4.getText());
         synopsis4.setText(f.getDescriptif());
     }
+    
+    /**
+     * Méthode hideDesc4
+     * Simulation de l'effet hover.
+     */
     public void hideDesc4(){
         synopsis4.setText("");
     }
 
     /**
-     * Trie de l'affichage des seance par date
+     * Méthode getSeances
+     * Tri de l'affichage des séances par date.
      */
     public void getSeances(){
         days.getItems().removeAll(days.getItems());
@@ -330,7 +351,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Gention du trie de l'afichage des seances
+     * Méthode sort
+     * Gestion du tri de l'affichage des séances.
      */
     public void sort(){
         String selectedDay = days.getSelectionModel().getSelectedItem();
@@ -358,8 +380,9 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Creation de la liste, affichable, des seances en ayant un liste de seance
-     * @param seances La liste de seance a afficher
+     * Méthode createSeances
+     * Création de la liste affichable des séances en ayant un liste des séances.
+     * @param seances La liste des séances à afficher.
      */
     private void createSeances(ArrayList<Seance> seances){
         tabs.getSelectionModel().select(1);
