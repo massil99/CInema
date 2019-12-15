@@ -10,18 +10,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Boite de confirmation d'action
+ * Classe ConfermBox
+ * Boite de confirmation d'action.
  */
 public class ConfermBox {
 
-    /** Reponse a la question*/
+    /** Réponse à la requête. */
     private static boolean answer;
 
     /**
-     * Affichage de la boite de confiramtion
-     * @param title titre de ka fenetre
-     * @param message message a afficher
-     * @return l'actiokn choisie oui/non
+     * Méthode display
+     * Affichage de la boite de confirmation.
+     * @param title Titre de la fenêtre.
+     * @param message Message à afficher.
+     * @return L'action choisie (oui ou non).
      */
     public static boolean display(String title, String message){
         Stage window = new Stage();
