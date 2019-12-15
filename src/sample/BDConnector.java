@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Classe BDConnector
+ * Classe de connexion à la base de données.
+ */
 public class BDConnector {
     public static Connection cnx;
     public static Statement st;
