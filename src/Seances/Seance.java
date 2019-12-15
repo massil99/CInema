@@ -14,12 +14,13 @@ public class Seance {
     private String heureDebut;
     private String heureFin;
 
-    /** constructeur pour crÃ©er une seance
-     *
-     * @param _f  le film Ã  ajouter
-     * @param _s  la salle de diffusion
-     * @param _heureDebut heure de debut du film
-     * @param _heureFin   heure de fin du film
+    /**
+     * Constructeur Seance
+     * Crée un nouvel élément de type Seance.
+     * @param _f Le film à ajouter.
+     * @param _s La salle de diffusion.
+     * @param _heureDebut Heure de début du film.
+     * @param _heureFin Heure de fin du film.
      */
     public Seance(int id_seance_, String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin, int nbRes_) {
         nbRes = nbRes_;
@@ -33,9 +34,10 @@ public class Seance {
 
 
     /**
-     * Reservation de la seance avec le tarif passe en argument
-     * @param t le tarif de reservation
-     * @return 'true' Si la reservation s'est bien passe 'false' sinon
+     * Méthode reserver
+     * Réservation de la séance avec le tarif passé en argument.
+     * @param t Le tarif de réservation.
+     * @return 'true' si la réservation s'est bien passée, 'false' sinon.
      */
     public boolean reserver(Tarif t) {
         if(this.nbRes<this.s.getCapacite()){
@@ -68,7 +70,7 @@ public class Seance {
         return false ;
     }
 
-    /** getters et settes */
+    /** Getters et Setters permettant de retourner les valeurs ou les modifier */
     public int getId_seance() {
         return id_seance;
     }
