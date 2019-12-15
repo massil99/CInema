@@ -15,7 +15,7 @@ import sample.Main;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ReservationController implements Initializable{
+public class ReservationController implements Initializable {
 
     public Label titre;
     public Label start;
@@ -27,15 +27,17 @@ public class ReservationController implements Initializable{
     private static  Seance s;
 
     /**
-     * Chargement des information de la seance dans laquelle se fera la reservation
-     * @param s La seance a reserver
+     * Méthode loadInfo
+     * Chargement des informations de la séance dans laquelle se fera la réservation.
+     * @param s La séance à réserver.
      */
     public static void loadInfo(Seance s){
         ReservationController.s = s;
     }
 
     /**
-     * Chargemnt de la liste de tarif et la liste de nombre de personne qui reserve
+     * Méthode initialize
+     * Chargement de la liste des tarifs et la liste du nombre de personnes qui réservent.
      * @param url
      * @param rb
      */
@@ -57,7 +59,8 @@ public class ReservationController implements Initializable{
     }
 
     /**
-     * Annulation de la reservation
+     * Méthode notReserving
+     * Annulation de la réservation.
      * @param e
      */
     public void notReserving(ActionEvent e){
@@ -65,7 +68,8 @@ public class ReservationController implements Initializable{
     }
 
     /**
-     * Validation de la reservation
+     * Méthode reserve
+     * Validation de la réservation.
      * @param e
      */
     public void reserve(ActionEvent e){
