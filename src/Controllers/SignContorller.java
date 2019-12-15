@@ -29,9 +29,10 @@ public class SignContorller {
     public ComboBox<String> type;
 
     /**
-     * Test et enregistrement des information saisies par le nouvel utilisatuer
-     * et affichage du login screen
-     * @param e : evenement ayant eu lieu lorsque le boutton 'Sign in' est appuyÃ©
+     * Méthode newUser
+     * Test et enregistrement des informations saisies par le nouvel utilisateur
+     * et affichage du écran de login.
+     * @param e : Événement ayant lieu lorsque le bouton 'Sign in' est cliqué.
      */
     public void newUser(ActionEvent e) {
         String username = usernameInputSignup.getText();
@@ -59,8 +60,9 @@ public class SignContorller {
     }
 
     /**
-     *  Retour vers le login screen avec le boutton 'back'
-     * @param e : evenement ayant eu lieu lorsque le boutton 'Back' est appuyÃ©
+     * Méthode backHome
+     * Retour vers le écran de login avec le bouton 'back'.
+     * @param e : Événement ayant lieu lorsque le bouton 'back' est cliqué.
      */
     public void backHome(ActionEvent e)  {
         Main.changeWindow(e, "../xml/LoginScreen.fxml");
