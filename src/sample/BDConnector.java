@@ -10,7 +10,8 @@ public class BDConnector {
     public static Statement st;
 
     /**
-     * methode de connexion a la base de donnee
+     * Méthode connect
+     * Permet de se connecter à la base de données.
      * */
     public static void connect() throws SQLException, ClassNotFoundException{
         Class.forName("com.mysql.jdbc.Driver");
