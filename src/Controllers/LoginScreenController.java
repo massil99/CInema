@@ -24,9 +24,10 @@ public class LoginScreenController {
     public static Utilisateur u;
 
     /**
-     * Authentification de l'utilisateur et changement de secne
-     * @param e evenement ayant eu lieu lorsque le boutton 'log in' est appuyÃ©
-     * @throws IOException Si une erreur survient lors du charmgement de la scene
+     * Méthode loginButton
+     * Authentification de l'utilisateur et changement de sens.
+     * @param e Événement ayant lieu lorsque le bouton 'log in' est cliqué.
+     * @throws IOException Si une erreur survient lors du chargement de la scène.
      */
     public void loginButton(ActionEvent e){
         u = Utilisateur.seConnect(usernameInput.getText(), passInput.getText());
@@ -45,8 +46,9 @@ public class LoginScreenController {
     }
 
     /**
-     * Affichage de la fenetre d'inscription du nouvel utilisateur
-     * @param e  evenement ayant eu lieu lorsque le boutton 'New user' est appuyÃ©
+     * Méthode redirectToSignIn
+     * Affichage de la fenêtre d'inscription du nouvel utilisateur.
+     * @param e  Événement ayant lieu lorsque le bouton 'New user' est cliqué.
      */
     public void redirectToSignIn(ActionEvent e) {
         Main.changeWindow(e, "../xml/Sign.fxml");
