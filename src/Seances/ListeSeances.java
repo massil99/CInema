@@ -15,17 +15,18 @@ import java.util.Iterator;
 import java.util.ListIterator;
 
 public class ListeSeances {
-    /** Liste des séances. **/
+    /** Liste des sï¿½ances. **/
     ArrayList<Seance> seances;
 
     /**
      * Constructeur ListeSeances
-     * Chargement des séances en local.
+     * Chargement des sï¿½ances en local.
      */
     public ListeSeances(){
         try {
-            BDConnector.connect();
-            ResultSet res = BDConnector.st.executeQuery("SELECT * FROM seances");
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT * FROM seances");
 
             seances = new ArrayList<>();
             ListeFilms lf = new ListeFilms();
@@ -37,7 +38,7 @@ public class ListeSeances {
                 seances.add(new Seance(res.getInt("id_seance"), res.getString("date"), f, s, res.getString("heure_debut"), res.getString("heure_fin"), res.getInt("nb_reservation")));
             }
             res.close();
-            BDConnector.st.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,22 +46,22 @@ public class ListeSeances {
 
 
     /**
-     * Méthode Ajouter
-     * Ajoute une seance dans la base de données.
-     * @param date_s Date de la séance.
-     * @param _f Film projeté.
-     * @param _s La salle qui sera occuppée.
-     * @param _heureDebut Heure de début.
+     * Mï¿½thode Ajouter
+     * Ajoute une seance dans la base de donnï¿½es.
+     * @param date_s Date de la sï¿½ance.
+     * @param _f Film projetï¿½.
+     * @param _s La salle qui sera occuppï¿½e.
+     * @param _heureDebut Heure de dï¿½but.
      * @param _heureFin Heure de fin.
-     * @param nbRes_ Nombre de réservations.
+     * @param nbRes_ Nombre de rï¿½servations.
      */
     public void Ajouter(String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin, int nbRes_) {
         try {
-            BDConnector.connect();
-
             String query = "SELECT id_seance FROM seances WHERE date='"+date_s+"' AND id_salle= "+ _s.getNumeroSalle() +" AND heure_debut between '"+ _heureDebut+"' AND '"+_heureFin+"'";
 
-            ResultSet res = BDConnector.st.executeQuery(query);
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery(query);
             if(!res.next()) {
                 query = "INSERT INTO seances(date,heure_debut,heure_fin, id_film, id_salle, nb_reservation) VALUES ('" + date_s +
                         "','" + _heureDebut +
@@ -69,14 +70,14 @@ public class ListeSeances {
                         "','" + _s.getNumeroSalle() +
                         "',0)";
 
-                if (BDConnector.st.executeUpdate(query) == 1){
+                if (statement.executeUpdate(query) == 1){
                     query = "SELECT * From seances WHERE date='" + date_s +
                             "' AND heure_debut='" + _heureDebut +
                             "' AND heure_fin='" + _heureFin +
                             "' AND id_film=" + _f.getId_film()+
                             "  AND id_salle=" + _s.getNumeroSalle();
 
-                    res =  BDConnector.st.executeQuery(query);
+                    res =  statement.executeQuery(query);
                     if(res.next())
                         seances.add(new Seance(res.getInt("Id_seance"),
                                 res.getString("date"),
@@ -85,21 +86,22 @@ public class ListeSeances {
                                 _heureDebut, _heureFin, 0));
                 }
             }
-            BDConnector.st.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Méthode modifier
-     * Modifie une séance dans la base de données.
-     * @param c L'objet séance à travers lequel la séance est ajoutée.
-     * @param idSeance L'identifiant de la séance qui va être modifiée.
+     * Mï¿½thode modifier
+     * Modifie une sï¿½ance dans la base de donnï¿½es.
+     * @param c L'objet sï¿½ance ï¿½ travers lequel la sï¿½ance est ajoutï¿½e.
+     * @param idSeance L'identifiant de la sï¿½ance qui va ï¿½tre modifiï¿½e.
      */
     public void modifier(Seance c, int idSeance) {
         try {
-            BDConnector.connect();
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
             String query =  "UPDATE seances SET date='"+c.getDate()
                     +"',heure_debut='"+c.getHeureDebut()
                     +"',heure_fin='"+c.getHeureFin()
@@ -108,7 +110,7 @@ public class ListeSeances {
                     +"',nb_reservation="+c.getNbRes()
                     +" WHERE id_seance="+idSeance;
 
-            if(BDConnector.st.executeUpdate(query) == 1) {
+            if(statement.executeUpdate(query) == 1) {
                 for (Seance s : seances)
                     if (s.getId_seance() == idSeance) {
                         seances.remove(s);
@@ -116,23 +118,24 @@ public class ListeSeances {
                     }
                 seances.add(c);
             }
-            BDConnector.st.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Méthode Supprimer
-     * Supprime une séance de la base de données.
-     * @param idSeance L'identifiant de la séance qui va être supprimée.
+     * Mï¿½thode Supprimer
+     * Supprime une sï¿½ance de la base de donnï¿½es.
+     * @param idSeance L'identifiant de la sï¿½ance qui va ï¿½tre supprimï¿½e.
      */
     public void Supprimer(int idSeance){
         try {
-            BDConnector.connect();
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
             String query = "DELETE FROM `seances` WHERE id_seance="+idSeance;
 
-            if(BDConnector.st.executeUpdate(query) == 1) {
+            if(statement.executeUpdate(query) == 1) {
                 Seance se = null;
                 for (Seance s : seances)
                     if (s.getId_seance() == idSeance) {
@@ -143,15 +146,15 @@ public class ListeSeances {
                 seances.remove(se);
             }
 
-            BDConnector.st.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Méthode updateSeance
-     * Supprime les séances ayant une date depassée.
+     * Mï¿½thode updateSeance
+     * Supprime les sï¿½ances ayant une date depassï¿½e.
      * @param s
      */
     public static void updateSeance(ArrayList<Seance> s){
@@ -161,9 +164,10 @@ public class ListeSeances {
         ListIterator<Seance> i = s.listIterator();
         while(i.hasNext()){
             Seance seance = i.next();
-            int y = Integer.parseInt(seance.getDate(), 0, 4, 10);
-            int m = Integer.parseInt(seance.getDate(), 5, 7, 10);
-            int j = Integer.parseInt(seance.getDate(), 8, 10, 10);
+            String[] date = seance.getDate().split("-");
+            int y = Integer.parseInt(date[0]);
+            int m = Integer.parseInt(date[1]);
+            int j = Integer.parseInt(date[2]);
 
             if(y < now.getYear()){
                 toRemove.add(seance);

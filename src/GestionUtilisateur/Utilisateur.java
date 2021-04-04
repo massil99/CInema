@@ -14,7 +14,7 @@ import java.util.Base64;
 
 /**
  * Classe Utilisateur
- * Classe représentant un utlisateur du logiciel.
+ * Classe reprï¿½sentant un utlisateur du logiciel.
  */
 public class Utilisateur {
 
@@ -27,9 +27,9 @@ public class Utilisateur {
 
     /**
      * Constructeur Utilisateur
-     * Création d'un nouvel utilisateur.
+     * Crï¿½ation d'un nouvel utilisateur.
      * @param nom Nom de l'utilisateur.
-     * @param prenom Prénom de l'utilisateur.
+     * @param prenom Prï¿½nom de l'utilisateur.
      * @param login Identifant de l'utilisateur.
      */
     public Utilisateur(String nom, String prenom, String login, String type) {
@@ -42,9 +42,9 @@ public class Utilisateur {
 
     /**
      * Constructeur Utilisateur
-     * Création d'un nouvel utilisateur avec mot de passe.
+     * Crï¿½ation d'un nouvel utilisateur avec mot de passe.
      * @param nom Nom de l'utilisateur.
-     * @param prenom Prénom de l'utilisateur.
+     * @param prenom Prï¿½nom de l'utilisateur.
      * @param login Identifant de l'utilisateur.
      * @param mot_de_passe Mot de passe de l'utilisateur.
      */
@@ -80,32 +80,34 @@ public class Utilisateur {
 
 
     /**
-     * Méthode inscrit
-     * Inscription de l'utilisateur dans la base de données.
+     * Mï¿½thode inscrit
+     * Inscription de l'utilisateur dans la base de donnï¿½es.
      */
     public void inscrit() {
         try {
-            BDConnector.connect();
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
             int t = (type.equals("Admin")) ? 1 : (type.equals("Reseptionniste")) ? 2: 3;
             String sql = "insert into utilisateurs (nom, prenom, login, mot_de_passe, salt, type) values('" + nom + "', '" + prenom + "', '" + login + "', '" + mot_de_passe + "', '" + salt +"', "+ t +")";
-            BDConnector.st.executeUpdate(sql);
+            statement.executeUpdate(sql);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
     /**
-     * Méthode seConnect
-     * Teste la connexion de l'utilisateur avec les identifiants donnés.
+     * Mï¿½thode seConnect
+     * Teste la connexion de l'utilisateur avec les identifiants donnï¿½s.
      * @param _login Identifiant de l'utilisateur.
      * @param _mdp Mot de passe de l'utilisateur.
-     * @return L'utilisateur connecté.
+     * @return L'utilisateur connectï¿½.
      */
     public static Utilisateur seConnect(String _login, String _mdp) {
         try {
-            BDConnector.connect();
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
             String sql = "Select nom, prenom, login, mot_de_passe, salt, user from  utilisateurs, personnel where login = '" + _login + "' AND type=id";
-            ResultSet rs = BDConnector.st.executeQuery(sql);
+            ResultSet rs = statement.executeQuery(sql);
 
             if (rs.next()) {
                 Base64.Decoder dec = Base64.getDecoder();
@@ -143,17 +145,18 @@ public class Utilisateur {
     }
 
     /**
-     * Méthode getUsers
-     * Retourne les utilisateurs enregistrés.
-     * @return La liste des utilisateur enregistrés.
+     * Mï¿½thode getUsers
+     * Retourne les utilisateurs enregistrï¿½s.
+     * @return La liste des utilisateur enregistrï¿½s.
      */
 	public ArrayList<Utilisateur> getUsers(){
 	    if(type.equals("Admin")){
 	        ArrayList<Utilisateur> users = new ArrayList<>();
             try {
-                BDConnector.connect();
+                Connection connection =  BDConnector.connect();
+                Statement statement = connection.createStatement();
                 String query = "SELECT nom, prenom, login, user FROM utilisateurs, personnel where type=id ORDER BY(type) ";
-                ResultSet res = BDConnector.st.executeQuery(query);
+                ResultSet res = statement.executeQuery(query);
                 while(res.next()) {
                     users.add(new Utilisateur(res.getString("nom"),
                             res.getString("prenom"),

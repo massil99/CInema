@@ -10,8 +10,10 @@ import sample.BDConnector;
 import sample.Main;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class StatController implements Initializable {
@@ -19,8 +21,8 @@ public class StatController implements Initializable {
     public VBox listeF;
 
     /**
-     * Méthode initialize
-     * Chargement des statistiques pour tous les films étant déjà projetés.
+     * Mï¿½thode initialize
+     * Chargement des statistiques pour tous les films ï¿½tant dï¿½jï¿½ projetï¿½s.
      * @param url
      * @param resourceBundle
      */
@@ -30,11 +32,12 @@ public class StatController implements Initializable {
             back.setDisable(true);
 
         try {
-            BDConnector.connect();
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
             String q = "SELECT films.id_film, count(id_reservation), sum(tarif) FROM seances, films, reservation WHERE" +
                     " films.id_film=seances.id_film and reservation.id_seance=seances.id_seance group by(films.id_film) ORDER by(count(id_reservation))";
 
-            ResultSet res = BDConnector.st.executeQuery(q);
+            ResultSet res = statement.executeQuery(q);
             while (res.next()){
                 GridPane infos = new GridPane();
                 infos.setHgap(30);
@@ -68,7 +71,7 @@ public class StatController implements Initializable {
     }
 
     /**
-     * Méthode back
+     * Mï¿½thode back
      * Retour vers l'interface FilmsM.
      * @param e
      */
