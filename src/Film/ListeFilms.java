@@ -1,17 +1,23 @@
 package Film;
 
+import Observateur.ObservateursListeFilms;
+import Observateur.Sujet;
 import sample.BDConnector;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
  * Classe ListFilms
  * Classe permettant d'interagir avec la table Film de la base de données.
  */
-public class ListeFilms {
+public class ListeFilms implements Sujet {
+    List<ObservateursListeFilms> observateurs;
     Queue<Film> films;
+    Film filmModifie;
 
     /**
      * Constructeur ListeFilms
@@ -19,6 +25,7 @@ public class ListeFilms {
      * dans une structure de données de type FIFO (File).
      */
     public ListeFilms() {
+        observateurs=new ArrayList<>();
         try {
             BDConnector.connect();
             ResultSet res = BDConnector.st.executeQuery("SELECT * FROM films");
@@ -61,16 +68,16 @@ public class ListeFilms {
                 films.add(f);
 
                 query = "Select id_film From films WHERE"
-	                    + " titre='"+ f.getTitre()+"'";
-	
-	            ResultSet res = BDConnector.st.executeQuery(query);
-	            
-	            res.next();
-	            
-	            if(res != null)
-	            	f.setId_film(res.getInt("id_film"));
-            	res.close();  
-            	return true;
+                        + " titre='"+ f.getTitre()+"'";
+
+                ResultSet res = BDConnector.st.executeQuery(query);
+
+                res.next();
+
+                if(res != null)
+                    f.setId_film(res.getInt("id_film"));
+                res.close();
+                return true;
             }
         }catch( Exception e) {
             e.printStackTrace();
@@ -85,6 +92,7 @@ public class ListeFilms {
      * @param id_film Identifiant du film à modifier.
      */
     public boolean Modifier(Film f, int id_film) {
+
         try {
             BDConnector.connect();
             String query= "UPDATE films SET titre='"+f.getTitre()
@@ -114,10 +122,12 @@ public class ListeFilms {
     public boolean Suppression(String titre) {
         try {
             BDConnector.connect();
+            filmModifie=getfilm(titre);
             String query="DELETE FROM films WHERE titre='"+titre+"'";
 
             if(BDConnector.st.executeUpdate(query) == 1) {
                 films.remove(getfilm(titre));
+                notifier();
                 return true;
             }
         } catch(Exception e) {
@@ -164,19 +174,19 @@ public class ListeFilms {
             BDConnector.connect();
             ResultSet res = BDConnector.st.executeQuery("SELECT * FROM films WHERE categorie='"+categorie+"'");
             if(res != null) {
-            films.removeAll(films);
-            while (res.next()){
-                films.add( new Film(res.getString("titre"),
-                        res.getString("realisateur"),
-                        res.getString("date_sortie"),
-                        res.getString("categorie"),
-                        res.getString("Date_publi"),
-                        res.getString("descriptif")));
-            }
+                films.removeAll(films);
+                while (res.next()){
+                    films.add( new Film(res.getString("titre"),
+                            res.getString("realisateur"),
+                            res.getString("date_sortie"),
+                            res.getString("categorie"),
+                            res.getString("Date_publi"),
+                            res.getString("descriptif")));
+                }
 
-            res.close();
-            BDConnector.st.close();
-            return true;
+                res.close();
+                BDConnector.st.close();
+                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -187,10 +197,18 @@ public class ListeFilms {
     /**
      * Méthode getFilms
      * Retourne les films de la liste.
-     * @return 
+     * @return
      */
     public Queue<Film> getFilms() {
         return films;
+    }
+
+    @Override
+    public void notifier() {
+        for(ObservateursListeFilms ob:observateurs){
+            ob.update(filmModifie);
+        }
+
     }
 }
 

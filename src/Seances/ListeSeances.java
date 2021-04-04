@@ -3,6 +3,7 @@ package Seances;
 import Controllers.Controller;
 import Film.ListeFilms;
 import Film.Film;
+import Observateur.ObservateursListeFilms;
 import Salles.ListeSalles;
 import Salles.Salle;
 import sample.BDConnector;
@@ -14,13 +15,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class ListeSeances {
-    /** Liste des séances. **/
+public class ListeSeances implements ObservateursListeFilms {
+    /** Liste des sï¿½ances. **/
     ArrayList<Seance> seances;
 
     /**
      * Constructeur ListeSeances
-     * Chargement des séances en local.
+     * Chargement des sï¿½ances en local.
      */
     public ListeSeances(){
         try {
@@ -45,14 +46,14 @@ public class ListeSeances {
 
 
     /**
-     * Méthode Ajouter
-     * Ajoute une seance dans la base de données.
-     * @param date_s Date de la séance.
-     * @param _f Film projeté.
-     * @param _s La salle qui sera occuppée.
-     * @param _heureDebut Heure de début.
+     * Mï¿½thode Ajouter
+     * Ajoute une seance dans la base de donnï¿½es.
+     * @param date_s Date de la sï¿½ance.
+     * @param _f Film projetï¿½.
+     * @param _s La salle qui sera occuppï¿½e.
+     * @param _heureDebut Heure de dï¿½but.
      * @param _heureFin Heure de fin.
-     * @param nbRes_ Nombre de réservations.
+     * @param nbRes_ Nombre de rï¿½servations.
      */
     public void Ajouter(String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin, int nbRes_) {
         try {
@@ -92,10 +93,10 @@ public class ListeSeances {
     }
 
     /**
-     * Méthode modifier
-     * Modifie une séance dans la base de données.
-     * @param c L'objet séance à travers lequel la séance est ajoutée.
-     * @param idSeance L'identifiant de la séance qui va être modifiée.
+     * Mï¿½thode modifier
+     * Modifie une sï¿½ance dans la base de donnï¿½es.
+     * @param c L'objet sï¿½ance ï¿½ travers lequel la sï¿½ance est ajoutï¿½e.
+     * @param idSeance L'identifiant de la sï¿½ance qui va ï¿½tre modifiï¿½e.
      */
     public void modifier(Seance c, int idSeance) {
         try {
@@ -123,9 +124,9 @@ public class ListeSeances {
     }
 
     /**
-     * Méthode Supprimer
-     * Supprime une séance de la base de données.
-     * @param idSeance L'identifiant de la séance qui va être supprimée.
+     * Mï¿½thode Supprimer
+     * Supprime une sï¿½ance de la base de donnï¿½es.
+     * @param idSeance L'identifiant de la sï¿½ance qui va ï¿½tre supprimï¿½e.
      */
     public void Supprimer(int idSeance){
         try {
@@ -150,8 +151,8 @@ public class ListeSeances {
     }
 
     /**
-     * Méthode updateSeance
-     * Supprime les séances ayant une date depassée.
+     * Mï¿½thode updateSeance
+     * Supprime les sï¿½ances ayant une date depassï¿½e.
      * @param s
      */
     public static void updateSeance(ArrayList<Seance> s){
@@ -161,9 +162,9 @@ public class ListeSeances {
         ListIterator<Seance> i = s.listIterator();
         while(i.hasNext()){
             Seance seance = i.next();
-            int y = Integer.parseInt(seance.getDate(), 0, 4, 10);
-            int m = Integer.parseInt(seance.getDate(), 5, 7, 10);
-            int j = Integer.parseInt(seance.getDate(), 8, 10, 10);
+            int y = 0;// Integer.parseInt(seance.getDate()0);
+            int m = 0;//Integer.parseInt(seance.getDate(), 5, 7, 10);
+            int j = 0;//Integer.parseInt(seance.getDate(), 8, 10, 10);
 
             if(y < now.getYear()){
                 toRemove.add(seance);
@@ -214,5 +215,29 @@ public class ListeSeances {
                 s.add(ss);
         }
         return s;
+    }
+
+    @Override
+    public void update(Film f) {
+        try {
+            BDConnector.connect();
+            String query = "DELETE FROM `seances` WHERE id_film="+ f.getId_film();
+
+            if(BDConnector.st.executeUpdate(query) == 1) {
+                Seance se = null;
+                for (Seance s : seances)
+                    if (s.getF().equals(f)) {
+                        se = s;
+                        break;
+                    }
+
+                seances.remove(se);
+            }
+
+            BDConnector.st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

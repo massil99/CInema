@@ -1,5 +1,7 @@
 package Salles;
 
+import Film.Film;
+import Observateur.ObservateursListeFilms;
 import sample.BDConnector;
 
 import java.sql.ResultSet;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  * Classe ListeSalles
  * Classe permettant d'interagir avec la table Salles de la base de données.
  */
-public class ListeSalles {
+public class ListeSalles implements ObservateursListeFilms {
     ArrayList<Salle> salles;
 
     /**
@@ -85,6 +87,11 @@ public class ListeSalles {
 
     public ArrayList<Salle> getSalles() {
         return salles;
+    }
+
+    @Override
+    public void update(Film f) {
+
     }
 }
 
