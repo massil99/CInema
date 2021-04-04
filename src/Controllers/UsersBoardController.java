@@ -15,7 +15,9 @@ import sample.ConfermBox;
 import sample.Main;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -24,8 +26,8 @@ public class UsersBoardController implements Initializable {
     ArrayList<Utilisateur> users = LoginScreenController.u.getUsers();
 
     /**
-     * Méthode initialize
-     * Chargement de la liste des comptes enregistrés et les boutons de suppression
+     * Mï¿½thode initialize
+     * Chargement de la liste des comptes enregistrï¿½s et les boutons de suppression
      * pour les comptes non-admins.
      * @param url
      * @param resourceBundle
@@ -70,9 +72,10 @@ public class UsersBoardController implements Initializable {
                 del.setOnAction(e -> {
                     if (ConfermBox.display("Suppression", "Voulez vous supprimmer ce compte : " + u.getLogin())) {
                         try {
-                            BDConnector.connect();
+                            Connection connection =  BDConnector.connect();
+                            Statement statement = connection.createStatement();
                             String q = "DELETE FROM utilisateurs where login='" + u.getLogin() + "'";
-                            if (BDConnector.st.executeUpdate(q) == 1) {
+                            if (statement.executeUpdate(q) == 1) {
                                 int i = 0;
                                 for (i = 0; i < users.size(); i++){
                                     String l = ((Label) ((VBox) ((HBox) ((HBox) listeU.getChildren().get(i)).getChildren().get(0)).getChildren().get(2)).getChildren().get(1)).getText();
@@ -112,7 +115,7 @@ public class UsersBoardController implements Initializable {
     }
 
     /**
-     * Méthode back
+     * Mï¿½thode back
      * Retour vers l'interface FilmsM.
      * @param e
      */

@@ -2,13 +2,15 @@ package Film;
 
 import sample.BDConnector;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.Queue;
 
 /**
  * Classe ListFilms
- * Classe permettant d'interagir avec la table Film de la base de données.
+ * Classe permettant d'interagir avec la table Film de la base de donnï¿½es.
  */
 public class ListeFilms {
     Queue<Film> films;
@@ -16,12 +18,13 @@ public class ListeFilms {
     /**
      * Constructeur ListeFilms
      * Constructeur de la classe permettant de charger tous les films de la table Film
-     * dans une structure de données de type FIFO (File).
+     * dans une structure de donnï¿½es de type FIFO (File).
      */
     public ListeFilms() {
         try {
-            BDConnector.connect();
-            ResultSet res = BDConnector.st.executeQuery("SELECT * FROM films");
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT * FROM films");
 
             films = new LinkedList<>();
             while(res.next()){
@@ -35,20 +38,21 @@ public class ListeFilms {
                 films.add(f);
             }
             res.close();
-            BDConnector.st.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Méthode Ajout
-     * Ajoute le film f dans la base de données et dans la file.
-     * @param f : Film à ajouter.
+     * Mï¿½thode Ajout
+     * Ajoute le film f dans la base de donnï¿½es et dans la file.
+     * @param f : Film ï¿½ ajouter.
      */
     public boolean Ajout(Film f) {
         try {
-            BDConnector.connect();
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
             String query = "INSERT INTO films (titre, realisateur,date_Sortie,categorie,  Date_Publi ,descriptif) VALUES"
                     + " ('"+ f.getTitre() +
                     "','"+f.getRealisateur()+
@@ -57,13 +61,13 @@ public class ListeFilms {
                     "','"+f.getDate_publi()+
                     "','"+f.getDescriptif()+"')";
 
-            if(BDConnector.st.executeUpdate(query) == 1) {
+            if(statement.executeUpdate(query) == 1) {
                 films.add(f);
 
                 query = "Select id_film From films WHERE"
 	                    + " titre='"+ f.getTitre()+"'";
 	
-	            ResultSet res = BDConnector.st.executeQuery(query);
+	            ResultSet res = statement.executeQuery(query);
 	            
 	            res.next();
 	            
@@ -79,14 +83,15 @@ public class ListeFilms {
     }
 
     /**
-     * Méthode Modifier
-     * Modifie les informations d'un film identifié par son titre.
+     * Mï¿½thode Modifier
+     * Modifie les informations d'un film identifiï¿½ par son titre.
      * @param f La nouvelle version des informations du film.
-     * @param id_film Identifiant du film à modifier.
+     * @param id_film Identifiant du film ï¿½ modifier.
      */
     public boolean Modifier(Film f, int id_film) {
         try {
-            BDConnector.connect();
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
             String query= "UPDATE films SET titre='"+f.getTitre()
                     +"',realisateur='"+f.getRealisateur()
                     +"',date_Sortie='"+f.getDate_sortie()
@@ -95,7 +100,7 @@ public class ListeFilms {
                     +"',descriptif='"+f.getDescriptif()
                     +"' WHERE id_film="+id_film;
 
-            if(BDConnector.st.executeUpdate(query) == 1) {
+            if(statement.executeUpdate(query) == 1) {
                 films.remove(getfilm(f.getTitre()));
                 films.add(f);
                 return true;
@@ -107,16 +112,17 @@ public class ListeFilms {
     }
 
     /**
-     * Méthode Suppression
-     * Supprime un film de la base de données et de la file
-     * @param titre Film à supprimer.
+     * Mï¿½thode Suppression
+     * Supprime un film de la base de donnï¿½es et de la file
+     * @param titre Film ï¿½ supprimer.
      */
     public boolean Suppression(String titre) {
         try {
-            BDConnector.connect();
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
             String query="DELETE FROM films WHERE titre='"+titre+"'";
 
-            if(BDConnector.st.executeUpdate(query) == 1) {
+            if(statement.executeUpdate(query) == 1) {
                 films.remove(getfilm(titre));
                 return true;
             }
@@ -127,10 +133,10 @@ public class ListeFilms {
     }
 
     /**
-     * Méthode getfilm
-     * Cherche un film dans la base de données en ayant son titre.
+     * Mï¿½thode getfilm
+     * Cherche un film dans la base de donnï¿½es en ayant son titre.
      * @param titre Titre du film.
-     * @return Le film trouvé.
+     * @return Le film trouvï¿½.
      */
     public Film getfilm(String titre) {
         for(Film f : films){
@@ -141,10 +147,10 @@ public class ListeFilms {
     }
 
     /**
-     * Méthode getfilmById
-     * Cherche un film dans la base de données en ayant son identifiant
+     * Mï¿½thode getfilmById
+     * Cherche un film dans la base de donnï¿½es en ayant son identifiant
      * @param id Identifiant du film.
-     * @return Le film trouvé.
+     * @return Le film trouvï¿½.
      */
     public Film getfilmById(int id) {
         for(Film f : films){
@@ -155,14 +161,15 @@ public class ListeFilms {
     }
 
     /**
-     * Méthode getFilmByCategorie
-     * Renvoie une file de films ayant la même catégorie.
+     * Mï¿½thode getFilmByCategorie
+     * Renvoie une file de films ayant la mï¿½me catï¿½gorie.
      * @param categorie
      */
     public boolean getFilmByCategorie(String categorie) {
         try {
-            BDConnector.connect();
-            ResultSet res = BDConnector.st.executeQuery("SELECT * FROM films WHERE categorie='"+categorie+"'");
+            Connection connection =  BDConnector.connect();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT * FROM films WHERE categorie='"+categorie+"'");
             if(res != null) {
             films.removeAll(films);
             while (res.next()){
@@ -173,9 +180,8 @@ public class ListeFilms {
                         res.getString("Date_publi"),
                         res.getString("descriptif")));
             }
-
             res.close();
-            BDConnector.st.close();
+            statement.close();
             return true;
             }
         } catch (Exception e) {
@@ -185,7 +191,7 @@ public class ListeFilms {
     }
 
     /**
-     * Méthode getFilms
+     * Mï¿½thode getFilms
      * Retourne les films de la liste.
      * @return 
      */

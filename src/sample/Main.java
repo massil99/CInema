@@ -25,10 +25,10 @@ import java.io.IOException;
 public class Main extends Application {
 
     /**
-     * Méthode changeWindow
-     * Change de fenêtre.
+     * Mï¿½thode changeWindow
+     * Change de fenï¿½tre.
      * @param e
-     * @param path Chemin de la nouvelle fenêtre.
+     * @param path Chemin de la nouvelle fenï¿½tre.
      */
     public static void changeWindow(ActionEvent e, String path){
         Parent root = null;
@@ -45,7 +45,7 @@ public class Main extends Application {
     }
 
     /**
-     * Méthode start
+     * Mï¿½thode start
      * Lancement de javaFx.
      * @param primaryStage
      * @throws Exception
@@ -62,8 +62,8 @@ public class Main extends Application {
     }
 
     /**
-     * Méthode main
-     * Méthode principale.
+     * MÃ©thode main
+     * MÃ©thode principale.
      * @param args 
      */
     public static void main(String[] args) {

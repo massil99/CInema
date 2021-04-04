@@ -4,6 +4,9 @@ import Film.Film;
 import Salles.Salle;
 import sample.BDConnector;
 
+import java.sql.Connection;
+import java.sql.Statement;
+
 public class Seance {
 
     private int id_seance;
@@ -16,10 +19,10 @@ public class Seance {
 
     /**
      * Constructeur Seance
-     * Crée un nouvel élément de type Seance.
-     * @param _f Le film à ajouter.
+     * Crï¿½e un nouvel ï¿½lï¿½ment de type Seance.
+     * @param _f Le film ï¿½ ajouter.
      * @param _s La salle de diffusion.
-     * @param _heureDebut Heure de début du film.
+     * @param _heureDebut Heure de dï¿½but du film.
      * @param _heureFin Heure de fin du film.
      */
     public Seance(int id_seance_, String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin, int nbRes_) {
@@ -34,10 +37,10 @@ public class Seance {
 
 
     /**
-     * Méthode reserver
-     * Réservation de la séance avec le tarif passé en argument.
-     * @param t Le tarif de réservation.
-     * @return 'true' si la réservation s'est bien passée, 'false' sinon.
+     * Mï¿½thode reserver
+     * Rï¿½servation de la sï¿½ance avec le tarif passï¿½ en argument.
+     * @param t Le tarif de rï¿½servation.
+     * @return 'true' si la rï¿½servation s'est bien passï¿½e, 'false' sinon.
      */
     public boolean reserver(Tarif t) {
         if(this.nbRes<this.s.getCapacite()){
@@ -49,14 +52,14 @@ public class Seance {
 
             try {
 
-                BDConnector.connect();
+                Connection connection =  BDConnector.connect();
+                Statement statement = connection.createStatement();
                 String requete="INSERT INTO reservation(id_seance,tarif,type) values('"+id_seance+"','"+prix+"','"+type+"')";
-                if(BDConnector.st.executeUpdate(requete)== 1) {
+                if(statement.executeUpdate(requete)== 1) {
                 	 requete="UPDATE seances SET nb_reservation = nb_reservation + 1 WHERE id_seance="+id_seance;
-                     BDConnector.st.executeUpdate(requete);
-                    
+                     statement.executeUpdate(requete);
 
-                     BDConnector.st.close();
+                     statement.close();
                      return true ;	
                 } ;
                 
