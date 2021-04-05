@@ -1,7 +1,7 @@
 package Salles;
 
-import sample.ConnectorInterface;
-import sample.MySQL_Connector;
+import sample.Strategy.ConnectorInterface;
+import sample.Strategy.MySQL_Connector;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -43,9 +43,9 @@ public class ListeSalles {
     }
 
     /**
-     * M�thode Ajout
-     * Ajoute une salle � la base de donn�es.
-     * @param s La salle � ajouter.
+     * Méthode Ajout
+     * Ajoute une salle à la base de données.
+     * @param s La salle à ajouter.
      */
     public void Ajout(Salle s) {
         try {
@@ -65,9 +65,9 @@ public class ListeSalles {
     }
 
     /**
-     * M�thode Suppression
-     * Supprime une salle de la base de donn�es
-     * @param id La salle � supprimer.
+     * Méthode Suppression
+     * Supprime une salle de la base de données
+     * @param id La salle à supprimer.
      */
     public void Suppression(int id ) {
         try {

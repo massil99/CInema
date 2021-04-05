@@ -5,8 +5,8 @@ import Film.ListeFilms;
 import Film.Film;
 import Salles.ListeSalles;
 import Salles.Salle;
-import sample.ConnectorInterface;
-import sample.MySQL_Connector;
+import sample.Strategy.ConnectorInterface;
+import sample.Strategy.MySQL_Connector;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -15,12 +15,12 @@ import java.util.HashSet;
 import java.util.ListIterator;
 
 public class ListeSeances {
-    /** Liste des s�ances. **/
+    /** Liste des séances. **/
     ArrayList<Seance> seances;
     ConnectorInterface connector;
     /**
      * Constructeur ListeSeances
-     * Chargement des s�ances en local.
+     * Chargement des séances en local.
      */
     public ListeSeances(){
         try {
@@ -49,14 +49,14 @@ public class ListeSeances {
 
 
     /**
-     * M�thode Ajouter
-     * Ajoute une seance dans la base de donn�es.
-     * @param date_s Date de la s�ance.
-     * @param _f Film projet�.
-     * @param _s La salle qui sera occupp�e.
-     * @param _heureDebut Heure de d�but.
+     * Méthode Ajouter
+     * Ajoute une seance dans la base de données.
+     * @param date_s Date de la séance.
+     * @param _f Film projeté.
+     * @param _s La salle qui sera occuppée.
+     * @param _heureDebut Heure de début.
      * @param _heureFin Heure de fin.
-     * @param nbRes_ Nombre de r�servations.
+     * @param nbRes_ Nombre de réservations.
      */
     public void Ajouter(String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin, int nbRes_) {
         try {
@@ -97,10 +97,10 @@ public class ListeSeances {
     }
 
     /**
-     * M�thode modifier
-     * Modifie une s�ance dans la base de donn�es.
-     * @param c L'objet s�ance � travers lequel la s�ance est ajout�e.
-     * @param idSeance L'identifiant de la s�ance qui va �tre modifi�e.
+     * Méthode modifier
+     * Modifie une séance dans la base de données.
+     * @param c L'objet séance à travers lequel la séance est ajoutée.
+     * @param idSeance L'identifiant de la séance qui va être modifiée.
      */
     public void modifier(Seance c, int idSeance) {
         try {
@@ -130,9 +130,9 @@ public class ListeSeances {
     }
 
     /**
-     * M�thode Supprimer
-     * Supprime une s�ance de la base de donn�es.
-     * @param idSeance L'identifiant de la s�ance qui va �tre supprim�e.
+     * Méthode Supprimer
+     * Supprime une séance de la base de données.
+     * @param idSeance L'identifiant de la séance qui va être supprimée.
      */
     public void Supprimer(int idSeance){
         try {
@@ -159,8 +159,8 @@ public class ListeSeances {
     }
 
     /**
-     * M�thode updateSeance
-     * Supprime les s�ances ayant une date depass�e.
+     * Méthode updateSeance
+     * Supprime les séances ayant une date depassée.
      * @param s
      */
     public static void updateSeance(ArrayList<Seance> s){

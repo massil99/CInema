@@ -2,7 +2,7 @@ package Seances;
 
 import Film.Film;
 import Salles.Salle;
-import sample.MySQL_Connector;
+import sample.Strategy.MySQL_Connector;
 
 import java.sql.Connection;
 import java.sql.Statement;

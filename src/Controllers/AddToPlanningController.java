@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import sample.MySQL_Connector;
+import sample.Strategy.MySQL_Connector;
 import sample.Main;
 
 import java.net.URL;

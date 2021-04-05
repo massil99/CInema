@@ -1,7 +1,7 @@
 package GestionUtilisateur;
 
-import sample.MySQL_Connector;
-import sample.ConnectorInterface;
+import sample.Strategy.MySQL_Connector;
+import sample.Strategy.ConnectorInterface;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

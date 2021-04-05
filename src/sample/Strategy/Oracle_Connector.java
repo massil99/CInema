@@ -1,4 +1,4 @@
-package sample;
+package sample.Strategy;
 
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ public class Oracle_Connector implements ConnectorInterface {
     private static Oracle_Connector uniqueInstance;
 
     /**
-     * Metter le constructeur en privé
+     * Mettre le constructeur en privé
      */
     private Oracle_Connector() {
     }

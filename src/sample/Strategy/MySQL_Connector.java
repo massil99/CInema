@@ -1,20 +1,19 @@
-package sample;
+package sample.Strategy;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Classe BDConnector
  * Classe de connexion à la base de données.
  */
-public class MySQL_Connector implements ConnectorInterface{
+public class MySQL_Connector implements ConnectorInterface {
     public static Connection cnx;
     private static MySQL_Connector uniqueInstance;
 
     /**
-     * Metter le constructeur en privé
+     * Mettre le constructeur en privé
      */
     private MySQL_Connector() {
     }

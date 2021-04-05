@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import sample.MySQL_Connector;
+import sample.Strategy.MySQL_Connector;
 import sample.ConfermBox;
 import sample.Main;
 

@@ -1,7 +1,7 @@
 package Film;
 
-import sample.ConnectorInterface;
-import sample.MySQL_Connector;
+import sample.Strategy.ConnectorInterface;
+import sample.Strategy.MySQL_Connector;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -49,9 +49,9 @@ public class ListeFilms {
     }
 
     /**
-     * M�thode Ajout
-     * Ajoute le film f dans la base de donn�es et dans la file.
-     * @param f : Film � ajouter.
+     * Méthode Ajout
+     * Ajoute le film f dans la base de données et dans la file.
+     * @param f : Film à ajouter.
      */
     public boolean Ajout(Film f) {
         try {
@@ -88,8 +88,8 @@ public class ListeFilms {
     }
 
     /**
-     * M�thode Modifier
-     * Modifie les informations d'un film identifi� par son titre.
+     * Méthode Modifier
+     * Modifie les informations d'un film identifié par son titre.
      * @param f La nouvelle version des informations du film.
      * @param id_film Identifiant du film � modifier.
      */
@@ -118,9 +118,9 @@ public class ListeFilms {
     }
 
     /**
-     * M�thode Suppression
-     * Supprime un film de la base de donn�es et de la file
-     * @param titre Film � supprimer.
+     * Méthode Suppression
+     * Supprime un film de la base de données et de la file
+     * @param titre Film à supprimer.
      */
     public boolean Suppression(String titre) {
         try {
@@ -140,10 +140,10 @@ public class ListeFilms {
     }
 
     /**
-     * M�thode getfilm
-     * Cherche un film dans la base de donn�es en ayant son titre.
+     * Méthode getfilm
+     * Cherche un film dans la base de données en ayant son titre.
      * @param titre Titre du film.
-     * @return Le film trouv�.
+     * @return Le film trouvé.
      */
     public Film getfilm(String titre) {
         for(Film f : films){
@@ -154,10 +154,10 @@ public class ListeFilms {
     }
 
     /**
-     * M�thode getfilmById
-     * Cherche un film dans la base de donn�es en ayant son identifiant
+     * Méthode getfilmById
+     * Cherche un film dans la base de données en ayant son identifiant
      * @param id Identifiant du film.
-     * @return Le film trouv�.
+     * @return Le film trouvé.
      */
     public Film getfilmById(int id) {
         for(Film f : films){
@@ -199,7 +199,7 @@ public class ListeFilms {
     }
 
     /**
-     * M�thode getFilms
+     * Méthode getFilms
      * Retourne les films de la liste.
      * @return 
      */
