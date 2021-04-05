@@ -5,6 +5,7 @@ import Film.ListeFilms;
 import Film.Film;
 import Salles.ListeSalles;
 import Salles.Salle;
+import sample.ConnectorInterface;
 import sample.MySQL_Connector;
 
 import java.sql.*;
@@ -16,14 +17,17 @@ import java.util.ListIterator;
 public class ListeSeances {
     /** Liste des s�ances. **/
     ArrayList<Seance> seances;
-
+    ConnectorInterface connector;
     /**
      * Constructeur ListeSeances
      * Chargement des s�ances en local.
      */
     public ListeSeances(){
         try {
-            Connection connection =  MySQL_Connector.connect();
+
+          //  Connection connection =  MySQL_Connector.connect();
+            this.connector = MySQL_Connector.getInstance();
+            Connection connection = ((MySQL_Connector)connector).connect();
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery("SELECT * FROM seances");
 
@@ -58,7 +62,8 @@ public class ListeSeances {
         try {
             String query = "SELECT id_seance FROM seances WHERE date='"+date_s+"' AND id_salle= "+ _s.getNumeroSalle() +" AND heure_debut between '"+ _heureDebut+"' AND '"+_heureFin+"'";
 
-            Connection connection =  MySQL_Connector.connect();
+           // Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery(query);
             if(!res.next()) {
@@ -99,7 +104,8 @@ public class ListeSeances {
      */
     public void modifier(Seance c, int idSeance) {
         try {
-            Connection connection =  MySQL_Connector.connect();
+           // Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
             Statement statement = connection.createStatement();
             String query =  "UPDATE seances SET date='"+c.getDate()
                     +"',heure_debut='"+c.getHeureDebut()
@@ -130,7 +136,8 @@ public class ListeSeances {
      */
     public void Supprimer(int idSeance){
         try {
-            Connection connection =  MySQL_Connector.connect();
+           // Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
             Statement statement = connection.createStatement();
             String query = "DELETE FROM `seances` WHERE id_seance="+idSeance;
 

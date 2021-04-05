@@ -20,8 +20,8 @@ public class MySQL_Connector implements ConnectorInterface{
     }
 
     /**
-      Permet d'obtenir instance de  MySQL_Connector
-     * @return
+      Permet d'obtenir l'instance de MySQL_Connector
+     * @return MySQL_Connector
      */
 
     public static synchronized ConnectorInterface getInstance() {

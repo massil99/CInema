@@ -16,8 +16,8 @@ public class Oracle_Connector implements ConnectorInterface {
     }
 
     /**
-     Permet d'obtenir instance de  MySQL_Connector
-     * @return
+     Permet d'obtenir l'instance d'Oracle_Connector
+     * @return Oracle_Connector
      */
 
     public static synchronized ConnectorInterface getInstance() {

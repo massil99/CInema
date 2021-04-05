@@ -1,5 +1,6 @@
 package Salles;
 
+import sample.ConnectorInterface;
 import sample.MySQL_Connector;
 
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
  */
 public class ListeSalles {
     ArrayList<Salle> salles;
+    ConnectorInterface connector;
 
     /**
      * Constructeur ListeSalles
@@ -20,7 +22,9 @@ public class ListeSalles {
      */
     public ListeSalles() {
         try {
-            Connection connection =  MySQL_Connector.connect();
+            //Connection connection =  MySQL_Connector.connect();
+            this.connector = MySQL_Connector.getInstance();
+            Connection connection = ((MySQL_Connector)connector).connect();
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery("SELECT * FROM salles");
 
@@ -45,7 +49,7 @@ public class ListeSalles {
      */
     public void Ajout(Salle s) {
         try {
-            Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
             Statement statement = connection.createStatement();
             String query = "INSERT INTO salles (capacite, nombreDepersonnes, est_dispo) VALUES"
                     + "('"+ s.getCapacite() +"',"
@@ -67,7 +71,7 @@ public class ListeSalles {
      */
     public void Suppression(int id ) {
         try {
-            Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
             Statement statement = connection.createStatement();
             String query="DELETE FROM salles WHERE id_salle='"+ id +"'";
 

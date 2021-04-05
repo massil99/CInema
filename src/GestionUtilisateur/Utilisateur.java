@@ -19,13 +19,13 @@ import java.util.Base64;
  */
 public class Utilisateur {
 
-	private String nom;
+    private String nom;
 	private String prenom;
 	private String login;
 	private String mot_de_passe;
 	private String salt;
 	private String type;
-	ConnectorInterface connector;
+	static ConnectorInterface connector;
 
     /**
      * Constructeur Utilisateur
@@ -40,6 +40,7 @@ public class Utilisateur {
         this.login = login;
         this.type = type;
         mot_de_passe = "";
+        this.connector = MySQL_Connector.getInstance();
     }
 
     /**
@@ -87,9 +88,8 @@ public class Utilisateur {
      */
     public void inscrit() {
         try {
-            this.connector = MySQL_Connector.getInstance();
-            Connection connection = MySQL_Connector.connect(); // ca fonctionne mais c'est pas stratégie
-          //  Connection connection = connector.connect(); marche pas
+            //this.connector = MySQL_Connector.getInstance();
+            Connection connection = ((MySQL_Connector)connector).connect();
             Statement statement = connection.createStatement();
             int t = (type.equals("Admin")) ? 1 : (type.equals("Reseptionniste")) ? 2: 3;
             String sql = "insert into utilisateurs (nom, prenom, login, mot_de_passe, salt, type) values('" + nom + "', '" + prenom + "', '" + login + "', '" + mot_de_passe + "', '" + salt +"', "+ t +")";
@@ -108,7 +108,8 @@ public class Utilisateur {
      */
     public static Utilisateur seConnect(String _login, String _mdp) {
         try {
-            Connection connection =  MySQL_Connector.connect();
+
+            Connection connection = ((MySQL_Connector)connector).connect();
             Statement statement = connection.createStatement();
             String sql = "Select nom, prenom, login, mot_de_passe, salt, user from  utilisateurs, personnel where login = '" + _login + "' AND type=id";
             ResultSet rs = statement.executeQuery(sql);
@@ -157,7 +158,7 @@ public class Utilisateur {
 	    if(type.equals("Admin")){
 	        ArrayList<Utilisateur> users = new ArrayList<>();
             try {
-                Connection connection =  MySQL_Connector.connect();
+                Connection connection = ((MySQL_Connector)connector).connect();
                 Statement statement = connection.createStatement();
                 String query = "SELECT nom, prenom, login, user FROM utilisateurs, personnel where type=id ORDER BY(type) ";
                 ResultSet res = statement.executeQuery(query);
