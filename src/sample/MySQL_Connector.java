@@ -11,6 +11,26 @@ import java.sql.Statement;
  */
 public class MySQL_Connector implements ConnectorInterface{
     public static Connection cnx;
+    private static MySQL_Connector uniqueInstance;
+
+    /**
+     * Metter le constructeur en privé
+     */
+    private MySQL_Connector() {
+    }
+
+    /**
+      Permet d'obtenir instance de  MySQL_Connector
+     * @return
+     */
+
+    public static synchronized ConnectorInterface getInstance() {
+        if(uniqueInstance == null) {
+            uniqueInstance = new MySQL_Connector();
+        }
+        return uniqueInstance;
+    }
+
 
     /**
      * Méthode connect
@@ -27,4 +47,7 @@ public class MySQL_Connector implements ConnectorInterface{
         cnx = DriverManager.getConnection(url, user, password);
         return cnx;
     }
+
+
+
 }

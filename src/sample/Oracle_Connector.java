@@ -7,6 +7,26 @@ import java.sql.SQLException;
 
 public class Oracle_Connector implements ConnectorInterface {
     public static Connection cnx;
+    private static Oracle_Connector uniqueInstance;
+
+    /**
+     * Metter le constructeur en privé
+     */
+    private Oracle_Connector() {
+    }
+
+    /**
+     Permet d'obtenir instance de  MySQL_Connector
+     * @return
+     */
+
+    public static synchronized ConnectorInterface getInstance() {
+        if(uniqueInstance == null) {
+            uniqueInstance = new Oracle_Connector();
+        }
+        return uniqueInstance;
+    }
+
 
     /**
      * Méthode connect

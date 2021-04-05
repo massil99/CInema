@@ -40,7 +40,6 @@ public class Utilisateur {
         this.login = login;
         this.type = type;
         mot_de_passe = "";
-        this.connector = new MySQL_Connector();
     }
 
     /**
@@ -88,8 +87,9 @@ public class Utilisateur {
      */
     public void inscrit() {
         try {
-
-            Connection connection =  MySQL_Connector.connect();
+            this.connector = MySQL_Connector.getInstance();
+            Connection connection = MySQL_Connector.connect(); // ca fonctionne mais c'est pas stratégie
+          //  Connection connection = connector.connect(); marche pas
             Statement statement = connection.createStatement();
             int t = (type.equals("Admin")) ? 1 : (type.equals("Reseptionniste")) ? 2: 3;
             String sql = "insert into utilisateurs (nom, prenom, login, mot_de_passe, salt, type) values('" + nom + "', '" + prenom + "', '" + login + "', '" + mot_de_passe + "', '" + salt +"', "+ t +")";
