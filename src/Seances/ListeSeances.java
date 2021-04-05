@@ -14,13 +14,15 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+import static java.lang.Integer.parseInt;
+
 public class ListeSeances {
-    /** Liste des séances. **/
+    /** Liste des s?ances. **/
     ArrayList<Seance> seances;
 
     /**
      * Constructeur ListeSeances
-     * Chargement des séances en local.
+     * Chargement des s?ances en local.
      */
     public ListeSeances(){
         try {
@@ -45,14 +47,14 @@ public class ListeSeances {
 
 
     /**
-     * Méthode Ajouter
-     * Ajoute une seance dans la base de données.
-     * @param date_s Date de la séance.
-     * @param _f Film projeté.
-     * @param _s La salle qui sera occuppée.
-     * @param _heureDebut Heure de début.
+     * M?thode Ajouter
+     * Ajoute une seance dans la base de donn?es.
+     * @param date_s Date de la s?ance.
+     * @param _f Film projet?.
+     * @param _s La salle qui sera occupp?e.
+     * @param _heureDebut Heure de d?but.
      * @param _heureFin Heure de fin.
-     * @param nbRes_ Nombre de réservations.
+     * @param nbRes_ Nombre de r?servations.
      */
     public void Ajouter(String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin, int nbRes_) {
         try {
@@ -92,10 +94,10 @@ public class ListeSeances {
     }
 
     /**
-     * Méthode modifier
-     * Modifie une séance dans la base de données.
-     * @param c L'objet séance à travers lequel la séance est ajoutée.
-     * @param idSeance L'identifiant de la séance qui va être modifiée.
+     * M?thode modifier
+     * Modifie une s?ance dans la base de donn?es.
+     * @param c L'objet s?ance ? travers lequel la s?ance est ajout?e.
+     * @param idSeance L'identifiant de la s?ance qui va ?tre modifi?e.
      */
     public void modifier(Seance c, int idSeance) {
         try {
@@ -123,9 +125,9 @@ public class ListeSeances {
     }
 
     /**
-     * Méthode Supprimer
-     * Supprime une séance de la base de données.
-     * @param idSeance L'identifiant de la séance qui va être supprimée.
+     * M?thode Supprimer
+     * Supprime une s?ance de la base de donn?es.
+     * @param idSeance L'identifiant de la s?ance qui va ?tre supprim?e.
      */
     public void Supprimer(int idSeance){
         try {
@@ -150,8 +152,8 @@ public class ListeSeances {
     }
 
     /**
-     * Méthode updateSeance
-     * Supprime les séances ayant une date depassée.
+     * M?thode updateSeance
+     * Supprime les s?ances ayant une date depass?e.
      * @param s
      */
     public static void updateSeance(ArrayList<Seance> s){
@@ -161,11 +163,13 @@ public class ListeSeances {
         ListIterator<Seance> i = s.listIterator();
         while(i.hasNext()){
             Seance seance = i.next();
-            int y = Integer.parseInt(seance.getDate(), 0, 4, 10);
-            int m = Integer.parseInt(seance.getDate(), 5, 7, 10);
-            int j = Integer.parseInt(seance.getDate(), 8, 10, 10);
+            String[] date = seance.getDate().split("-");
+            int y = Integer.parseInt(date[0]);
+            int m = Integer.parseInt(date[1]);
+            int j = Integer.parseInt(date[2]);
 
-            if(y < now.getYear()){
+
+            if(y < now.getYear()) {
                 toRemove.add(seance);
             }else  if(y == now.getYear() && m < now.getMonth().getValue()){
                 toRemove.add(seance);
