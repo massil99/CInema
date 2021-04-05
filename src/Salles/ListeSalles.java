@@ -1,6 +1,6 @@
 package Salles;
 
-import sample.BDConnector;
+import sample.MySQL_Connector;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ public class ListeSalles {
      */
     public ListeSalles() {
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery("SELECT * FROM salles");
 
@@ -45,7 +45,7 @@ public class ListeSalles {
      */
     public void Ajout(Salle s) {
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             String query = "INSERT INTO salles (capacite, nombreDepersonnes, est_dispo) VALUES"
                     + "('"+ s.getCapacite() +"',"
@@ -67,7 +67,7 @@ public class ListeSalles {
      */
     public void Suppression(int id ) {
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             String query="DELETE FROM salles WHERE id_salle='"+ id +"'";
 

@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import sample.BDConnector;
+import sample.MySQL_Connector;
 import sample.Main;
 
 import java.net.URL;
@@ -140,7 +140,7 @@ public class AddToPlanningController implements Initializable {
 
         if(!titre.equals("") && !date.equals("--") && !heure_deb.equals("::") && !heure_fin.equals("::") && s != null){
             try {
-                Connection connection =  BDConnector.connect();
+                Connection connection =  MySQL_Connector.connect();
                 Statement statement = connection.createStatement();
 
                 String q;

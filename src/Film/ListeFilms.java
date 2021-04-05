@@ -1,6 +1,7 @@
 package Film;
 
-import sample.BDConnector;
+import sample.ConnectorInterface;
+import sample.MySQL_Connector;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ public class ListeFilms {
      */
     public ListeFilms() {
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery("SELECT * FROM films");
 
@@ -51,7 +52,7 @@ public class ListeFilms {
      */
     public boolean Ajout(Film f) {
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             String query = "INSERT INTO films (titre, realisateur,date_Sortie,categorie,  Date_Publi ,descriptif) VALUES"
                     + " ('"+ f.getTitre() +
@@ -90,7 +91,7 @@ public class ListeFilms {
      */
     public boolean Modifier(Film f, int id_film) {
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             String query= "UPDATE films SET titre='"+f.getTitre()
                     +"',realisateur='"+f.getRealisateur()
@@ -118,7 +119,7 @@ public class ListeFilms {
      */
     public boolean Suppression(String titre) {
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             String query="DELETE FROM films WHERE titre='"+titre+"'";
 
@@ -167,7 +168,7 @@ public class ListeFilms {
      */
     public boolean getFilmByCategorie(String categorie) {
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery("SELECT * FROM films WHERE categorie='"+categorie+"'");
             if(res != null) {

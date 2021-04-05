@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import sample.BDConnector;
+import sample.MySQL_Connector;
 import sample.Main;
 
 import java.net.URL;
@@ -32,7 +32,7 @@ public class StatController implements Initializable {
             back.setDisable(true);
 
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             String q = "SELECT films.id_film, count(id_reservation), sum(tarif) FROM seances, films, reservation WHERE" +
                     " films.id_film=seances.id_film and reservation.id_seance=seances.id_seance group by(films.id_film) ORDER by(count(id_reservation))";

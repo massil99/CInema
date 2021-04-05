@@ -2,7 +2,7 @@ package Seances;
 
 import Film.Film;
 import Salles.Salle;
-import sample.BDConnector;
+import sample.MySQL_Connector;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -52,7 +52,7 @@ public class Seance {
 
             try {
 
-                Connection connection =  BDConnector.connect();
+                Connection connection =  MySQL_Connector.connect();
                 Statement statement = connection.createStatement();
                 String requete="INSERT INTO reservation(id_seance,tarif,type) values('"+id_seance+"','"+prix+"','"+type+"')";
                 if(statement.executeUpdate(requete)== 1) {

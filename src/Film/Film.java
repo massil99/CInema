@@ -3,11 +3,11 @@ package Film;
 public class Film {
     /** Titre du film. */
     private String titre;
-    /** Nom du réalisateur du film. */
+    /** Nom du rï¿½alisateur du film. */
     private String realisateur;
     /** Date de sortie du film. */
     private String date_sortie;
-    /** Nom de la catégorie du film. */
+    /** Nom de la catï¿½gorie du film. */
     private String categorie;
     /** Date de publication du film. */
     private String Date_publi;
@@ -18,11 +18,11 @@ public class Film {
 
     /**
      * Constructeur Film
-     * Permet de créer un nouvel élément Film.
+     * Permet de crï¿½er un nouvel ï¿½lï¿½ment Film.
      * @param _titre Titre du film.
-     * @param _realisateur Nom du réalisateur du film.
+     * @param _realisateur Nom du rï¿½alisateur du film.
      * @param _date_sortie Date de sortie du film.
-     * @param _categorie Nom de la catégorie du film.
+     * @param _categorie Nom de la catï¿½gorie du film.
      * @param _Date_publi Date de publication du film.
      * @param _descriptif Description du film.
      */

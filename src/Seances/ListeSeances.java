@@ -5,13 +5,12 @@ import Film.ListeFilms;
 import Film.Film;
 import Salles.ListeSalles;
 import Salles.Salle;
-import sample.BDConnector;
+import sample.MySQL_Connector;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.ListIterator;
 
 public class ListeSeances {
@@ -24,7 +23,7 @@ public class ListeSeances {
      */
     public ListeSeances(){
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery("SELECT * FROM seances");
 
@@ -59,7 +58,7 @@ public class ListeSeances {
         try {
             String query = "SELECT id_seance FROM seances WHERE date='"+date_s+"' AND id_salle= "+ _s.getNumeroSalle() +" AND heure_debut between '"+ _heureDebut+"' AND '"+_heureFin+"'";
 
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery(query);
             if(!res.next()) {
@@ -100,7 +99,7 @@ public class ListeSeances {
      */
     public void modifier(Seance c, int idSeance) {
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             String query =  "UPDATE seances SET date='"+c.getDate()
                     +"',heure_debut='"+c.getHeureDebut()
@@ -131,7 +130,7 @@ public class ListeSeances {
      */
     public void Supprimer(int idSeance){
         try {
-            Connection connection =  BDConnector.connect();
+            Connection connection =  MySQL_Connector.connect();
             Statement statement = connection.createStatement();
             String query = "DELETE FROM `seances` WHERE id_seance="+idSeance;
 

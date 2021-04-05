@@ -7,14 +7,14 @@ import java.sql.Statement;
 
 /**
  * Classe BDConnector
- * Classe de connexion � la base de donn�es.
+ * Classe de connexion à la base de données.
  */
-public class BDConnector {
+public class MySQL_Connector implements ConnectorInterface{
     public static Connection cnx;
 
     /**
-     * M�thode connect
-     * Permet de se connecter � la base de donn�es.
+     * Méthode connect
+     * Permet de se connecter à la base de données.
      * */
     public static Connection connect() throws SQLException, ClassNotFoundException{
         if(cnx != null)
