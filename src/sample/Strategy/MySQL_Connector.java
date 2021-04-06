@@ -1,20 +1,39 @@
-package sample;
+package sample.Strategy;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Classe BDConnector
- * Classe de connexion � la base de donn�es.
+ * Classe de connexion à la base de données.
  */
-public class BDConnector {
+public class MySQL_Connector implements ConnectorInterface {
     public static Connection cnx;
+    private static MySQL_Connector uniqueInstance;
 
     /**
-     * M�thode connect
-     * Permet de se connecter � la base de donn�es.
+     * Mettre le constructeur en privé
+     */
+    private MySQL_Connector() {
+    }
+
+    /**
+      Permet d'obtenir l'instance de MySQL_Connector
+     * @return MySQL_Connector
+     */
+
+    public static synchronized ConnectorInterface getInstance() {
+        if(uniqueInstance == null) {
+            uniqueInstance = new MySQL_Connector();
+        }
+        return uniqueInstance;
+    }
+
+
+    /**
+     * Méthode connect
+     * Permet de se connecter à la base de données.
      * */
     public static Connection connect() throws SQLException, ClassNotFoundException{
         if(cnx != null)
@@ -27,4 +46,7 @@ public class BDConnector {
         cnx = DriverManager.getConnection(url, user, password);
         return cnx;
     }
+
+
+
 }

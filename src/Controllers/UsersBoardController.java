@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import sample.BDConnector;
+import sample.Strategy.MySQL_Connector;
 import sample.ConfermBox;
 import sample.Main;
 
@@ -72,7 +72,7 @@ public class UsersBoardController implements Initializable {
                 del.setOnAction(e -> {
                     if (ConfermBox.display("Suppression", "Voulez vous supprimmer ce compte : " + u.getLogin())) {
                         try {
-                            Connection connection =  BDConnector.connect();
+                            Connection connection =  MySQL_Connector.connect();
                             Statement statement = connection.createStatement();
                             String q = "DELETE FROM utilisateurs where login='" + u.getLogin() + "'";
                             if (statement.executeUpdate(q) == 1) {
