@@ -204,6 +204,25 @@ public class ListeFilms implements Sujet {
     }
 
     @Override
+    public void addObservateur(ObservateursListeFilms ob) {
+        if(!observateurs.contains(ob)) {
+            observateurs.add(ob);
+        }
+
+    }
+
+    @Override
+    public void removeObservateur(ObservateursListeFilms ob) {
+        int id;
+        if(observateurs.contains(ob)) {
+         id=observateurs.indexOf(ob);
+         observateurs.remove(id);
+
+    }
+
+    }
+
+    @Override
     public void notifier() {
         for(ObservateursListeFilms ob:observateurs){
             ob.update(filmModifie);

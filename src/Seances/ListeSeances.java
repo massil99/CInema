@@ -4,6 +4,7 @@ import Controllers.Controller;
 import Film.ListeFilms;
 import Film.Film;
 import Observateur.ObservateursListeFilms;
+import Observateur.Sujet;
 import Salles.ListeSalles;
 import Salles.Salle;
 import sample.BDConnector;
@@ -18,12 +19,15 @@ import java.util.ListIterator;
 public class ListeSeances implements ObservateursListeFilms {
     /** Liste des s�ances. **/
     ArrayList<Seance> seances;
+    private Sujet listefilms;
 
     /**
      * Constructeur ListeSeances
      * Chargement des s�ances en local.
      */
     public ListeSeances(){
+        listefilms=new ListeFilms();
+        listefilms.addObservateur(this);
         try {
             BDConnector.connect();
             ResultSet res = BDConnector.st.executeQuery("SELECT * FROM seances");

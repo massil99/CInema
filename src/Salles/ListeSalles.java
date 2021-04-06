@@ -2,7 +2,9 @@ package Salles;
 
 import Film.Film;
 import Observateur.ObservateursListeFilms;
+import Observateur.Sujet;
 import sample.BDConnector;
+import Film.ListeFilms;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -11,15 +13,16 @@ import java.util.ArrayList;
  * Classe ListeSalles
  * Classe permettant d'interagir avec la table Salles de la base de données.
  */
-public class ListeSalles implements ObservateursListeFilms {
+public class ListeSalles {
     ArrayList<Salle> salles;
+
 
     /**
      * Constructeur ListeSalles
      * Chargement des salles en local.
      */
     public ListeSalles() {
-        try {
+         try {
             BDConnector.connect();
             ResultSet res = BDConnector.st.executeQuery("SELECT * FROM salles");
 
@@ -89,9 +92,5 @@ public class ListeSalles implements ObservateursListeFilms {
         return salles;
     }
 
-    @Override
-    public void update(Film f) {
-
-    }
 }
 
