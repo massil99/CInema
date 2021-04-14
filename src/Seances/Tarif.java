@@ -1,8 +1,8 @@
 package Seances;
 
 /**
- * Énumération Tarif
- * Les différents tarifs disponibles.
+ * ï¿½numï¿½ration Tarif
+ * Les diffï¿½rents tarifs disponibles.
  */
 public enum Tarif {
     Reduit("Etudiant",7.80),
@@ -16,7 +16,6 @@ public enum Tarif {
     Tarif(String _type, double _prix){
         type=_type;
         prix=_prix;
-
     }
 
     public double getPrix() {

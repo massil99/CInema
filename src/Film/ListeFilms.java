@@ -1,20 +1,28 @@
 package Film;
 
+import Observateur.ObservateursListeFilms;
+import Observateur.Sujet;
 import sample.Strategy.ConnectorInterface;
 import sample.Strategy.MySQL_Connector;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+
+import java.util.ArrayList;
 import java.sql.Statement;
+
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
  * Classe ListFilms
  * Classe permettant d'interagir avec la table Film de la base de donn�es.
  */
-public class ListeFilms {
+public class ListeFilms implements Sujet {
+    List<ObservateursListeFilms> observateurs;
     Queue<Film> films;
+    Film filmModifie;
     ConnectorInterface connector;
 
     /**
@@ -23,6 +31,7 @@ public class ListeFilms {
      * dans une structure de donn�es de type FIFO (File).
      */
     public ListeFilms() {
+        observateurs=new ArrayList<>();
         try {
            // Connection connection =  MySQL_Connector.connect();
             this.connector = MySQL_Connector.getInstance();
@@ -94,6 +103,7 @@ public class ListeFilms {
      * @param id_film Identifiant du film � modifier.
      */
     public boolean Modifier(Film f, int id_film) {
+
         try {
           //  Connection connection =  MySQL_Connector.connect();
             Connection connection = ((MySQL_Connector)connector).connect();
@@ -124,6 +134,7 @@ public class ListeFilms {
      */
     public boolean Suppression(String titre) {
         try {
+            filmModifie=getfilm(titre);
            // Connection connection =  MySQL_Connector.connect();
             Connection connection = ((MySQL_Connector)connector).connect();
             Statement statement = connection.createStatement();
@@ -131,6 +142,7 @@ public class ListeFilms {
 
             if(statement.executeUpdate(query) == 1) {
                 films.remove(getfilm(titre));
+                notifier();
                 return true;
             }
         } catch(Exception e) {
@@ -179,18 +191,18 @@ public class ListeFilms {
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery("SELECT * FROM films WHERE categorie='"+categorie+"'");
             if(res != null) {
-            films.removeAll(films);
-            while (res.next()){
-                films.add( new Film(res.getString("titre"),
-                        res.getString("realisateur"),
-                        res.getString("date_sortie"),
-                        res.getString("categorie"),
-                        res.getString("Date_publi"),
-                        res.getString("descriptif")));
-            }
-            res.close();
-            statement.close();
-            return true;
+                films.removeAll(films);
+                while (res.next()){
+                    films.add( new Film(res.getString("titre"),
+                            res.getString("realisateur"),
+                            res.getString("date_sortie"),
+                            res.getString("categorie"),
+                            res.getString("Date_publi"),
+                            res.getString("descriptif")));
+                }
+                res.close();
+                statement.close();
+                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -201,10 +213,37 @@ public class ListeFilms {
     /**
      * Méthode getFilms
      * Retourne les films de la liste.
-     * @return 
+     * @return
      */
     public Queue<Film> getFilms() {
         return films;
+    }
+
+    @Override
+    public void addObservateur(ObservateursListeFilms ob) {
+        if(!observateurs.contains(ob)) {
+            observateurs.add(ob);
+        }
+
+    }
+
+    @Override
+    public void removeObservateur(ObservateursListeFilms ob) {
+        int id;
+        if(observateurs.contains(ob)) {
+         id=observateurs.indexOf(ob);
+         observateurs.remove(id);
+
+    }
+
+    }
+
+    @Override
+    public void notifier() {
+        for(ObservateursListeFilms ob:observateurs){
+            ob.update(filmModifie);
+        }
+
     }
 }
 

@@ -34,12 +34,12 @@
         <ComboBox promptText="Choisir" fx:id="type" GridPane.columnIndex="0" GridPane.rowIndex="5">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Reseptionniste" />
+                    <String fx:value="Receptionniste" />
                     <String fx:value="Comptable" />
                 </FXCollections>
             </items>
             <value>
-                <String fx:value="Reseptionniste" />
+                <String fx:value="Receptionniste" />
             </value>
         </ComboBox>
         <Button fx:id="signInBtn" onAction="#newUser" text="Sign in" GridPane.columnIndex="0" GridPane.rowIndex="6"/>

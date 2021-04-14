@@ -3,6 +3,8 @@ package Seances;
 import Controllers.Controller;
 import Film.ListeFilms;
 import Film.Film;
+import Observateur.ObservateursListeFilms;
+import Observateur.Sujet;
 import Salles.ListeSalles;
 import Salles.Salle;
 import sample.Strategy.ConnectorInterface;
@@ -13,10 +15,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ListIterator;
-
 import static java.lang.Integer.parseInt;
 
-public class ListeSeances {
+public class ListeSeances implements ObservateursListeFilms {
+    private Sujet listefilms;
     /** Liste des séances. **/
     ArrayList<Seance> seances;
     ConnectorInterface connector;
@@ -25,6 +27,8 @@ public class ListeSeances {
      * Chargement des séances en local.
      */
     public ListeSeances(){
+        listefilms=new ListeFilms();
+        listefilms.addObservateur(this);
         try {
 
           //  Connection connection =  MySQL_Connector.connect();
@@ -163,6 +167,7 @@ public class ListeSeances {
     /**
      * Méthode updateSeance
      * Supprime les séances ayant une date depassée.
+
      * @param s
      */
     public static void updateSeance(ArrayList<Seance> s){
@@ -176,7 +181,6 @@ public class ListeSeances {
             int y = Integer.parseInt(date[0]);
             int m = Integer.parseInt(date[1]);
             int j = Integer.parseInt(date[2]);
-
             if(y < now.getYear()) {
                 toRemove.add(seance);
             }else  if(y == now.getYear() && m < now.getMonth().getValue()){
@@ -226,5 +230,29 @@ public class ListeSeances {
                 s.add(ss);
         }
         return s;
+    }
+
+    @Override
+    public void update(Film f) {
+        try {
+            BDConnector.connect();
+            String query = "DELETE FROM `seances` WHERE id_film="+ f.getId_film();
+
+            if(BDConnector.st.executeUpdate(query) == 1) {
+                Seance se = null;
+                for (Seance s : seances)
+                    if (s.getF().equals(f)) {
+                        se = s;
+                        break;
+                    }
+
+                seances.remove(se);
+            }
+
+            BDConnector.st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
