@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ListIterator;
 
+import static java.lang.Integer.parseInt;
+
 public class ListeSeances {
     /** Liste des séances. **/
     ArrayList<Seance> seances;
@@ -175,7 +177,7 @@ public class ListeSeances {
             int m = Integer.parseInt(date[1]);
             int j = Integer.parseInt(date[2]);
 
-            if(y < now.getYear()){
+            if(y < now.getYear()) {
                 toRemove.add(seance);
             }else  if(y == now.getYear() && m < now.getMonth().getValue()){
                 toRemove.add(seance);
