@@ -1,15 +1,6 @@
 package Salles;
 
-public class Salle {
-    /** Le num�ro de la salle cr��e. */
-    private int numeroSalle;
-    /** La capacit� de la salle cr��e. */
-    private int capacite;
-    /** Le nombre de personnes dans la salle cr��e. */
-    private int nombreDepersonnes = 0;
-    /** La disponibilit� de la salle cr��e. */
-    private boolean estDispo;
-
+public class Salle extends SalleAbstrait {
     /** 
      * Constructeur Salle 
      * Permet de cr�er des nouveaux �l�ments de type Salle.
@@ -19,12 +10,8 @@ public class Salle {
      * @param estDispo_ La disponibilit� de la salle cr��e.
      * @since 1.0.
      */
-    
     public Salle(int numeroSalle_, int capacite_, int nombreDepersonnes_, boolean estDispo_) {
-        numeroSalle = numeroSalle_;
-        capacite = capacite_;
-        estDispo = estDispo_;
-        nombreDepersonnes = nombreDepersonnes_;
+        super(numeroSalle_, capacite_, nombreDepersonnes_, estDispo_);
     }
     
     /**
@@ -33,99 +20,7 @@ public class Salle {
      * @param capacite_ La capacit� de la salle cr��e.
      * @since 2.0.
      */
-    
     public Salle(int capacite_) {
-        numeroSalle = -1;
-        capacite = capacite_;
-        estDispo = true;
-    }
-    
-    /**
-     * M�thode getNumeroSalle
-     * Permet de retourner le num�ro de la salle.
-     * @return Le num�ro de la salle.
-     * @since 1.0.
-     */
-
-    public int getNumeroSalle() {
-        return numeroSalle;
-    }
-    
-    /**
-     * M�thode setNumeroSalle
-     * Permet de modifier le num�ro de la salle.
-     * @param numero Le num�ro de la salle voulu.
-     * @since 1.0.
-     */
-
-    public void setNumeroSalle(int numero) {
-        numeroSalle = numero;
-    }
-    
-    /**
-     * M�thode getCapacite
-     * Permet de retourner la capacit� de la salle.
-     * @return La capacit� de la salle.
-     * @since 1.0.
-     */
-
-    public int getCapacite() {
-        return capacite;
-    }
-    
-    /**
-     * M�thode setCapacite
-     * Permet de modifier la capacit� de la salle.
-     * @param capacite_ La capacit� de la salle voulue.
-     * @since 1.0.
-     */
-
-    public void setCapacite(int capacite_) {
-        capacite = capacite_;
-    }
-    
-    /**
-     * M�thode isEstDispo
-     * Permet de retourner la disponibilit� de la salle.
-     * @return La disponibilit� de la salle.
-     * @since 1.0.
-     */
-
-    public boolean isEstDispo() {
-        return estDispo;
-    }
-    
-    /**
-     * M�thode setEstDispo
-     * Permet de modifier la disponibilit� de la salle.
-     * @param dispo La disponibilit� de la salle voulue.
-     * @since 1.0.
-     */
-
-    public void setEstDispo(boolean dispo) {
-        estDispo = dispo;
-    }
-    
-    /**
-     * M�thode getNombreDepersonnes
-     * Permet de retourner le nombre de personnes dans la salle.
-     * @return Le nombre de personnes dans la salle.
-     * @since 1.0.
-     */
-
-    public int getNombreDepersonnes() {
-        return nombreDepersonnes;
-    }
-
-    /**
-     * M�thode setNumeroSalle
-     * Permet de modifier le nombre de personnes dans la salle.
-     * @param nombreDepersonnes Le nombre de personnes dans la salle voulu.
-     * @since 1.0.
-     */
-    
-    public void setNombreDepersonnes(int nombreDepersonnes) {
-
-        this.nombreDepersonnes = nombreDepersonnes;
+        super(-1, capacite_, 0, true);
     }
 }

@@ -1,13 +1,12 @@
 package Salles;
 
-public abstract class DecorateurSalle extends Salle {
-    public Salle s;
+public abstract class DecorateurSalle extends SalleAbstrait {
+    protected SalleAbstrait s;
 
-    public DecorateurSalle(int capacite_) {
+    public DecorateurSalle(SalleAbstrait salle, int capacite_) {
         super(capacite_);
+        s = salle;
     }
 
     public abstract int getCapacity();
-
-
 }
