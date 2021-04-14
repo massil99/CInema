@@ -6,19 +6,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import sample.BDConnector;
+import sample.Strategy.MySQL_Connector;
 import sample.Main;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
  * Classe AddToPlanningController
  * Controller de l'interface graphique AddToPlanning
- * qui permet d'ajouter des s"ances ai planning et/ou des films à la base de données.
+ * qui permet d'ajouter des s"ances ai planning et/ou des films ï¿½ la base de donnï¿½es.
  */
 public class AddToPlanningController implements Initializable {
     public CheckBox knownFilm;
@@ -48,9 +50,9 @@ public class AddToPlanningController implements Initializable {
     public GridPane infoS;
 
     /**
-     * Méthode initialize
-     * Initialisation de l'interface en chargeant les ComboBox des différentes dates,
-     * le bouton 'back' est désactivé si l'utilisateur n'est pas admin.
+     * Mï¿½thode initialize
+     * Initialisation de l'interface en chargeant les ComboBox des diffï¿½rentes dates,
+     * le bouton 'back' est dï¿½sactivï¿½ si l'utilisateur n'est pas admin.
      * @param url
      * @param resourceBundle
      */
@@ -86,8 +88,8 @@ public class AddToPlanningController implements Initializable {
     }
 
     /**
-     * Méthode showFilm
-     * Active ou désactive la partie permettant d'ajouter des films
+     * Mï¿½thode showFilm
+     * Active ou dï¿½sactive la partie permettant d'ajouter des films
      * en fonction du choix de l'utilisateur.
      */
     public void showFilm(){
@@ -99,8 +101,8 @@ public class AddToPlanningController implements Initializable {
     }
 
     /**
-     * Méthode back
-     * Retour en arrière, vers l'interface FilmsM.
+     * Mï¿½thode back
+     * Retour en arriï¿½re, vers l'interface FilmsM.
      * @param e
      */
     public void back(ActionEvent e){
@@ -108,9 +110,9 @@ public class AddToPlanningController implements Initializable {
     }
 
     /**
-     * Méthode addSeance
+     * Mï¿½thode addSeance
      * S'active lors de la validation des information de la seance et/ou le films a ajouter,
-     * qui seront ensuite stockés dans la base de données.
+     * qui seront ensuite stockï¿½s dans la base de donnï¿½es.
      * @param e
      */
     public void addSeance(ActionEvent e){
@@ -138,14 +140,15 @@ public class AddToPlanningController implements Initializable {
 
         if(!titre.equals("") && !date.equals("--") && !heure_deb.equals("::") && !heure_fin.equals("::") && s != null){
             try {
-                BDConnector.connect();
+                Connection connection =  MySQL_Connector.connect();
+                Statement statement = connection.createStatement();
 
                 String q;
                 ResultSet res;
                 if(knownFilm.isSelected()) {
                     if(!realisateur.equals("") && !date_sortie.equals("--") && !categorie.equals("") && !date_publi.equals("--") && !description.equals("")){
                         q = "SELECT * FROM films Where titre='" + titre + "'";
-                        res = BDConnector.st.executeQuery(q);
+                        res =statement.executeQuery(q);
 
                         if (!res.next()) {
                             Controller.lf.Ajout(new Film(titre, realisateur, date_sortie, categorie, date_publi, description));
