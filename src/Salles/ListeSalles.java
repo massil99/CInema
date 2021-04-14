@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Classe ListeSalles
- * Classe permettant d'interagir avec la table Salles de la base de données.
+ * Classe permettant d'interagir avec la table Salles de la base de donnï¿½es.
  */
 public class ListeSalles {
     ArrayList<Salle> salles;
@@ -23,8 +23,9 @@ public class ListeSalles {
      */
     public ListeSalles() {
          try {
-            BDConnector.connect();
-            ResultSet res = BDConnector.st.executeQuery("SELECT * FROM salles");
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT * FROM salles");
 
             salles = new ArrayList<>();
             while(res.next()){
@@ -34,46 +35,50 @@ public class ListeSalles {
                         (res.getInt("est_dispo") == 1)? true:false));
             }
             res.close();
-            BDConnector.st.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Méthode Ajout
-     * Ajoute une salle à la base de données.
-     * @param s La salle à ajouter.
+     * Mï¿½thode Ajout
+     * Ajoute une salle ï¿½ la base de donnï¿½es.
+     * @param s La salle ï¿½ ajouter.
      */
     public void Ajout(Salle s) {
         try {
-            BDConnector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
             String query = "INSERT INTO salles (capacite, nombreDepersonnes, est_dispo) VALUES"
                     + "('"+ s.getCapacite() +"',"
                     + "'" + s.getNombreDepersonnes() + "',"
                     + "'"+ ((s.isEstDispo()) ? 1 : 0) +"')";
 
-            if(BDConnector.st.executeUpdate(query) == 1)
+            if(statement.executeUpdate(query) == 1)
                 salles.add(s);
-
+            
+            statement.close();
         }catch(Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Méthode Suppression
-     * Supprime une salle de la base de données
-     * @param id La salle à supprimer.
+     * Mï¿½thode Suppression
+     * Supprime une salle de la base de donnï¿½es
+     * @param id La salle ï¿½ supprimer.
      */
     public void Suppression(int id ) {
         try {
-            BDConnector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
             String query="DELETE FROM salles WHERE id_salle='"+ id +"'";
 
-            if(BDConnector.st.executeUpdate(query) == 1)
+            if(statement.executeUpdate(query) == 1)
                 salles.remove(getSalle(id));
-
+            
+            statement.close();
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -93,4 +98,3 @@ public class ListeSalles {
     }
 
 }
-

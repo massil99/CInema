@@ -7,30 +7,35 @@ import Observateur.ObservateursListeFilms;
 import Observateur.Sujet;
 import Salles.ListeSalles;
 import Salles.Salle;
-import sample.BDConnector;
+import sample.Strategy.ConnectorInterface;
+import sample.Strategy.MySQL_Connector;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.ListIterator;
+import static java.lang.Integer.parseInt;
 
 public class ListeSeances implements ObservateursListeFilms {
-    /** Liste des s�ances. **/
-    ArrayList<Seance> seances;
     private Sujet listefilms;
-
+    /** Liste des séances. **/
+    ArrayList<Seance> seances;
+    ConnectorInterface connector;
     /**
      * Constructeur ListeSeances
-     * Chargement des s�ances en local.
+     * Chargement des séances en local.
      */
     public ListeSeances(){
         listefilms=new ListeFilms();
         listefilms.addObservateur(this);
         try {
-            BDConnector.connect();
-            ResultSet res = BDConnector.st.executeQuery("SELECT * FROM seances");
+
+          //  Connection connection =  MySQL_Connector.connect();
+            this.connector = MySQL_Connector.getInstance();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT * FROM seances");
 
             seances = new ArrayList<>();
             ListeFilms lf = new ListeFilms();
@@ -42,7 +47,7 @@ public class ListeSeances implements ObservateursListeFilms {
                 seances.add(new Seance(res.getInt("id_seance"), res.getString("date"), f, s, res.getString("heure_debut"), res.getString("heure_fin"), res.getInt("nb_reservation")));
             }
             res.close();
-            BDConnector.st.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,22 +55,23 @@ public class ListeSeances implements ObservateursListeFilms {
 
 
     /**
-     * M�thode Ajouter
-     * Ajoute une seance dans la base de donn�es.
-     * @param date_s Date de la s�ance.
-     * @param _f Film projet�.
-     * @param _s La salle qui sera occupp�e.
-     * @param _heureDebut Heure de d�but.
+     * Méthode Ajouter
+     * Ajoute une seance dans la base de données.
+     * @param date_s Date de la séance.
+     * @param _f Film projeté.
+     * @param _s La salle qui sera occuppée.
+     * @param _heureDebut Heure de début.
      * @param _heureFin Heure de fin.
-     * @param nbRes_ Nombre de r�servations.
+     * @param nbRes_ Nombre de réservations.
      */
     public void Ajouter(String date_s, Film _f,Salle _s,String _heureDebut,String _heureFin, int nbRes_) {
         try {
-            BDConnector.connect();
-
             String query = "SELECT id_seance FROM seances WHERE date='"+date_s+"' AND id_salle= "+ _s.getNumeroSalle() +" AND heure_debut between '"+ _heureDebut+"' AND '"+_heureFin+"'";
 
-            ResultSet res = BDConnector.st.executeQuery(query);
+           // Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery(query);
             if(!res.next()) {
                 query = "INSERT INTO seances(date,heure_debut,heure_fin, id_film, id_salle, nb_reservation) VALUES ('" + date_s +
                         "','" + _heureDebut +
@@ -74,14 +80,14 @@ public class ListeSeances implements ObservateursListeFilms {
                         "','" + _s.getNumeroSalle() +
                         "',0)";
 
-                if (BDConnector.st.executeUpdate(query) == 1){
+                if (statement.executeUpdate(query) == 1){
                     query = "SELECT * From seances WHERE date='" + date_s +
                             "' AND heure_debut='" + _heureDebut +
                             "' AND heure_fin='" + _heureFin +
                             "' AND id_film=" + _f.getId_film()+
                             "  AND id_salle=" + _s.getNumeroSalle();
 
-                    res =  BDConnector.st.executeQuery(query);
+                    res =  statement.executeQuery(query);
                     if(res.next())
                         seances.add(new Seance(res.getInt("Id_seance"),
                                 res.getString("date"),
@@ -90,21 +96,23 @@ public class ListeSeances implements ObservateursListeFilms {
                                 _heureDebut, _heureFin, 0));
                 }
             }
-            BDConnector.st.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * M�thode modifier
-     * Modifie une s�ance dans la base de donn�es.
-     * @param c L'objet s�ance � travers lequel la s�ance est ajout�e.
-     * @param idSeance L'identifiant de la s�ance qui va �tre modifi�e.
+     * Méthode modifier
+     * Modifie une séance dans la base de données.
+     * @param c L'objet séance à travers lequel la séance est ajoutée.
+     * @param idSeance L'identifiant de la séance qui va être modifiée.
      */
     public void modifier(Seance c, int idSeance) {
         try {
-            BDConnector.connect();
+           // Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
             String query =  "UPDATE seances SET date='"+c.getDate()
                     +"',heure_debut='"+c.getHeureDebut()
                     +"',heure_fin='"+c.getHeureFin()
@@ -113,7 +121,7 @@ public class ListeSeances implements ObservateursListeFilms {
                     +"',nb_reservation="+c.getNbRes()
                     +" WHERE id_seance="+idSeance;
 
-            if(BDConnector.st.executeUpdate(query) == 1) {
+            if(statement.executeUpdate(query) == 1) {
                 for (Seance s : seances)
                     if (s.getId_seance() == idSeance) {
                         seances.remove(s);
@@ -121,23 +129,25 @@ public class ListeSeances implements ObservateursListeFilms {
                     }
                 seances.add(c);
             }
-            BDConnector.st.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * M�thode Supprimer
-     * Supprime une s�ance de la base de donn�es.
-     * @param idSeance L'identifiant de la s�ance qui va �tre supprim�e.
+     * Méthode Supprimer
+     * Supprime une séance de la base de données.
+     * @param idSeance L'identifiant de la séance qui va être supprimée.
      */
     public void Supprimer(int idSeance){
         try {
-            BDConnector.connect();
+           // Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
             String query = "DELETE FROM `seances` WHERE id_seance="+idSeance;
 
-            if(BDConnector.st.executeUpdate(query) == 1) {
+            if(statement.executeUpdate(query) == 1) {
                 Seance se = null;
                 for (Seance s : seances)
                     if (s.getId_seance() == idSeance) {
@@ -148,15 +158,16 @@ public class ListeSeances implements ObservateursListeFilms {
                 seances.remove(se);
             }
 
-            BDConnector.st.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * M�thode updateSeance
-     * Supprime les s�ances ayant une date depass�e.
+     * Méthode updateSeance
+     * Supprime les séances ayant une date depassée.
+
      * @param s
      */
     public static void updateSeance(ArrayList<Seance> s){
@@ -166,11 +177,11 @@ public class ListeSeances implements ObservateursListeFilms {
         ListIterator<Seance> i = s.listIterator();
         while(i.hasNext()){
             Seance seance = i.next();
-            int y = 0;// Integer.parseInt(seance.getDate()0);
-            int m = 0;//Integer.parseInt(seance.getDate(), 5, 7, 10);
-            int j = 0;//Integer.parseInt(seance.getDate(), 8, 10, 10);
-
-            if(y < now.getYear()){
+            String[] date = seance.getDate().split("-");
+            int y = Integer.parseInt(date[0]);
+            int m = Integer.parseInt(date[1]);
+            int j = Integer.parseInt(date[2]);
+            if(y < now.getYear()) {
                 toRemove.add(seance);
             }else  if(y == now.getYear() && m < now.getMonth().getValue()){
                 toRemove.add(seance);

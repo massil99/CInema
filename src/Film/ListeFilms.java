@@ -2,33 +2,42 @@ package Film;
 
 import Observateur.ObservateursListeFilms;
 import Observateur.Sujet;
-import sample.BDConnector;
+import sample.Strategy.ConnectorInterface;
+import sample.Strategy.MySQL_Connector;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
+
 import java.util.ArrayList;
+import java.sql.Statement;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 /**
  * Classe ListFilms
- * Classe permettant d'interagir avec la table Film de la base de données.
+ * Classe permettant d'interagir avec la table Film de la base de donnï¿½es.
  */
 public class ListeFilms implements Sujet {
     List<ObservateursListeFilms> observateurs;
     Queue<Film> films;
     Film filmModifie;
+    ConnectorInterface connector;
 
     /**
      * Constructeur ListeFilms
      * Constructeur de la classe permettant de charger tous les films de la table Film
-     * dans une structure de données de type FIFO (File).
+     * dans une structure de donnï¿½es de type FIFO (File).
      */
     public ListeFilms() {
         observateurs=new ArrayList<>();
         try {
-            BDConnector.connect();
-            ResultSet res = BDConnector.st.executeQuery("SELECT * FROM films");
+           // Connection connection =  MySQL_Connector.connect();
+            this.connector = MySQL_Connector.getInstance();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT * FROM films");
 
             films = new LinkedList<>();
             while(res.next()){
@@ -42,20 +51,22 @@ public class ListeFilms implements Sujet {
                 films.add(f);
             }
             res.close();
-            BDConnector.st.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Méthode Ajout
-     * Ajoute le film f dans la base de données et dans la file.
-     * @param f : Film à ajouter.
+     * MÃ©thode Ajout
+     * Ajoute le film f dans la base de donnÃ©es et dans la file.
+     * @param f : Film Ã  ajouter.
      */
     public boolean Ajout(Film f) {
         try {
-            BDConnector.connect();
+           // Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
             String query = "INSERT INTO films (titre, realisateur,date_Sortie,categorie,  Date_Publi ,descriptif) VALUES"
                     + " ('"+ f.getTitre() +
                     "','"+f.getRealisateur()+
@@ -64,20 +75,20 @@ public class ListeFilms implements Sujet {
                     "','"+f.getDate_publi()+
                     "','"+f.getDescriptif()+"')";
 
-            if(BDConnector.st.executeUpdate(query) == 1) {
+            if(statement.executeUpdate(query) == 1) {
                 films.add(f);
 
                 query = "Select id_film From films WHERE"
-                        + " titre='"+ f.getTitre()+"'";
-
-                ResultSet res = BDConnector.st.executeQuery(query);
-
-                res.next();
-
-                if(res != null)
-                    f.setId_film(res.getInt("id_film"));
-                res.close();
-                return true;
+	                    + " titre='"+ f.getTitre()+"'";
+	
+	            ResultSet res = statement.executeQuery(query);
+	            
+	            res.next();
+	            
+	            if(res != null)
+	            	f.setId_film(res.getInt("id_film"));
+            	res.close();  
+            	return true;
             }
         }catch( Exception e) {
             e.printStackTrace();
@@ -86,15 +97,17 @@ public class ListeFilms implements Sujet {
     }
 
     /**
-     * Méthode Modifier
-     * Modifie les informations d'un film identifié par son titre.
+     * MÃ©thode Modifier
+     * Modifie les informations d'un film identifiÃ© par son titre.
      * @param f La nouvelle version des informations du film.
-     * @param id_film Identifiant du film à modifier.
+     * @param id_film Identifiant du film ï¿½ modifier.
      */
     public boolean Modifier(Film f, int id_film) {
 
         try {
-            BDConnector.connect();
+          //  Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
             String query= "UPDATE films SET titre='"+f.getTitre()
                     +"',realisateur='"+f.getRealisateur()
                     +"',date_Sortie='"+f.getDate_sortie()
@@ -103,7 +116,7 @@ public class ListeFilms implements Sujet {
                     +"',descriptif='"+f.getDescriptif()
                     +"' WHERE id_film="+id_film;
 
-            if(BDConnector.st.executeUpdate(query) == 1) {
+            if(statement.executeUpdate(query) == 1) {
                 films.remove(getfilm(f.getTitre()));
                 films.add(f);
                 return true;
@@ -115,17 +128,19 @@ public class ListeFilms implements Sujet {
     }
 
     /**
-     * Méthode Suppression
-     * Supprime un film de la base de données et de la file
-     * @param titre Film à supprimer.
+     * MÃ©thode Suppression
+     * Supprime un film de la base de donnÃ©es et de la file
+     * @param titre Film Ã  supprimer.
      */
     public boolean Suppression(String titre) {
         try {
-            BDConnector.connect();
             filmModifie=getfilm(titre);
+           // Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
             String query="DELETE FROM films WHERE titre='"+titre+"'";
 
-            if(BDConnector.st.executeUpdate(query) == 1) {
+            if(statement.executeUpdate(query) == 1) {
                 films.remove(getfilm(titre));
                 notifier();
                 return true;
@@ -137,10 +152,10 @@ public class ListeFilms implements Sujet {
     }
 
     /**
-     * Méthode getfilm
-     * Cherche un film dans la base de données en ayant son titre.
+     * MÃ©thode getfilm
+     * Cherche un film dans la base de donnÃ©es en ayant son titre.
      * @param titre Titre du film.
-     * @return Le film trouvé.
+     * @return Le film trouvÃ©.
      */
     public Film getfilm(String titre) {
         for(Film f : films){
@@ -151,10 +166,10 @@ public class ListeFilms implements Sujet {
     }
 
     /**
-     * Méthode getfilmById
-     * Cherche un film dans la base de données en ayant son identifiant
+     * MÃ©thode getfilmById
+     * Cherche un film dans la base de donnÃ©es en ayant son identifiant
      * @param id Identifiant du film.
-     * @return Le film trouvé.
+     * @return Le film trouvÃ©.
      */
     public Film getfilmById(int id) {
         for(Film f : films){
@@ -165,14 +180,16 @@ public class ListeFilms implements Sujet {
     }
 
     /**
-     * Méthode getFilmByCategorie
-     * Renvoie une file de films ayant la même catégorie.
+     * Mï¿½thode getFilmByCategorie
+     * Renvoie une file de films ayant la mï¿½me catï¿½gorie.
      * @param categorie
      */
     public boolean getFilmByCategorie(String categorie) {
         try {
-            BDConnector.connect();
-            ResultSet res = BDConnector.st.executeQuery("SELECT * FROM films WHERE categorie='"+categorie+"'");
+           // Connection connection =  MySQL_Connector.connect();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT * FROM films WHERE categorie='"+categorie+"'");
             if(res != null) {
                 films.removeAll(films);
                 while (res.next()){
@@ -183,9 +200,8 @@ public class ListeFilms implements Sujet {
                             res.getString("Date_publi"),
                             res.getString("descriptif")));
                 }
-
                 res.close();
-                BDConnector.st.close();
+                statement.close();
                 return true;
             }
         } catch (Exception e) {
@@ -195,7 +211,7 @@ public class ListeFilms implements Sujet {
     }
 
     /**
-     * Méthode getFilms
+     * MÃ©thode getFilms
      * Retourne les films de la liste.
      * @return
      */

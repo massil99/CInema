@@ -1,6 +1,7 @@
 package GestionUtilisateur;
 
-import sample.BDConnector;
+import sample.Strategy.MySQL_Connector;
+import sample.Strategy.ConnectorInterface;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -14,22 +15,23 @@ import java.util.Base64;
 
 /**
  * Classe Utilisateur
- * Classe représentant un utlisateur du logiciel.
+ * Classe reprÃ©sentant un utlisateur du logiciel.
  */
 public class Utilisateur {
 
-	private String nom;
+    private String nom;
 	private String prenom;
 	private String login;
 	private String mot_de_passe;
 	private String salt;
 	private String type;
+	static ConnectorInterface connector;
 
     /**
      * Constructeur Utilisateur
-     * Création d'un nouvel utilisateur.
+     * CrÃ©ation d'un nouvel utilisateur.
      * @param nom Nom de l'utilisateur.
-     * @param prenom Prénom de l'utilisateur.
+     * @param prenom PrÃ©nom de l'utilisateur.
      * @param login Identifant de l'utilisateur.
      */
     public Utilisateur(String nom, String prenom, String login, String type) {
@@ -38,13 +40,14 @@ public class Utilisateur {
         this.login = login;
         this.type = type;
         mot_de_passe = "";
+        this.connector = MySQL_Connector.getInstance();
     }
 
     /**
      * Constructeur Utilisateur
-     * Création d'un nouvel utilisateur avec mot de passe.
+     * CrÃ©ation d'un nouvel utilisateur avec mot de passe.
      * @param nom Nom de l'utilisateur.
-     * @param prenom Prénom de l'utilisateur.
+     * @param prenom PrÃ©nom de l'utilisateur.
      * @param login Identifant de l'utilisateur.
      * @param mot_de_passe Mot de passe de l'utilisateur.
      */
@@ -80,32 +83,36 @@ public class Utilisateur {
 
 
     /**
-     * Méthode inscrit
-     * Inscription de l'utilisateur dans la base de données.
+     * MÃ©thode inscrit
+     * Inscription de l'utilisateur dans la base de donnï¿½es.
      */
     public void inscrit() {
         try {
-            BDConnector.connect();
+            //this.connector = MySQL_Connector.getInstance();
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
             int t = (type.equals("Admin")) ? 1 : (type.equals("Reseptionniste")) ? 2: 3;
             String sql = "insert into utilisateurs (nom, prenom, login, mot_de_passe, salt, type) values('" + nom + "', '" + prenom + "', '" + login + "', '" + mot_de_passe + "', '" + salt +"', "+ t +")";
-            BDConnector.st.executeUpdate(sql);
+            statement.executeUpdate(sql);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
     /**
-     * Méthode seConnect
-     * Teste la connexion de l'utilisateur avec les identifiants donnés.
+     * MÃ©thode seConnect
+     * Teste la connexion de l'utilisateur avec les identifiants donnï¿½s.
      * @param _login Identifiant de l'utilisateur.
      * @param _mdp Mot de passe de l'utilisateur.
-     * @return L'utilisateur connecté.
+     * @return L'utilisateur connectÃ©.
      */
     public static Utilisateur seConnect(String _login, String _mdp) {
         try {
-            BDConnector.connect();
+
+            Connection connection = ((MySQL_Connector)connector).connect();
+            Statement statement = connection.createStatement();
             String sql = "Select nom, prenom, login, mot_de_passe, salt, user from  utilisateurs, personnel where login = '" + _login + "' AND type=id";
-            ResultSet rs = BDConnector.st.executeQuery(sql);
+            ResultSet rs = statement.executeQuery(sql);
 
             if (rs.next()) {
                 Base64.Decoder dec = Base64.getDecoder();
@@ -143,17 +150,18 @@ public class Utilisateur {
     }
 
     /**
-     * Méthode getUsers
-     * Retourne les utilisateurs enregistrés.
-     * @return La liste des utilisateur enregistrés.
+     * MÃ©thode getUsers
+     * Retourne les utilisateurs enregistrÃ©s.
+     * @return La liste des utilisateur enregistr&s.
      */
 	public ArrayList<Utilisateur> getUsers(){
 	    if(type.equals("Admin")){
 	        ArrayList<Utilisateur> users = new ArrayList<>();
             try {
-                BDConnector.connect();
+                Connection connection = ((MySQL_Connector)connector).connect();
+                Statement statement = connection.createStatement();
                 String query = "SELECT nom, prenom, login, user FROM utilisateurs, personnel where type=id ORDER BY(type) ";
-                ResultSet res = BDConnector.st.executeQuery(query);
+                ResultSet res = statement.executeQuery(query);
                 while(res.next()) {
                     users.add(new Utilisateur(res.getString("nom"),
                             res.getString("prenom"),
